@@ -1,0 +1,28 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        
+        {
+            "name": "Run Godot Run",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "F:/Godot/Godot_v4.2.1-stable_mono_win64.exe",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopAtEntry": false,
+            "args": ["--path", "${workspaceRoot}"]
+        },
+        {
+            "name": "Run Godot Run (laptop)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "D:/Godot/Godot_v4.2.1-stable_mono_win64.exe",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopAtEntry": false,
+            "args": ["--path", "${workspaceRoot}"]
+        }
+    ]
+}   

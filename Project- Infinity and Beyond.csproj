@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Godot.NET.Sdk/4.2.1">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net7.0</TargetFramework>
+    <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'ios' ">net8.0</TargetFramework>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <RootNamespace>ProjectInfinityandBeyond</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="common\static\GameManager.cs" />
+    <Content Include="common\map\GameBoard.cs" />
+    <Content Include="util\EventBus.cs" />
+    <Content Include="util\Utilities.cs" />
+    <Content Include="util\GodotExtensions.cs" />
+    <Content Include="common\static\FloatingCaption.cs" />
+    <Content Include="common\fsm\State.cs" />
+    <Content Include="common\fsm\StateMachine.cs" />
+    <Content Include="common\map\Test.cs" />
+  </ItemGroup>
+</Project>
