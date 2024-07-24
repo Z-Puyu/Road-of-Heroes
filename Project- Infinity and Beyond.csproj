@@ -17,5 +17,16 @@
     <Content Include="common\fsm\State.cs" />
     <Content Include="common\fsm\StateMachine.cs" />
     <Content Include="common\map\Test.cs" />
+    <Content Include="common\player\Player.cs" />
+    <Content Include="common\characters\Stat.cs" />
+    <Content Include="common\characters\Character.cs" />
+    <Content Include="common\effects\Effect.cs" />
+    <Content Include="common\modifier\Modifier.cs" />
+    <Content Include="common\modifier\StatModifier.cs" />
+    <Content Include="common\modifier\EffectModifier.cs" />
+    <Content Include="common\modifier\AggregateModifier.cs" />
+    <Content Include="common\modifier\ModifierManager.cs" />
+    <Content Include="common\effects\IEffectReceiver.cs" />
+    <Content Include="common\effects\IEffectEmitter.cs" />
   </ItemGroup>
 </Project>

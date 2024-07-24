@@ -42,11 +42,9 @@ clip_children = 1
 texture = ExtResource("2_xdhcy")
 
 [node name="GameBoard" type="TileMap" parent="WorldView/Musk"]
-scale = Vector2(1, 1)
 tile_set = SubResource("TileSet_6m3ph")
 format = 2
 layer_0/name = "Base"
-layer_0/tile_data = PackedInt32Array(-1, 1, 0, -2, 1, 0, -3, 1, 0, -4, 1, 0, -5, 1, 0, -65539, 1, 0, -131075, 1, 0, -131074, 1, 0, -131073, 1, 0, -65537, 1, 0, -65541, 1, 0, -131077, 1, 0, -196613, 1, 0, -262149, 1, 0, -327685, 1, 0, -327684, 1, 0)
 layer_1/name = "Locations"
 layer_1/tile_data = PackedInt32Array()
 script = ExtResource("4_4swpx")

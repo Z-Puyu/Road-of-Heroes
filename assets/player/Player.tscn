@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dph6kahvrdrcl"]
+
+[ext_resource type="Texture2D" uid="uid://8dscaqcwjwhi" path="res://gfx/ui/player/player_banner.svg" id="1_fsars"]
+[ext_resource type="Script" path="res://common/player/Player.cs" id="2_x5nom"]
+
+[node name="PlayerBanner" type="Sprite2D"]
+position = Vector2(-48.125, -48.125)
+scale = Vector2(0.175293, 0.175293)
+texture = ExtResource("1_fsars")
+script = ExtResource("2_x5nom")

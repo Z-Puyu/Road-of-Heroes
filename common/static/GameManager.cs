@@ -11,5 +11,17 @@ namespace Game.common.autoload {
         public override void _Ready() {
             GameManager.node = this.GetNode<GameManager>("/root/GameManager");
         }
+
+        public static T Instantiate<T>(PackedScene scene, Vector2 position, Node parent = null) 
+            where T : Node {
+            T @object = scene.Instantiate<T>();
+            if (parent != null) {
+                parent.AddChild(@object);
+            }
+            if (@object is Node2D node) {
+                node.GlobalPosition = position;
+            }
+            return @object;
+        }
     }
 }
