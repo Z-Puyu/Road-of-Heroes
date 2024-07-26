@@ -2,32 +2,35 @@ using Game.common.autoload;
 using Game.common.player;
 using Game.util;
 using Godot;
+using Godot.Collections;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Principal;
 
 namespace Game.common.map {
+	[GlobalClass]
 	public partial class GameBoard : TileMap {
-		private enum Layer { Base, Locations }
+		private enum Layer { Base, Locations, UI }
 		private readonly static List<Vector2I> DIRECTIONS = [
 			Vector2I.Up, Vector2I.Down, Vector2I.Left, Vector2I.Right
 		];
 
-		[Export] Vector2I NavigableCell { set; get; } = Vector2I.Zero;
-		[Export] Vector2I SnapThreshold { set; get; } = new Vector2I(5, 3);
+		[Export] private Vector2I NavigableCell { set; get; } = Vector2I.Zero;
+		[Export] private Vector2I SnapThreshold { set; get; } = new Vector2I(5, 3);
+		[Export] private Texture2D CellTexture { set; get; }
 		private int size = 100;
 		private readonly HashSet<Vector2I> cells = [];
+		private readonly AStar2D pathFinder = new AStar2D();
+		private Player player;
 
 		public override void _Ready() {
 			this.ClearLayer((int)Layer.Base);
 			this.Generate(this.size, Vector2I.Zero);
 			Vector2I start = this.cells.ElementAt(Utilities.Randi(0, this.size - 1));
 			Vector2 globalPos = this.ToGlobal(this.MapToLocal(start));
-			Player player = GameManager.Instantiate<Player>(Player.Scene, globalPos, this);
+			this.player = GameManager.Instantiate<Player>(Player.Scene, globalPos, this);
 			this.Translate(this.Position - this.MapToLocal(start));
 			this.Reveal(start, 3);
-			Console.WriteLine($"{this.ToGlobal(this.MapToLocal(start))}, {player.GlobalPosition})");
 		}
 
 		private bool IsValidCell(Vector2I pos) {
@@ -88,25 +91,56 @@ namespace Game.common.map {
 			return false;
 		}
 
-		public void Reveal(Vector2I centre, int radius) {
+		public async void Reveal(Vector2I centre, int radius) {
 			HashSet<Vector2I> visited = new HashSet<Vector2I>();
 			Queue<(Vector2I, int)> queue = new Queue<(Vector2I, int)>();
 			queue.Enqueue((centre, 0));
+
 			while (queue.Count > 0) {
 				(Vector2I, int) next = queue.Dequeue();
 				Vector2I cell = next.Item1;
 				int d = next.Item2;
+                Sprite2D cellSprite = new Sprite2D {
+                    Position = this.MapToLocal(cell),
+					Texture = this.CellTexture,
+					Modulate = new Color(1, 1, 1, 0)
+                };
+				this.AddChild(cellSprite);
+				await AnimationManager.Animate(cellSprite, "modulate:a", 1, 0.2, Tween.EaseType.In, true);
 				this.SetCell((int)Layer.Base, cell, 0, this.NavigableCell);
 				visited.Add(cell);
 				if (d < radius) {
 					foreach (Vector2I dir in GameBoard.DIRECTIONS) {
 						Vector2I pos = cell + dir;
-						if ((!visited.Contains(pos)) && this.cells.Contains(pos)) {
+						if ((!visited.Contains(pos)) && this.cells.Contains(pos) && 
+								(!this.pathFinder.HasPoint(pos))) {
 							queue.Enqueue((pos, d + 1));
 						}
 					}
 				}	
 			}
+
+			foreach (Vector2I cell in visited) {
+				this.pathFinder.AddPoint((long)cell.UniqueId(), this.MapToLocal(cell));
+			}
+			foreach (Vector2I cell in visited) {
+				this.pathFinder.ConnectNeighbours(cell, GameBoard.DIRECTIONS);
+			}
 		}
-	}
+
+        public override void _UnhandledInput(InputEvent @event) {
+            if (@event.IsActionReleased("left_click")) {
+				Vector2I pos = this.LocalToMap(this.GetLocalMousePosition());
+				if (this.pathFinder.HasPoint(pos)) {
+                    this.player.Path = this.pathFinder.GetPointPath(
+                        this.LocalToMap(this.player.Position), pos
+					);
+					foreach (Vector2 cell in this.player.Path) {
+						this.SetCellsTerrainConnect((int)Layer.UI, new Array<Vector2I>(this.player.Path.Select(x => this.LocalToMap(x))), 0, 0);
+					}
+					this.player.Move();
+				}
+			}
+        }
+    }
 }

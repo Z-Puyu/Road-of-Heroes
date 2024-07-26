@@ -28,5 +28,8 @@
     <Content Include="common\modifier\ModifierManager.cs" />
     <Content Include="common\effects\IEffectReceiver.cs" />
     <Content Include="common\effects\IEffectEmitter.cs" />
+    <Content Include="common\static\AnimationManager.cs" />
+    <Content Include="common\player\modules\MovementModule.cs" />
+    <Content Include="common\player\modules\Module.cs" />
   </ItemGroup>
 </Project>

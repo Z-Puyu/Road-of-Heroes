@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://diskgfdmx41fl"]
+
+[ext_resource type="Script" path="res://common/static/AnimationManager.cs" id="1_t7xl6"]
+
+[node name="AnimationManager" type="Node"]
+script = ExtResource("1_t7xl6")

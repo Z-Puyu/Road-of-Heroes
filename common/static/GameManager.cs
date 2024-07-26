@@ -3,13 +3,13 @@ using Godot.Collections;
 
 namespace Game.common.autoload {
 	public partial class GameManager : Node {
-		private static GameManager node;
+		private static GameManager instance;
         [Export] public Array<Vector2I> Resolutions { set; get; } = [];
 
-		public static GameManager Node => node;
+		public static GameManager Instance => instance;
 
         public override void _Ready() {
-            GameManager.node = this.GetNode<GameManager>("/root/GameManager");
+            GameManager.instance = this;
         }
 
         public static T Instantiate<T>(PackedScene scene, Vector2 position, Node parent = null) 
