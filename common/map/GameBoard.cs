@@ -4,10 +4,10 @@ using Game.common.player;
 using Game.util;
 using Game.util.events;
 using Godot;
-using Godot.Collections;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Game.common.map {
 	[GlobalClass]
@@ -21,20 +21,24 @@ namespace Game.common.map {
 		[Export] private Vector2I SnapThreshold { set; get; } = new Vector2I(5, 3);
 		[Export] private Texture2D CellTexture { set; get; }
 		[Export] private StateMachine FSM { set; get; }
-		private int size = 100;
+
+        private int size = 100;
 		private readonly HashSet<Vector2I> cells = [];
 		private readonly AStar2D pathFinder = new AStar2D();
 		private Player player;
 		private Vector2I playerDestination;
+		private Vector2 centre;
+
+		public Player Player => player;
 
 		public override void _Ready() {
 			this.ClearLayer((int)Layer.Base);
 			this.Generate(this.size, Vector2I.Zero);
-			Vector2I start = this.cells.ElementAt(Utilities.Randi(0, this.size - 1));
-			Vector2 globalPos = this.ToGlobal(this.MapToLocal(start));
+			this.centre = this.Position;
+			Vector2 globalPos = this.ToGlobal(this.MapToLocal(this.cells.ElementAt(Utilities.Randi(0, this.size - 1))));
 			this.player = GameManager.Instantiate<Player>(Player.Scene, globalPos, this);
-			this.Translate(this.Position - this.MapToLocal(start));
-			this.Reveal(start, 3);
+			this.Translate(this.centre - this.player.Position);
+			this.centre = this.player.Position;
 
 			this.FSM.Listen<PlayerReachedDestinationEvent>();
 		}
@@ -97,7 +101,7 @@ namespace Game.common.map {
 			return false;
 		}
 
-		public async void Reveal(Vector2I centre, int radius) {
+		public async Task Reveal(Vector2I centre, int radius) {
 			HashSet<Vector2I> visited = new HashSet<Vector2I>();
 			Queue<(Vector2I, int)> queue = new Queue<(Vector2I, int)>();
 			queue.Enqueue((centre, 0));
@@ -134,10 +138,22 @@ namespace Game.common.map {
 			}
 		}
 
+		public async Task SnapMap() {
+			Vector2I playerPos = this.LocalToMap(this.player.Position);
+			Vector2I centralCell = this.LocalToMap(this.centre);
+			Vector2I offset = new Vector2I(Math.Abs(playerPos.X - centralCell.X), Math.Abs(playerPos.Y - centralCell.Y));
+			if (offset.X > this.SnapThreshold.X || offset.Y > this.SnapThreshold.Y) {
+				Task snap = AnimationManager.Animate(this, "position", this.Position + this.centre - this.player.Position, 1, Tween.EaseType.InOut);
+				this.centre = this.player.Position;
+				await snap;
+			}
+			await this.Reveal(playerPos, 3);
+		}
+
 		public void FindPath() {
 			this.ClearLayer((int)Layer.UI);
 			Vector2I pos = this.LocalToMap(this.GetLocalMousePosition());
-			if (this.pathFinder.HasPoint(pos)) {
+			if (this.pathFinder.HasPoint(pos) && this.LocalToMap(this.player.Position) != pos) {
 				this.playerDestination = pos;
                 this.player.Path = this.pathFinder.GetPointPath(
                     this.LocalToMap(this.player.Position), pos
@@ -160,6 +176,7 @@ namespace Game.common.map {
 			if (this.player.Path.Length > 0) {
 				this.SetCellsTerrainConnect((int)Layer.UI, [this.playerDestination], 0, 0);
 				this.player.Move();
+				this.player.Path = [];
 				return true;
 			}
 			return false;
