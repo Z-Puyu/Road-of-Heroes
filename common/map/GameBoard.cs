@@ -1,6 +1,8 @@
 using Game.common.autoload;
+using Game.common.fsm;
 using Game.common.player;
 using Game.util;
+using Game.util.events;
 using Godot;
 using Godot.Collections;
 using System;
@@ -10,7 +12,7 @@ using System.Linq;
 namespace Game.common.map {
 	[GlobalClass]
 	public partial class GameBoard : TileMap {
-		private enum Layer { Base, Locations, UI }
+		public enum Layer { Base, Locations, UI }
 		private readonly static List<Vector2I> DIRECTIONS = [
 			Vector2I.Up, Vector2I.Down, Vector2I.Left, Vector2I.Right
 		];
@@ -18,10 +20,12 @@ namespace Game.common.map {
 		[Export] private Vector2I NavigableCell { set; get; } = Vector2I.Zero;
 		[Export] private Vector2I SnapThreshold { set; get; } = new Vector2I(5, 3);
 		[Export] private Texture2D CellTexture { set; get; }
+		[Export] private StateMachine FSM { set; get; }
 		private int size = 100;
 		private readonly HashSet<Vector2I> cells = [];
 		private readonly AStar2D pathFinder = new AStar2D();
 		private Player player;
+		private Vector2I playerDestination;
 
 		public override void _Ready() {
 			this.ClearLayer((int)Layer.Base);
@@ -31,6 +35,8 @@ namespace Game.common.map {
 			this.player = GameManager.Instantiate<Player>(Player.Scene, globalPos, this);
 			this.Translate(this.Position - this.MapToLocal(start));
 			this.Reveal(start, 3);
+
+			this.FSM.Listen<PlayerReachedDestinationEvent>();
 		}
 
 		private bool IsValidCell(Vector2I pos) {
@@ -128,19 +134,39 @@ namespace Game.common.map {
 			}
 		}
 
-        public override void _UnhandledInput(InputEvent @event) {
-            if (@event.IsActionReleased("left_click")) {
-				Vector2I pos = this.LocalToMap(this.GetLocalMousePosition());
-				if (this.pathFinder.HasPoint(pos)) {
-                    this.player.Path = this.pathFinder.GetPointPath(
-                        this.LocalToMap(this.player.Position), pos
-					);
-					foreach (Vector2 cell in this.player.Path) {
-						this.SetCellsTerrainConnect((int)Layer.UI, new Array<Vector2I>(this.player.Path.Select(x => this.LocalToMap(x))), 0, 0);
-					}
-					this.player.Move();
+		public void FindPath() {
+			this.ClearLayer((int)Layer.UI);
+			Vector2I pos = this.LocalToMap(this.GetLocalMousePosition());
+			if (this.pathFinder.HasPoint(pos)) {
+				this.playerDestination = pos;
+                this.player.Path = this.pathFinder.GetPointPath(
+                    this.LocalToMap(this.player.Position), pos
+				);
+				foreach (Vector2 cell in this.player.Path) {
+					this.SetCellsTerrainConnect((int)Layer.UI, [..this.player.Path.Select(x => this.LocalToMap(x))], 0, 0);
 				}
+			} else {
+				this.player.Path = [];
+				this.playerDestination = this.LocalToMap(this.player.Position);
 			}
+		}
+
+		public bool MovePlayer() {
+			this.ClearLayer((int)Layer.UI);
+			if (!this.pathFinder.HasPoint(this.LocalToMap(this.GetLocalMousePosition()))) {
+				this.player.Path = [];
+				return false;
+			} 
+			if (this.player.Path.Length > 0) {
+				this.SetCellsTerrainConnect((int)Layer.UI, [this.playerDestination], 0, 0);
+				this.player.Move();
+				return true;
+			}
+			return false;
+		}
+
+        public override void _UnhandledInput(InputEvent @event) {
+			this.FSM.OnInput(@event);
         }
     }
 }

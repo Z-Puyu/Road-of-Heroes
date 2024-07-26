@@ -1,9 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://tia5ipw7dao7"]
+[gd_scene load_steps=11 format=3 uid="uid://tia5ipw7dao7"]
 
 [ext_resource type="Texture2D" uid="uid://cr4gcro87kv0o" path="res://gfx/ui/background/overlay.png" id="1_tl4j5"]
 [ext_resource type="Texture2D" uid="uid://b5v1jveap0ujr" path="res://gfx/ui/tilemap/tile_set.png" id="2_d2x4g"]
 [ext_resource type="Texture2D" uid="uid://bvryn65t0j6xo" path="res://gfx/ui/background/musk.png" id="2_xdhcy"]
 [ext_resource type="Script" path="res://common/map/GameBoard.cs" id="4_4swpx"]
+[ext_resource type="Script" path="res://common/fsm/StateMachine.cs" id="5_mk8hm"]
+[ext_resource type="Script" path="res://common/fsm/states/map/NormalState.cs" id="6_fou0b"]
+[ext_resource type="Script" path="res://common/fsm/states/map/PlayerMovingState.cs" id="7_i2hwx"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jgqoq"]
 texture = ExtResource("2_d2x4g")
@@ -112,7 +115,7 @@ texture = ExtResource("1_tl4j5")
 clip_children = 1
 texture = ExtResource("2_xdhcy")
 
-[node name="GameBoard" type="TileMap" parent="WorldView/Musk"]
+[node name="GameBoard" type="TileMap" parent="WorldView/Musk" node_paths=PackedStringArray("FSM")]
 tile_set = SubResource("TileSet_6m3ph")
 format = 2
 layer_0/name = "Base"
@@ -122,3 +125,17 @@ layer_2/name = "UI"
 layer_2/tile_data = PackedInt32Array()
 script = ExtResource("4_4swpx")
 CellTexture = SubResource("AtlasTexture_70egb")
+FSM = NodePath("GameBoardFSM")
+
+[node name="GameBoardFSM" type="Node" parent="WorldView/Musk/GameBoard" node_paths=PackedStringArray("InitialState", "root")]
+script = ExtResource("5_mk8hm")
+InitialState = NodePath("NormalState")
+root = NodePath("..")
+
+[node name="NormalState" type="Node" parent="WorldView/Musk/GameBoard/GameBoardFSM" node_paths=PackedStringArray("FSM")]
+script = ExtResource("6_fou0b")
+FSM = NodePath("..")
+
+[node name="PlayerMovingState" type="Node" parent="WorldView/Musk/GameBoard/GameBoardFSM" node_paths=PackedStringArray("FSM")]
+script = ExtResource("7_i2hwx")
+FSM = NodePath("..")

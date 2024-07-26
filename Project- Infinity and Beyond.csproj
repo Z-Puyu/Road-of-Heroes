@@ -31,5 +31,7 @@
     <Content Include="common\static\AnimationManager.cs" />
     <Content Include="common\player\modules\MovementModule.cs" />
     <Content Include="common\player\modules\Module.cs" />
+    <Content Include="common\fsm\states\map\NormalState.cs" />
+    <Content Include="common\fsm\states\map\PlayerMovingState.cs" />
   </ItemGroup>
 </Project>

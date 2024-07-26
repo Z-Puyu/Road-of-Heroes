@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Threading;
 using Game.common.autoload;
+using Game.util;
+using Game.util.events;
 using Godot;
 
 namespace Game.common.player.modules {
@@ -10,9 +12,11 @@ namespace Game.common.player.modules {
         private readonly Queue<Vector2> path = [];
         private Godot.Timer timer;
 
-        public override void _Ready() {
+        public override async void _Ready() {
+            await this.Root.ToSignal(this.Root, Node.SignalName.Ready);
             this.timer = this.GetNode<Godot.Timer>("./Timer");
             this.timer.Timeout += this.OnTimerTimeout;
+            this.timer.Stop();
         }
 
         private async void OnTimerTimeout() {
@@ -21,8 +25,11 @@ namespace Game.common.player.modules {
                 this.timer.Stop();
             }
             await AnimationManager.Animate(
-                this.Root, "position", next, 0.2, Tween.EaseType.InOut
+                this.Root, "position", next, 0.1, Tween.EaseType.InOut
             );
+            if (this.path.Count == 0) {
+                this.Publish(new PlayerReachedDestinationEvent());
+            }
         }
 
         public void Work() {

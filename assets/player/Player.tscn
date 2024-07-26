@@ -16,4 +16,4 @@ script = ExtResource("3_xnuve")
 Root = NodePath("..")
 
 [node name="Timer" type="Timer" parent="MovementModule"]
-wait_time = 0.5
+wait_time = 0.2
