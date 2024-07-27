@@ -33,5 +33,8 @@
     <Content Include="common\player\modules\Module.cs" />
     <Content Include="common\fsm\states\map\NormalState.cs" />
     <Content Include="common\fsm\states\map\PlayerMovingState.cs" />
+    <Content Include="common\effects\PhysicalAttackEffect.cs" />
+    <Content Include="common\characters\skills\Skill.cs" />
+    <Content Include="common\effects\MagicAttackEffect.cs" />
   </ItemGroup>
 </Project>

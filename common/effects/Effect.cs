@@ -17,8 +17,7 @@ namespace Game.common.effects {
         }
 
         [Export] public Type EffectType { get; set; }
-        [Export] public int Amount { get; set; } = 1;
 
-        public abstract void Apply(IEffectEmitter src, IEffectReceiver target);
+        public abstract void Apply(IEffectEmitter src, IEffectReceiver target, bool crit = false);
     }
 }
