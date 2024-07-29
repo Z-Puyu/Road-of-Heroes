@@ -116,7 +116,9 @@ namespace Game.common.map {
 					Modulate = new Color(1, 1, 1, 0)
                 };
 				this.AddChild(cellSprite);
-				await AnimationManager.Animate(cellSprite, "modulate:a", 1, 0.2, Tween.EaseType.In, true);
+				await AnimationManager.Animate(
+					cellSprite, "modulate:a", 1, 0.2, Tween.EaseType.In, deleteNodeUponFinish: true
+				);
 				this.SetCell((int)Layer.Base, cell, 0, this.NavigableCell);
 				visited.Add(cell);
 				if (d < radius) {

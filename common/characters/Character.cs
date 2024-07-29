@@ -1,81 +1,56 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Game.common.autoload;
-using Game.common.characters.profession;
-using Game.common.characters.race;
 using Game.common.characters.skills;
 using Game.common.effects;
 using Game.common.modifier;
-using Game.util;
 using Godot;
+using MonoCustomResourceRegistry;
 
 namespace Game.common.characters {
-    [GlobalClass]
-    public partial class Character : Resource, IEffectEmitter, IEffectReceiver {
+    [RegisteredType(nameof(Character), "", nameof(Resource)), GlobalClass]
+    public abstract partial class Character : Resource {
         private readonly IDictionary<Stat.Category, Stat> stats;
-        private readonly string name;
-        private int level;
-        private Profession profession;
-        private Race race;
-        private readonly List<Skill> skills = [];
+        protected readonly string name;
+        private readonly Texture2D avatar;
+        protected readonly List<Skill> skills = [];
         private readonly ModifierManager modifier = new ModifierManager();
 
-        public Character(string name, int level, Profession profession, Race race, IDictionary<Stat.Category, Stat> stats) {
+        public Texture2D Avatar => avatar;
+        public string Name => name;
+        public ModifierManager Modifier => modifier;
+
+        protected Character(
+            string name, Texture2D avatar, IDictionary<Stat.Category, Stat> stats
+        ) {
             this.name = name;
-            this.level = level;
-            this.profession = profession;
-            this.race = race;
+            this.avatar = avatar;
             this.stats = stats;
+        }
+
+        public void AddModifier(Modifier modifier) {
+            this.modifier.Collect(modifier);
+        }
+
+        public bool Get(Stat.Category stat, out Stat value) {
+            if (this.stats.TryGetValue(stat, out value)) {
+                return true;
+            }
+            return false;
         }
         
         public int Get(Stat.Category stat) {
             if (this.stats.TryGetValue(stat, out Stat value)) {
-                return Math.Max(this.modifier.Modify(value.Type, value.Value), 0);
+                return Math.Clamp(
+                    this.modifier.Modify(value.Type, value.Value), value.MinValue, value.MaxValue
+                );
             }
             return 0;
         }
 
-        public void Update(Stat.Category stat, int offset) {
+        public void Update(Stat.Category stat, int offset, int maxOffset = 0, int minOffset = 0) {
             if (this.stats.TryGetValue(stat, out Stat value)) {
-                this.stats[stat] = value + offset;
+                this.stats[stat] = value + (offset, maxOffset, minOffset);
             }
-        }
-
-        public int Emit(Effect.Type effect, int value) {
-            return Math.Max(0, this.modifier.ModifyOnEmit(effect, value));
-        }
-
-        public int Receive(Effect.Type effect, int value) {
-            return Math.Max(0, this.modifier.ModifyOnReceive(effect, value));
-        }
-
-        public static Character Random(int level = 0, Profession profession = null, Race race = null) {
-            profession ??= GameManager.RandomProfession();
-            race ??= GameManager.RandomRace();
-            IDictionary<Stat.Category, Stat> stats = Stat.Random();
-            race.AdjustStats(stats);
-            Character character = new Character(
-                GameManager.RandomName(race.RaceName), level, profession, race, stats
-            );
-            int professionSkills = Utilities.Randi(3, 4);
-            character.skills.AddRange(profession.Skills.Permute().Take(professionSkills));
-            character.skills.AddRange(race.Skills.Permute().Take(5 - professionSkills));
-            return character;
-        }
-
-        public override string ToString() {
-            string proficiency = this.level switch {
-                0 => "Novice",
-                1 => "Amateur",
-                2 => "Apprentice",
-                3 => "Professional",
-                4 => "Expert",
-                5 => "Master",
-                6 => "Legendary",
-                _ => "",
-            };
-            return this.name;                                                                                                   
         }
     }
 }

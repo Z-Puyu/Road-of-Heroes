@@ -1,6 +1,8 @@
 using Godot;
+using MonoCustomResourceRegistry;
 
 namespace Game.common.effects {
+    [RegisteredType(nameof(Effect), "", nameof(Resource)), GlobalClass]
     public abstract partial class Effect : Resource {
         public enum Type {
             MeleeAttack,
@@ -13,7 +15,11 @@ namespace Game.common.effects {
             FatigueLoss,
             MagickaRestore,
             SanityRestore,
-            FatigueGain
+            FatigueGain,
+            Modifier,
+            DoT,
+            Frenzy,
+            HoT
         }
 
         [Export] public Type EffectType { get; set; }

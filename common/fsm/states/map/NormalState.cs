@@ -2,6 +2,7 @@ using Game.common.map;
 using Godot;
 
 namespace Game.common.fsm.states {
+	[GlobalClass]
 	public partial class NormalState : State {
 		private bool ready = false;
 

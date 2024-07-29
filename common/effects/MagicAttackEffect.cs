@@ -2,8 +2,10 @@ using System;
 using Game.common.characters;
 using Game.util;
 using Godot;
+using MonoCustomResourceRegistry;
 
 namespace Game.common.effects {
+    [RegisteredType(nameof(MagicAttackEffect), "", nameof(Resource)), GlobalClass]
     public partial class MagicAttackEffect : Effect {
         [Export] private Vector2I DamageRange { set; get; } = Vector2I.Zero;
 

@@ -4,6 +4,7 @@ using Game.common.effects;
 using Godot;
 
 namespace Game.common.modifier {
+    [GlobalClass]
     public partial class ModifierManager : Node {
         private readonly Dictionary<Stat.Category, AggregateModifier> statModifiers = [];
         private readonly Dictionary<Effect.Type, AggregateModifier> effectModifiersOnReceive = [];

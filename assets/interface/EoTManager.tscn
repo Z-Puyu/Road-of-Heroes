@@ -1,0 +1,90 @@
+[gd_scene load_steps=13 format=3 uid="uid://vjytcg8gc3r7"]
+
+[ext_resource type="Texture2D" uid="uid://ds50owiwph5q2" path="res://gfx/icons/effects/bleed.png" id="1_3svju"]
+[ext_resource type="Script" path="res://common/effects/effects_over_time/EoTManager.cs" id="1_mb2gj"]
+[ext_resource type="Texture2D" uid="uid://d2t8y74k2bn4i" path="res://gfx/icons/effects/poison.png" id="2_cvqwi"]
+[ext_resource type="Texture2D" uid="uid://2xfkt718duh4" path="res://gfx/icons/effects/burn.png" id="3_2wbs6"]
+[ext_resource type="Script" path="res://common/effects/effects_over_time/DoTToken.cs" id="3_uymeu"]
+[ext_resource type="Texture2D" uid="uid://gui8i1m22ryv" path="res://gfx/icons/effects/blight.png" id="4_h5bf6"]
+[ext_resource type="Texture2D" uid="uid://dntqdytxsmbhg" path="res://gfx/icons/effects/frenzy.png" id="5_qgwr1"]
+[ext_resource type="Texture2D" uid="uid://law8g46ldcnb" path="res://gfx/icons/effects/stun.png" id="6_3qel4"]
+[ext_resource type="Texture2D" uid="uid://0y22co36jfmi" path="res://gfx/icons/effects/buff.png" id="7_ltp1j"]
+[ext_resource type="Texture2D" uid="uid://du7bkndqh3yf8" path="res://gfx/icons/effects/debuff.png" id="8_3nlxj"]
+[ext_resource type="Script" path="res://common/effects/effects_over_time/StunToken.cs" id="9_8nldl"]
+[ext_resource type="Script" path="res://common/effects/effects_over_time/MoTToken.cs" id="10_iw6qk"]
+
+[node name="EoTManager" type="HFlowContainer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -40.0
+offset_top = 201.0
+offset_right = 40.0
+offset_bottom = 233.0
+grow_horizontal = 2
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+script = ExtResource("1_mb2gj")
+
+[node name="Bleed" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("1_3svju")
+expand_mode = 2
+script = ExtResource("3_uymeu")
+
+[node name="Poison" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("2_cvqwi")
+expand_mode = 2
+script = ExtResource("3_uymeu")
+Effect = 2
+
+[node name="Burn" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("3_2wbs6")
+expand_mode = 2
+script = ExtResource("3_uymeu")
+Effect = 3
+
+[node name="Blight" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("4_h5bf6")
+expand_mode = 2
+script = ExtResource("3_uymeu")
+Effect = 1
+
+[node name="Frenzy" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("5_qgwr1")
+expand_mode = 2
+script = ExtResource("3_uymeu")
+Effect = 4
+
+[node name="Stun" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("6_3qel4")
+expand_mode = 2
+script = ExtResource("9_8nldl")
+Effect = 5
+
+[node name="Buff" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("7_ltp1j")
+expand_mode = 2
+script = ExtResource("10_iw6qk")
+Effect = 6
+
+[node name="Debuff" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("8_3nlxj")
+expand_mode = 2
+script = ExtResource("10_iw6qk")
+Effect = 7

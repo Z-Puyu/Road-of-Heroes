@@ -1,0 +1,140 @@
+[gd_scene load_steps=13 format=3 uid="uid://cft56mqwg6uo7"]
+
+[ext_resource type="Texture2D" uid="uid://c8v7jee75ut87" path="res://gfx/ui/cards/card_active.png" id="1_1wqem"]
+[ext_resource type="Texture2D" uid="uid://dom0jlkkuo537" path="res://gfx/ui/cards/card.png" id="1_lg4at"]
+[ext_resource type="Texture2D" uid="uid://bmstnonlx6mgk" path="res://gfx/icons/professions/warrior.svg" id="2_8hh0p"]
+[ext_resource type="Texture2D" uid="uid://c63884tnxeciu" path="res://gfx/ui/cards/card_pressed.png" id="2_dl26n"]
+[ext_resource type="Texture2D" uid="uid://dryykcl812jls" path="res://gfx/ui/cards/card_hover.png" id="2_pw1a7"]
+[ext_resource type="Texture2D" uid="uid://baq043dxh0qvf" path="res://gfx/ui/cards/avatar_musk.png" id="3_vh4a1"]
+[ext_resource type="PackedScene" uid="uid://vjytcg8gc3r7" path="res://assets/interface/EoTManager.tscn" id="4_mwddf"]
+[ext_resource type="Script" path="res://common/player/PlayerCard.cs" id="5_rjuqh"]
+[ext_resource type="PackedScene" uid="uid://c2ygwihx3hinl" path="res://assets/interface/HealthBar.tscn" id="12_jchqc"]
+[ext_resource type="PackedScene" uid="uid://cgn52rfhbx1bs" path="res://assets/interface/MagickaBar.tscn" id="13_v2j6k"]
+[ext_resource type="PackedScene" uid="uid://gi1fxnr3wywg" path="res://assets/interface/SanityBar.tscn" id="14_kyntr"]
+[ext_resource type="PackedScene" uid="uid://d2ef3bs1wgqhs" path="res://assets/interface/FatigueBar.tscn" id="15_s7bnb"]
+
+[node name="PlayerCard" type="TextureButton" node_paths=PackedStringArray("ProfessionIcon", "RaceLabel", "LevelLabel", "Bars", "Avatar", "NameLabel")]
+custom_minimum_size = Vector2(150, 350)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+disabled = true
+texture_normal = ExtResource("1_1wqem")
+texture_pressed = ExtResource("2_dl26n")
+texture_hover = ExtResource("2_pw1a7")
+texture_disabled = ExtResource("1_lg4at")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("5_rjuqh")
+ProfessionIcon = NodePath("ProfessionIcon")
+RaceLabel = NodePath("Race")
+LevelLabel = NodePath("Level")
+Bars = NodePath("Bars")
+Avatar = NodePath("AvatarMusk/Avatar")
+NameLabel = NodePath("Name")
+EoTManager = NodePath("EoTManager")
+
+[node name="ProfessionIcon" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -16.0
+offset_top = 16.0
+offset_right = 16.0
+offset_bottom = 48.0
+grow_horizontal = 2
+texture = ExtResource("2_8hh0p")
+expand_mode = 2
+
+[node name="AvatarMusk" type="TextureRect" parent="."]
+clip_children = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -60.0
+offset_top = 75.0
+offset_right = 60.0
+offset_bottom = 195.0
+grow_horizontal = 2
+size_flags_vertical = 4
+texture = ExtResource("3_vh4a1")
+stretch_mode = 5
+
+[node name="Avatar" type="TextureRect" parent="AvatarMusk"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Race" type="Label" parent="."]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 22.0
+offset_right = 57.0
+offset_bottom = 45.0
+text = "Race"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Level" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -57.0
+offset_top = 22.0
+offset_right = -17.0
+offset_bottom = 45.0
+grow_horizontal = 0
+text = "LV. 5"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Name" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -130.0
+offset_top = 48.0
+offset_right = -17.0
+offset_bottom = 71.0
+grow_horizontal = 0
+text = "Your Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EoTManager" parent="." node_paths=PackedStringArray("Root") instance=ExtResource("4_mwddf")]
+layout_mode = 1
+offset_top = 200.0
+offset_bottom = 232.0
+Root = NodePath("..")
+
+[node name="Bars" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -105.0
+offset_right = 60.0
+offset_bottom = -33.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HealthBar" parent="Bars" instance=ExtResource("12_jchqc")]
+layout_mode = 2
+
+[node name="MagickaBar" parent="Bars" instance=ExtResource("13_v2j6k")]
+layout_mode = 2
+
+[node name="SanityBar" parent="Bars" instance=ExtResource("14_kyntr")]
+layout_mode = 2
+
+[node name="FatigueBar" parent="Bars" instance=ExtResource("15_s7bnb")]
+layout_mode = 2

@@ -1,9 +1,11 @@
 using Game.common.map;
 using Game.util;
 using Game.util.events;
+using Godot;
 using System;
 
 namespace Game.common.fsm.states {
+	[GlobalClass]
 	public partial class PlayerMovingState : State {
 		public PlayerMovingState() : base(Type.GameBoardPlayerMoving) {}
 

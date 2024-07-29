@@ -1,0 +1,53 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=11 format=3 uid="uid://cotjuosogi5qu"]
+
+[ext_resource type="Script" path="res://common/effects/GainEffect.cs" id="1_74h0n"]
+[ext_resource type="Script" path="res://common/characters/skills/Skill.cs" id="1_qdd1j"]
+[ext_resource type="Script" path="res://common/modifier/EffectModifier.cs" id="2_f27qf"]
+[ext_resource type="Script" path="res://common/effects/effects_over_time/data/MoT.cs" id="3_inuvb"]
+[ext_resource type="Script" path="res://common/effects/ModifierEffect.cs" id="4_ln6ae"]
+
+[sub_resource type="Resource" id="Resource_lj0yc"]
+script = ExtResource("1_74h0n")
+GainRange = Vector2i(15, 25)
+EffectType = 9
+
+[sub_resource type="Resource" id="Resource_qet40"]
+script = ExtResource("2_f27qf")
+TargetEffect = 6
+ActOnReceive = true
+TimeToLast = 5
+UsePercentage = true
+Value = 10
+
+[sub_resource type="Resource" id="Resource_6c0n3"]
+script = ExtResource("2_f27qf")
+TargetEffect = 9
+ActOnReceive = true
+TimeToLast = 3
+UsePercentage = true
+Value = -10
+
+[sub_resource type="Resource" id="Resource_thdr4"]
+script = ExtResource("3_inuvb")
+Modifiers = Array[Object]([SubResource("Resource_qet40"), SubResource("Resource_6c0n3")])
+EffectType = 0
+TimeToLast = 0
+
+[sub_resource type="Resource" id="Resource_7sngb"]
+script = ExtResource("4_ln6ae")
+Debuff = SubResource("Resource_thdr4")
+EffectType = 11
+
+[resource]
+script = ExtResource("1_qdd1j")
+Name = "Moralising Speech"
+NeverMiss = true
+Precision = 0
+TargetRange = 1
+UserPosition = Vector2i(1, 4)
+TargetPosition = Vector2i(1, 4)
+DamageMultiplier = Vector2i(0, 0)
+Cost = {}
+EffectsOnSelf = []
+EffectsOnTarget = [SubResource("Resource_lj0yc"), SubResource("Resource_7sngb")]
+UsageLimit = 2

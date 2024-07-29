@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Race" load_steps=2 format=3 uid="uid://buyxyelqh02u6"]
+
+[ext_resource type="Script" path="res://common/characters/race/Race.cs" id="1_5rmik"]
+
+[resource]
+script = ExtResource("1_5rmik")
+RaceName = 2
+Description = "Residing in deep caves in the mountains, the dwarves pride themselves in their unmatched technologies in underground engineering and smithing. Dwarves are seen as the best craftsmen and stout defenders in battlefields."
+Skills = []

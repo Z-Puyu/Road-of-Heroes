@@ -2,8 +2,10 @@ using System;
 using Game.common.characters;
 using Game.util;
 using Godot;
+using MonoCustomResourceRegistry;
 
 namespace Game.common.effects {
+    [RegisteredType(nameof(PhysicalAttackEffect), "", nameof(Resource)), GlobalClass]
     public partial class PhysicalAttackEffect : Effect {
         [Export] private int DamageMultiplier;
 

@@ -8,6 +8,12 @@
 
 config_version=5
 
+[MonoCustomResourceRegistry]
+
+ClassPrefix=""
+SearchType=0
+ResourceScriptDirectories=["res://"]
+
 [application]
 
 config/name="Project: Infinity and Beyond"
@@ -19,6 +25,7 @@ config/icon="res://icon.svg"
 
 GameManager="*res://assets/static/GameManager.tscn"
 AnimationManager="*res://assets/static/AnimationManager.tscn"
+Caption="*res://assets/static/FloatingCaption.tscn"
 
 [display]
 
@@ -29,6 +36,10 @@ window/stretch/mode="viewport"
 [dotnet]
 
 project/assembly_name="Project- Infinity and Beyond"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/MonoCustomResourceRegistry/plugin.cfg")
 
 [input]
 

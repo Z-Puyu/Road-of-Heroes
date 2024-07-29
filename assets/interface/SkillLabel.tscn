@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://dvdf0bhpahwmu"]
+
+[ext_resource type="Texture2D" uid="uid://dh0q53vjgland" path="res://gfx/ui/buttons/skill_button_inactive.png" id="1_q2tsc"]
+
+[node name="SkillLabel" type="HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+size_flags_horizontal = 0
+
+[node name="Button" type="TextureButton" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("1_q2tsc")
+ignore_texture_size = true
+stretch_mode = 0
