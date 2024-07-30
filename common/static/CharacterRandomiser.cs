@@ -1,4 +1,4 @@
-using System.IO;
+using System;
 using Game.common.characters.race;
 using Game.util;
 using Godot;
@@ -18,7 +18,8 @@ namespace Game.common.autoload {
 		private readonly System.Collections.Generic.Dictionary<int, string> maleNames = [];
 
         public override void _Ready() {
-			foreach (string name in File.ReadLines(this.MaleNamePath)) {
+			foreach (string name in FileAccess.Open(this.MaleNamePath, FileAccess.ModeFlags.Read)
+			                                  .GetAsText(true).Split('\n')) {
 				string[] tokens = name.Split(' ');
 				if (tokens.Length == 2) {
 					if (!this.surnames.ContainsValue(tokens[1])) {
@@ -29,7 +30,8 @@ namespace Game.common.autoload {
 					this.maleNames.Add(this.maleNames.Count, tokens[0]);
 				}
 			}
-			foreach (string name in File.ReadLines(this.FemaleNamePath)) {
+			foreach (string name in FileAccess.Open(this.FemaleNamePath, FileAccess.ModeFlags.Read)
+			                                  .GetAsText(true).Split('\n')) {
 				string[] tokens = name.Split(' ');
 				if (tokens.Length == 2) {
 					if (!this.surnames.ContainsValue(tokens[1])) {
@@ -41,7 +43,9 @@ namespace Game.common.autoload {
 				}
 			}
 			if (this.NeutralNamePath.Length > 0) {
-				foreach (string name in File.ReadLines(this.NeutralNamePath)) {
+				foreach (string name in FileAccess.Open(
+					this.NeutralNamePath, FileAccess.ModeFlags.Read
+				).GetAsText(true).Split('\n')) {
 					string[] tokens = name.Split(' ');
 					if (tokens.Length == 2) {
 						if (!this.surnames.ContainsValue(tokens[1])) {

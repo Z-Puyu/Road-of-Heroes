@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using Game.common.characters.profession;
 using Game.common.effects;
 using Game.util;
 using Godot;
@@ -18,12 +18,13 @@ namespace Game.common.characters.skills {
         [Export] private Vector2I UserPosition { set; get; }
         [Export] private Vector2I TargetPosition { set; get; }
         [Export] private Vector2I DamageMultiplier { set; get; }
-        [Export] private Godot.Collections.Dictionary<Stat.Category, int> Cost { set; get; } = [];
+        [Export] private Dictionary<Stat.Category, int> Cost { set; get; } = [];
         [Export] private Array<Effect> EffectsOnSelf { set; get; } = [];
         [Export] private Array<Effect> EffectsOnTarget { set; get; } = [];
         [Export] private int UsageLimit { set; get; } = -1;
+        [Export] public Dictionary<Profession, int> ProfessionScores { set; get; } = [];
 
-        public void Fire(CharacterCard src, IEnumerable<CharacterCard> targets) {
+        public void Fire(CharacterCard src, CharacterCard[] targets) {
             foreach (Stat.Category stat in this.Cost.Keys) {
                 src.Character.Update(stat, this.Cost[stat]);
             }

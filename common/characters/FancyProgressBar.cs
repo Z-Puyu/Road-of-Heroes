@@ -11,12 +11,12 @@ namespace Game.UI.characters {
 		[Export] public Stat.Category DataType { set; get; }
 
 		public void Init(Stat stat) {
-			this.Value = stat.Value;
 			this.MaxValue = stat.MaxValue;
-			this.lessBar.Value = stat.Value;
+			this.Value = stat.Value;
 			this.lessBar.MaxValue = stat.MaxValue;
-			this.moreBar.Value = stat.Value;
+			this.lessBar.Value = stat.Value;
 			this.moreBar.MaxValue = stat.MaxValue;
+			this.moreBar.Value = stat.Value;
 		}
 
 		public override void _Ready() {

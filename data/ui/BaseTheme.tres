@@ -1,0 +1,9 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://b467chlxnpgy6"]
+
+[ext_resource type="FontFile" uid="uid://bm6xw1j1227e2" path="res://fonts/Beholden-Bold.ttf" id="1_ytdem"]
+
+[resource]
+default_font = ExtResource("1_ytdem")
+default_font_size = 14
+Label/colors/font_color = Color(0.12549, 0, 0, 1)
+Label/font_sizes/font_size = 18

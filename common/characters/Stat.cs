@@ -50,7 +50,7 @@ namespace Game.common.characters {
             }
             stats.Add(Category.Perception, new Stat(Category.Perception, Utilities.Randi(1, 5), 33));
             stats.Add(Category.Precision, new Stat(Category.Precision, 0));
-            for (Category cat = Category.BlightResist; cat <= Category.StunResist; cat += 1) {
+            for (Category cat = Category.BleedResist; cat <= Category.StunResist; cat += 1) {
                 stats.Add(cat, new Stat(cat, Utilities.Randi(10, 50), 100, 10));
             }
             return stats;

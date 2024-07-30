@@ -25,7 +25,8 @@ config/icon="res://icon.svg"
 
 GameManager="*res://assets/static/GameManager.tscn"
 AnimationManager="*res://assets/static/AnimationManager.tscn"
-Caption="*res://assets/static/FloatingCaption.tscn"
+FloatingCaption="*res://assets/static/FloatingCaption.tscn"
+PlayerManager="*res://assets/static/PlayerManager.tscn"
 
 [display]
 

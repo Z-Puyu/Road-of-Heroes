@@ -72,5 +72,14 @@
     <Content Include="data\names\orc\male.txt" />
     <Content Include="data\names\orc\female.txt" />
     <Content Include="common\effects\DoTEffect.cs" />
+    <Content Include="util\events\party\CombatantReadyEvent.cs" />
+    <Content Include="interface\characters\player\PartyUI.cs" />
+    <Content Include="common\static\PlayerManager.cs" />
+    <Content Include="interface\characters\StatLabel.cs" />
+    <Content Include="interface\characters\ResistanceLabel.cs" />
+    <Content Include="interface\characters\CharacterInfoSheet.cs" />
+    <Content Include="interface\characters\player\CharacterAvatar.cs" />
+    <Content Include="util\events\party\DisplayCharacterDetailEvent.cs" />
+    <Content Include="common\characters\FancyProgressBar.cs" />
   </ItemGroup>
 </Project>

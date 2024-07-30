@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bmstnonlx6mgk" path="res://gfx/icons/professions/warrior.svg" id="2_8hh0p"]
 [ext_resource type="Texture2D" uid="uid://c63884tnxeciu" path="res://gfx/ui/cards/card_pressed.png" id="2_dl26n"]
 [ext_resource type="Texture2D" uid="uid://dryykcl812jls" path="res://gfx/ui/cards/card_hover.png" id="2_pw1a7"]
-[ext_resource type="Texture2D" uid="uid://baq043dxh0qvf" path="res://gfx/ui/cards/avatar_musk.png" id="3_vh4a1"]
+[ext_resource type="Texture2D" uid="uid://baq043dxh0qvf" path="res://gfx/ui/cards/avatar_mask.png" id="3_vh4a1"]
 [ext_resource type="PackedScene" uid="uid://vjytcg8gc3r7" path="res://assets/interface/EoTManager.tscn" id="4_mwddf"]
 [ext_resource type="Script" path="res://common/player/PlayerCard.cs" id="5_rjuqh"]
 [ext_resource type="PackedScene" uid="uid://c2ygwihx3hinl" path="res://assets/interface/HealthBar.tscn" id="12_jchqc"]

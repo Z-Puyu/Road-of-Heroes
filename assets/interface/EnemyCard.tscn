@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c63884tnxeciu" path="res://gfx/ui/cards/card_pressed.png" id="2_2odh5"]
 [ext_resource type="PackedScene" uid="uid://vjytcg8gc3r7" path="res://assets/interface/EoTManager.tscn" id="3_imyqd"]
 [ext_resource type="Texture2D" uid="uid://dryykcl812jls" path="res://gfx/ui/cards/card_hover.png" id="3_nym80"]
-[ext_resource type="Texture2D" uid="uid://baq043dxh0qvf" path="res://gfx/ui/cards/avatar_musk.png" id="3_w16lb"]
+[ext_resource type="Texture2D" uid="uid://baq043dxh0qvf" path="res://gfx/ui/cards/avatar_mask.png" id="3_w16lb"]
 [ext_resource type="Script" path="res://common/characters/enemies/EnemyCard.cs" id="4_mnl2r"]
 [ext_resource type="PackedScene" uid="uid://c2ygwihx3hinl" path="res://assets/interface/HealthBar.tscn" id="12_ceg6d"]
 [ext_resource type="PackedScene" uid="uid://cgn52rfhbx1bs" path="res://assets/interface/MagickaBar.tscn" id="13_46aev"]

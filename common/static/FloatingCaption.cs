@@ -5,7 +5,6 @@ using Game.common.effects.eot;
 using Godot;
 
 namespace Game.util {
-	[GlobalClass]
 	public partial class FloatingCaption : Node {
 		private Vector2 size;
 		private Label caption;

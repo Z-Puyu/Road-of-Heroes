@@ -1,6 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://ddt64fayuvr0e"]
+[gd_scene load_steps=3 format=3 uid="uid://ddt64fayuvr0e"]
 
 [ext_resource type="Script" path="res://common/static/FloatingCaption.cs" id="1_mrfv6"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_fqcn1"]
+
 [node name="FloatingCaption" type="Node"]
 script = ExtResource("1_mrfv6")
+
+[node name="Caption" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+label_settings = SubResource("LabelSettings_fqcn1")
