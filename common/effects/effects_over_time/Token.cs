@@ -20,6 +20,10 @@ namespace Game.common.effects.eot {
 
         public abstract void Compose(EoT eot);
 
+        public void Cure() {
+            this.Reset();
+        }
+
         protected virtual void Reset() {
             this.expiry = 0;
             this.time = 0;

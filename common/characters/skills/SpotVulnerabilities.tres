@@ -1,0 +1,79 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=15 format=3 uid="uid://crqkmegx05gk3"]
+
+[ext_resource type="Script" path="res://common/characters/skills/Skill.cs" id="1_8dikb"]
+[ext_resource type="Script" path="res://common/modifier/StatModifier.cs" id="1_44kt5"]
+[ext_resource type="Script" path="res://common/effects/effects_over_time/data/MoT.cs" id="2_oicxj"]
+[ext_resource type="Script" path="res://common/effects/ModifierEffect.cs" id="3_p6kb3"]
+[ext_resource type="Texture2D" uid="uid://dkijqiqwawd4k" path="res://gfx/icons/skills/spot_vulnerabilities.png" id="4_slitd"]
+[ext_resource type="Script" path="res://common/modifier/EffectModifier.cs" id="4_vopk7"]
+
+[sub_resource type="Resource" id="Resource_bro33"]
+script = ExtResource("1_44kt5")
+TargetStat = 7
+TimeToLast = 1
+UsePercentage = false
+Value = 20
+
+[sub_resource type="Resource" id="Resource_mj425"]
+script = ExtResource("2_oicxj")
+Modifier = SubResource("Resource_bro33")
+EffectType = 14
+TimeToLast = 1
+
+[sub_resource type="Resource" id="Resource_1te7o"]
+script = ExtResource("3_p6kb3")
+Buffs = [SubResource("Resource_mj425")]
+Debuffs = []
+SuccessChance = 100
+EffectType = 0
+
+[sub_resource type="Resource" id="Resource_wvyqf"]
+script = ExtResource("4_vopk7")
+TargetEffect = 0
+ActOnReceive = true
+TimeToLast = 2
+UsePercentage = true
+Value = 10
+
+[sub_resource type="Resource" id="Resource_n3wi4"]
+script = ExtResource("2_oicxj")
+Modifier = SubResource("Resource_wvyqf")
+EffectType = 15
+TimeToLast = 2
+
+[sub_resource type="Resource" id="Resource_j7lvx"]
+script = ExtResource("4_vopk7")
+TargetEffect = 1
+ActOnReceive = true
+TimeToLast = 2
+UsePercentage = true
+Value = 10
+
+[sub_resource type="Resource" id="Resource_ra1mu"]
+script = ExtResource("2_oicxj")
+Modifier = SubResource("Resource_j7lvx")
+EffectType = 15
+TimeToLast = 2
+
+[sub_resource type="Resource" id="Resource_hfkyh"]
+script = ExtResource("3_p6kb3")
+Buffs = []
+Debuffs = [SubResource("Resource_n3wi4"), SubResource("Resource_ra1mu")]
+SuccessChance = 100
+EffectType = 11
+
+[resource]
+script = ExtResource("1_8dikb")
+Name = "Spot Vulnerabilities"
+Icon = ExtResource("4_slitd")
+NeverMiss = true
+Precision = 100
+TargetRange = 0
+UserPosition = Vector2i(1, 4)
+TargetPosition = Vector2i(1, 4)
+DamageMultiplier = Vector2i(0, 0)
+Cost = {}
+EffectsOnSelf = [SubResource("Resource_1te7o")]
+EffectsOnTarget = [SubResource("Resource_hfkyh")]
+UsageLimit = 1
+ProfessionScores = {}

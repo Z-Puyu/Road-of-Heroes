@@ -1,0 +1,52 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=11 format=3 uid="uid://b000uir6jlxve"]
+
+[ext_resource type="Script" path="res://common/characters/skills/Skill.cs" id="1_gwfqy"]
+[ext_resource type="Script" path="res://common/effects/GainEffect.cs" id="1_i2edh"]
+[ext_resource type="Script" path="res://common/modifier/EffectModifier.cs" id="2_y7dld"]
+[ext_resource type="Script" path="res://common/effects/effects_over_time/data/MoT.cs" id="3_1jfpl"]
+[ext_resource type="Script" path="res://common/effects/ModifierEffect.cs" id="4_mj86t"]
+[ext_resource type="Texture2D" uid="uid://bhx6jjmm6d5pc" path="res://gfx/icons/skills/untamed_roar.png" id="5_rbndy"]
+
+[sub_resource type="Resource" id="Resource_cn1h3"]
+script = ExtResource("1_i2edh")
+IsPercentage = true
+GainRange = Vector2i(20, 20)
+EffectType = 9
+
+[sub_resource type="Resource" id="Resource_uwn8p"]
+script = ExtResource("2_y7dld")
+TargetEffect = 6
+ActOnReceive = true
+TimeToLast = 2
+UsePercentage = true
+Value = -10
+
+[sub_resource type="Resource" id="Resource_tkm78"]
+script = ExtResource("3_1jfpl")
+Modifier = SubResource("Resource_uwn8p")
+EffectType = 14
+TimeToLast = 2
+
+[sub_resource type="Resource" id="Resource_rxxtt"]
+script = ExtResource("4_mj86t")
+Buffs = [SubResource("Resource_tkm78")]
+Debuffs = []
+SuccessChance = 100
+EffectType = 11
+
+[resource]
+script = ExtResource("1_gwfqy")
+IsRacialSkill = false
+Name = "Untamed Roar"
+Icon = ExtResource("5_rbndy")
+NeverMiss = true
+Precision = 100
+TargetRange = 4
+UserPosition = Vector2i(1, 4)
+TargetPosition = Vector2i(1, 4)
+Requirements = []
+Costs = []
+EffectsOnSelf = []
+EffectsOnTarget = [SubResource("Resource_cn1h3"), SubResource("Resource_rxxtt")]
+UsageLimit = 2
+ProfessionScores = {}

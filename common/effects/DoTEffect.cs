@@ -37,5 +37,9 @@ namespace Game.common.effects {
                 }
             }
         }
+
+        public override string ToString() {
+            return $"{this.SuccessChance}% chance of {this.DoT}";
+        }
     }
 }

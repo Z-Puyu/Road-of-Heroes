@@ -1,5 +1,5 @@
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using Game.common.autoload;
 using Game.common.characters.profession;
 using Game.common.characters.race;
@@ -29,6 +29,7 @@ namespace Game.common.characters {
             _ => "",
         };
         public Profession Profession => profession;
+        public List<Skill> ActiveSkills => activeSkills;
 
         private PlayerCharacter(
             string name, int level, Race race, Texture2D avatar,
@@ -48,14 +49,23 @@ namespace Game.common.characters {
                 PlayerManager.RandomPortrait(race.RaceName, isFemale), stats
             );
             int nRacialSkills = Utilities.Randi(1, 2);
-            character.skills.AddRange(race.Skills.Permute().Take(nRacialSkills));
-            character.skills.AddRange(PlayerManager.RandomSkill(5 - nRacialSkills));
-            character.activeSkills.AddRange(character.skills);
+            Skill[] racialSkills = [..race.Skills.Permute()];
+            for (int i = 0; i < nRacialSkills; i += 1) {
+                character.skills.Add(
+                    racialSkills[i], Utilities.Randi(1, Math.Min((level + 1) / 2, 3))
+                );
+                character.activeSkills.Add(racialSkills[i]);
+            }
+            /* Skill[] skills = [..PlayerManager.RandomSkill(5 - nRacialSkills)];
+            for (int i = 0; i < 5 - nRacialSkills; i += 1) {
+                character.skills.Add(skills[i], Utilities.Randi(1, Math.Min((level + 1) / 2, 3)));
+                character.activeSkills.Add(skills[i]);
+            } */
             return character;
         }
 
         private void EvaluateProfession() {
-            foreach (Skill skill in this.skills) {
+            foreach (Skill skill in this.skills.Keys) {
                 foreach (KeyValuePair<Profession, int> pair in skill.ProfessionScores) {
                     if (this.ProfessionTendency.ContainsKey(pair.Key)) {
                         this.ProfessionTendency[pair.Key] += pair.Value;

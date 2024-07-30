@@ -4,10 +4,16 @@ using Godot;
 namespace Game.ui.characters {
 	public partial class ResistanceLabel : VBoxContainer {
 		[Export] public EoT.Effect Effect { set; get; }
-		[Export] private Label Value { set; get; }
+		[Export] private NodePath Value { set; get; }
+		[Export] private NodePath Icon { set; get; }
+		[Export] private Texture2D Texture { set; get; }
 
-		public void Set(int value) {
-			this.Value.Text = $"{value}%";
+        public override void _Ready() {
+            this.GetNode<TextureRect>(this.Icon).Texture = this.Texture;
+        }
+
+        public void Set(int value) {
+			this.GetNode<Label>(this.Value).Text = $"{value}%";
 		}
 	}
 }

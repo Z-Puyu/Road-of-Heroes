@@ -1,0 +1,59 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=12 format=3 uid="uid://b2i2kmjvhheom"]
+
+[ext_resource type="Script" path="res://common/modifier/StatModifier.cs" id="1_8v5ay"]
+[ext_resource type="Script" path="res://common/characters/skills/Skill.cs" id="1_36dg7"]
+[ext_resource type="Script" path="res://common/modifier/EffectModifier.cs" id="1_el40w"]
+[ext_resource type="Script" path="res://common/effects/effects_over_time/data/MoT.cs" id="2_mnhy2"]
+[ext_resource type="Script" path="res://common/effects/ModifierEffect.cs" id="3_r8hm6"]
+[ext_resource type="Texture2D" uid="uid://bmp6vyak0sbao" path="res://gfx/icons/skills/slaughter_instinct.png" id="4_xy4au"]
+
+[sub_resource type="Resource" id="Resource_5ilsr"]
+script = ExtResource("1_el40w")
+TargetEffect = 0
+ActOnReceive = false
+TimeToLast = 3
+UsePercentage = true
+Value = 20
+
+[sub_resource type="Resource" id="Resource_fl1p0"]
+script = ExtResource("2_mnhy2")
+Modifier = SubResource("Resource_5ilsr")
+EffectType = 14
+TimeToLast = 3
+
+[sub_resource type="Resource" id="Resource_ly6ig"]
+script = ExtResource("1_8v5ay")
+TargetStat = 9
+TimeToLast = 3
+UsePercentage = true
+Value = -25
+
+[sub_resource type="Resource" id="Resource_rbx0r"]
+script = ExtResource("2_mnhy2")
+Modifier = SubResource("Resource_ly6ig")
+EffectType = 15
+TimeToLast = 3
+
+[sub_resource type="Resource" id="Resource_mb1g8"]
+script = ExtResource("3_r8hm6")
+Buffs = [SubResource("Resource_fl1p0")]
+Debuffs = [SubResource("Resource_rbx0r")]
+SuccessChance = 100
+EffectType = 11
+
+[resource]
+script = ExtResource("1_36dg7")
+IsRacialSkill = false
+Name = "Slaughter Instinct"
+Icon = ExtResource("4_xy4au")
+NeverMiss = true
+Precision = 100
+TargetRange = 4
+UserPosition = Vector2i(1, 4)
+TargetPosition = Vector2i(1, 4)
+Requirements = []
+Costs = []
+EffectsOnSelf = []
+EffectsOnTarget = [SubResource("Resource_mb1g8")]
+UsageLimit = 1
+ProfessionScores = {}

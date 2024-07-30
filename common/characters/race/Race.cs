@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Game.common.characters.skills;
 using Game.util;
@@ -91,6 +92,16 @@ namespace Game.common.characters.race {
                 default:
                     break;
             }
+        }
+
+        public string ToAdj() {
+            return this.RaceName switch {
+                Name.Human => "Human",
+                Name.Elf => "Elven",
+                Name.Dwarf => "Dwarven",
+                Name.Orc => "Orcish",
+                _ => "",
+            };
         }
     }
 }

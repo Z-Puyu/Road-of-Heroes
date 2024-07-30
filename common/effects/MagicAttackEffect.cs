@@ -21,5 +21,11 @@ namespace Game.common.effects {
             );
             receiver.Update(Stat.Category.Health, -dmg);
         }
+
+        public override string ToString() {
+            return this.DamageRange.X == this.DamageRange.Y 
+                    ? $"{this.DamageRange.X} magic damage" 
+                    : $"{this.DamageRange.X} to {this.DamageRange.Y} magic damage";
+        }
     }
 }

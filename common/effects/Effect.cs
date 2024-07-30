@@ -1,3 +1,4 @@
+using Game.common.characters;
 using Godot;
 using MonoCustomResourceRegistry;
 
@@ -19,11 +20,16 @@ namespace Game.common.effects {
             Modifier,
             DoT,
             Frenzy,
-            HoT
+            HoT,
+            Cure
         }
 
         [Export] public Type EffectType { get; set; }
 
         public abstract void Apply(IEffectEmitter src, IEffectReceiver target, bool crit = false);
+
+        public virtual string ToDesc(Character character) {
+            return this.ToString();
+        }
     }
 }

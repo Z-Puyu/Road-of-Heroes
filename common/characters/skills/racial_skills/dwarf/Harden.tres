@@ -1,0 +1,80 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=16 format=3 uid="uid://c6i5r07s2xu8q"]
+
+[ext_resource type="Texture2D" uid="uid://l75ihvlfxbe3" path="res://gfx/icons/skills/harden.png" id="1_ilxfs"]
+[ext_resource type="Script" path="res://common/characters/skills/Skill.cs" id="1_o4g8n"]
+[ext_resource type="Script" path="res://common/modifier/EffectModifier.cs" id="1_y8tmj"]
+[ext_resource type="Script" path="res://common/effects/effects_over_time/data/MoT.cs" id="2_o3nva"]
+[ext_resource type="Script" path="res://common/characters/skills/Requirement.cs" id="2_vuj2o"]
+[ext_resource type="Script" path="res://common/effects/ModifierEffect.cs" id="3_651ka"]
+[ext_resource type="Script" path="res://common/modifier/StatModifier.cs" id="3_uvok6"]
+
+[sub_resource type="Resource" id="Resource_5ca4c"]
+script = ExtResource("1_y8tmj")
+TargetEffect = 0
+ActOnReceive = true
+TimeToLast = 2
+UsePercentage = true
+Value = -100
+
+[sub_resource type="Resource" id="Resource_4dsna"]
+script = ExtResource("2_o3nva")
+Modifier = SubResource("Resource_5ca4c")
+EffectType = 14
+TimeToLast = 2
+
+[sub_resource type="Resource" id="Resource_qqjg7"]
+script = ExtResource("1_y8tmj")
+TargetEffect = 1
+ActOnReceive = true
+TimeToLast = 2
+UsePercentage = true
+Value = -100
+
+[sub_resource type="Resource" id="Resource_w4tyd"]
+script = ExtResource("2_o3nva")
+Modifier = SubResource("Resource_qqjg7")
+EffectType = 14
+TimeToLast = 2
+
+[sub_resource type="Resource" id="Resource_x22ov"]
+script = ExtResource("3_uvok6")
+TargetStat = 11
+TimeToLast = 2
+UsePercentage = true
+Value = 50
+
+[sub_resource type="Resource" id="Resource_ebbs7"]
+script = ExtResource("2_o3nva")
+Modifier = SubResource("Resource_x22ov")
+EffectType = 14
+TimeToLast = 2
+
+[sub_resource type="Resource" id="Resource_sl8io"]
+script = ExtResource("3_651ka")
+Buffs = [SubResource("Resource_4dsna"), SubResource("Resource_w4tyd"), SubResource("Resource_ebbs7")]
+Debuffs = []
+SuccessChance = 100
+EffectType = 11
+
+[sub_resource type="Resource" id="Resource_8i3op"]
+script = ExtResource("2_vuj2o")
+StatType = 0
+Value = 33
+ComparisonMethod = 2
+
+[resource]
+script = ExtResource("1_o4g8n")
+IsRacialSkill = false
+Name = "Harden"
+Icon = ExtResource("1_ilxfs")
+NeverMiss = true
+Precision = 100
+TargetRange = 4
+UserPosition = Vector2i(1, 4)
+TargetPosition = Vector2i(1, 4)
+Requirements = [SubResource("Resource_8i3op")]
+Costs = []
+EffectsOnSelf = []
+EffectsOnTarget = [SubResource("Resource_sl8io")]
+UsageLimit = 3
+ProfessionScores = {}

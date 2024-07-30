@@ -1,0 +1,45 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=9 format=3 uid="uid://b3iq8qrd6mrvy"]
+
+[ext_resource type="Script" path="res://common/effects/CureEffect.cs" id="1_pb3iq"]
+[ext_resource type="Script" path="res://common/effects/HealEffect.cs" id="2_sf5es"]
+[ext_resource type="Texture2D" uid="uid://cv5m8w8wer1tl" path="res://gfx/icons/skills/survival_instinct.png" id="3_pmweq"]
+[ext_resource type="Script" path="res://common/characters/skills/Skill.cs" id="4_3ax2r"]
+
+[sub_resource type="Resource" id="Resource_x6cto"]
+script = ExtResource("1_pb3iq")
+TargetEffect = 9
+EffectType = 15
+
+[sub_resource type="Resource" id="Resource_pshjv"]
+script = ExtResource("1_pb3iq")
+TargetEffect = 10
+EffectType = 15
+
+[sub_resource type="Resource" id="Resource_8102a"]
+script = ExtResource("1_pb3iq")
+TargetEffect = 11
+EffectType = 15
+
+[sub_resource type="Resource" id="Resource_wsahn"]
+script = ExtResource("2_sf5es")
+IsPercentage = false
+HealRange = Vector2i(1, 3)
+CriticalChance = 5
+EffectType = 3
+
+[resource]
+script = ExtResource("4_3ax2r")
+IsRacialSkill = false
+Name = "Survival Instinct"
+Icon = ExtResource("3_pmweq")
+NeverMiss = true
+Precision = 100
+TargetRange = 4
+UserPosition = Vector2i(1, 4)
+TargetPosition = Vector2i(1, 4)
+Requirements = []
+Costs = []
+EffectsOnSelf = []
+EffectsOnTarget = [SubResource("Resource_x6cto"), SubResource("Resource_pshjv"), SubResource("Resource_8102a"), SubResource("Resource_wsahn")]
+UsageLimit = 3
+ProfessionScores = {}

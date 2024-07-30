@@ -81,5 +81,10 @@
     <Content Include="interface\characters\player\CharacterAvatar.cs" />
     <Content Include="util\events\party\DisplayCharacterDetailEvent.cs" />
     <Content Include="common\characters\FancyProgressBar.cs" />
+    <Content Include="interface\characters\StatBar.cs" />
+    <Content Include="common\characters\Cost.cs" />
+    <Content Include="common\effects\CureEffect.cs" />
+    <Content Include="common\characters\skills\Requirement.cs" />
+    <Content Include="interface\characters\player\SkillButton.cs" />
   </ItemGroup>
 </Project>

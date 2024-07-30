@@ -20,9 +20,6 @@ namespace Game.common.effects.eot {
 
         public override Task Apply() {
             this.time += 1;
-            if (this.time == this.expiry) {
-                this.Reset();
-            }
             return Task.CompletedTask;
         }
     }

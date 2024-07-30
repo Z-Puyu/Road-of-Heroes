@@ -12,12 +12,13 @@ namespace Game.common.characters {
         private readonly IDictionary<Stat.Category, Stat> stats;
         protected readonly string name;
         private readonly Texture2D avatar;
-        protected readonly List<Skill> skills = [];
+        protected readonly Dictionary<Skill, int> skills = [];
         private readonly ModifierManager modifier = new ModifierManager();
 
         public Texture2D Avatar => avatar;
         public string Name => name;
         public ModifierManager Modifier => modifier;
+        public Dictionary<Skill, int> Skills => skills;
 
         protected Character(
             string name, Texture2D avatar, IDictionary<Stat.Category, Stat> stats

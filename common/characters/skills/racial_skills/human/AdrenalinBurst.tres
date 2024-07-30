@@ -1,0 +1,71 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=15 format=3 uid="uid://brkha5gy5wf7r"]
+
+[ext_resource type="Script" path="res://common/characters/skills/Skill.cs" id="1_04grg"]
+[ext_resource type="Script" path="res://common/characters/Cost.cs" id="1_qc8b3"]
+[ext_resource type="Script" path="res://common/effects/DrainEffect.cs" id="2_mtenx"]
+[ext_resource type="Script" path="res://common/modifier/StatModifier.cs" id="3_kd66j"]
+[ext_resource type="Script" path="res://common/effects/effects_over_time/data/MoT.cs" id="4_ho20o"]
+[ext_resource type="Script" path="res://common/effects/ModifierEffect.cs" id="5_4jnui"]
+[ext_resource type="Texture2D" uid="uid://yxpufrmdg1nk" path="res://gfx/icons/skills/adrenalin_burst.png" id="6_ht30w"]
+
+[sub_resource type="Resource" id="Resource_xleox"]
+script = ExtResource("1_qc8b3")
+StatType = 0
+Amount = 50
+IsPercentage = true
+
+[sub_resource type="Resource" id="Resource_sdalp"]
+script = ExtResource("2_mtenx")
+IsPercentage = false
+DrainRange = Vector2i(20, 30)
+EffectType = 7
+
+[sub_resource type="Resource" id="Resource_bpufa"]
+script = ExtResource("3_kd66j")
+TargetStat = 8
+TimeToLast = 3
+UsePercentage = false
+Value = 10
+
+[sub_resource type="Resource" id="Resource_uqkfe"]
+script = ExtResource("4_ho20o")
+Modifier = SubResource("Resource_bpufa")
+EffectType = 14
+TimeToLast = 3
+
+[sub_resource type="Resource" id="Resource_304yo"]
+script = ExtResource("3_kd66j")
+TargetStat = 4
+TimeToLast = 3
+UsePercentage = false
+Value = 10
+
+[sub_resource type="Resource" id="Resource_6xute"]
+script = ExtResource("4_ho20o")
+Modifier = SubResource("Resource_304yo")
+EffectType = 14
+TimeToLast = 3
+
+[sub_resource type="Resource" id="Resource_rbvry"]
+script = ExtResource("5_4jnui")
+Buffs = [SubResource("Resource_uqkfe"), SubResource("Resource_6xute")]
+Debuffs = []
+SuccessChance = 100
+EffectType = 11
+
+[resource]
+script = ExtResource("1_04grg")
+IsRacialSkill = false
+Name = "Adrenalin Burst"
+Icon = ExtResource("6_ht30w")
+NeverMiss = true
+Precision = 100
+TargetRange = 4
+UserPosition = Vector2i(1, 4)
+TargetPosition = Vector2i(1, 4)
+Requirements = []
+Costs = [SubResource("Resource_xleox")]
+EffectsOnSelf = []
+EffectsOnTarget = [SubResource("Resource_sdalp"), SubResource("Resource_rbvry")]
+UsageLimit = 1
+ProfessionScores = {}

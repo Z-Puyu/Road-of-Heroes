@@ -1,0 +1,98 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=18 format=3 uid="uid://dew1imgutqvxb"]
+
+[ext_resource type="Script" path="res://common/modifier/EffectModifier.cs" id="1_vbcyc"]
+[ext_resource type="Script" path="res://common/effects/effects_over_time/data/MoT.cs" id="2_bsi2w"]
+[ext_resource type="Script" path="res://common/modifier/StatModifier.cs" id="3_6b485"]
+[ext_resource type="Script" path="res://common/effects/ModifierEffect.cs" id="4_2raqq"]
+[ext_resource type="Texture2D" uid="uid://b7g3g60iryigo" path="res://gfx/icons/skills/blessing_of_the_ancestors.png" id="5_u2gdp"]
+[ext_resource type="Script" path="res://common/characters/skills/Skill.cs" id="6_2jc2g"]
+
+[sub_resource type="Resource" id="Resource_ncmr1"]
+script = ExtResource("1_vbcyc")
+TargetEffect = 2
+ActOnReceive = true
+TimeToLast = 3
+UsePercentage = true
+Value = -20
+
+[sub_resource type="Resource" id="Resource_a8c4k"]
+script = ExtResource("2_bsi2w")
+Modifier = SubResource("Resource_ncmr1")
+EffectType = 14
+TimeToLast = 3
+
+[sub_resource type="Resource" id="Resource_xn75a"]
+script = ExtResource("3_6b485")
+TargetStat = 9
+TimeToLast = 3
+UsePercentage = false
+Value = 20
+
+[sub_resource type="Resource" id="Resource_u6vb7"]
+script = ExtResource("2_bsi2w")
+Modifier = SubResource("Resource_xn75a")
+EffectType = 14
+TimeToLast = 3
+
+[sub_resource type="Resource" id="Resource_ghxlm"]
+script = ExtResource("3_6b485")
+TargetStat = 10
+TimeToLast = 3
+UsePercentage = false
+Value = 20
+
+[sub_resource type="Resource" id="Resource_mqqe3"]
+script = ExtResource("2_bsi2w")
+Modifier = SubResource("Resource_ghxlm")
+EffectType = 14
+TimeToLast = 3
+
+[sub_resource type="Resource" id="Resource_sl11g"]
+script = ExtResource("3_6b485")
+TargetStat = 11
+TimeToLast = 3
+UsePercentage = false
+Value = 20
+
+[sub_resource type="Resource" id="Resource_rkqsb"]
+script = ExtResource("2_bsi2w")
+Modifier = SubResource("Resource_sl11g")
+EffectType = 14
+TimeToLast = 3
+
+[sub_resource type="Resource" id="Resource_ha2vm"]
+script = ExtResource("3_6b485")
+TargetStat = 13
+TimeToLast = 3
+UsePercentage = false
+Value = 20
+
+[sub_resource type="Resource" id="Resource_qbfaq"]
+script = ExtResource("2_bsi2w")
+Modifier = SubResource("Resource_ha2vm")
+EffectType = 14
+TimeToLast = 3
+
+[sub_resource type="Resource" id="Resource_lmx1l"]
+script = ExtResource("4_2raqq")
+Buffs = [SubResource("Resource_a8c4k"), SubResource("Resource_u6vb7"), SubResource("Resource_mqqe3"), SubResource("Resource_rkqsb"), SubResource("Resource_qbfaq")]
+Debuffs = []
+SuccessChance = 100
+EffectType = 11
+
+[resource]
+script = ExtResource("6_2jc2g")
+IsRacialSkill = false
+Name = "Blessing of the Ancestors"
+Icon = ExtResource("5_u2gdp")
+NeverMiss = true
+Precision = 100
+TargetRange = 4
+UserPosition = Vector2i(1, 4)
+TargetPosition = Vector2i(1, 4)
+Requirements = []
+Costs = []
+EffectsOnSelf = []
+EffectsOnTarget = [SubResource("Resource_lmx1l")]
+UsageLimit = 1
+ProfessionScores = {}

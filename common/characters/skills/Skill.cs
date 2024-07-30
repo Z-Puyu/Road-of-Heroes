@@ -1,3 +1,4 @@
+using System;
 using Game.common.characters.profession;
 using Game.common.effects;
 using Game.util;
@@ -10,23 +11,45 @@ namespace Game.common.characters.skills {
     public partial class Skill : Resource {
         private enum Range { SingleEnemy, SingleAlly, AOEEnemy, AOEAlly, SelfOnly }
 
+        [Export] public bool IsRacialSkill { set; get; } = false;
         [Export] private string Name { set; get; }
-        [Export] private Texture2D Icon { set; get; }
+        [Export] public Texture2D Icon { set; get; }
         [Export] private bool NeverMiss { set; get; }
         [Export] private int Precision { set; get; }
         [Export] private Range TargetRange { set; get; }
         [Export] private Vector2I UserPosition { set; get; }
         [Export] private Vector2I TargetPosition { set; get; }
-        [Export] private Vector2I DamageMultiplier { set; get; }
-        [Export] private Dictionary<Stat.Category, int> Cost { set; get; } = [];
+        [Export] private Array<Requirement> Requirements { set; get; } = [];
+        [Export] private Array<Cost> Costs { set; get; } = [];
         [Export] private Array<Effect> EffectsOnSelf { set; get; } = [];
         [Export] private Array<Effect> EffectsOnTarget { set; get; } = [];
         [Export] private int UsageLimit { set; get; } = -1;
         [Export] public Dictionary<Profession, int> ProfessionScores { set; get; } = [];
 
-        public void Fire(CharacterCard src, CharacterCard[] targets) {
-            foreach (Stat.Category stat in this.Cost.Keys) {
-                src.Character.Update(stat, this.Cost[stat]);
+        public bool IsUsableBy(Character character) {
+            foreach (Requirement req in this.Requirements) {
+                if (!req.Test(character)) {
+                    return false;
+                }
+            }
+            foreach (Cost cost in this.Costs) {
+                if (character.Get(cost.StatType, out Stat value)) {
+                    if (value.Value < cost.Compute(value.MaxValue)) {
+                        return false;
+                    }
+                } 
+            }
+            return true;
+        }
+
+        public void Fire(CharacterCard src, CharacterCard[] targets, int level = 1) {
+            if (!this.IsUsableBy(src.Character)) {
+                return;
+            }
+            foreach (Cost cost in this.Costs) {
+                if (src.Character.Get(cost.StatType, out Stat value)) {
+                    src.Character.Update(cost.StatType, cost.Compute(value.MaxValue));
+                } 
             }
             foreach (CharacterCard target in targets) {
                 int dice;
@@ -48,6 +71,45 @@ namespace Game.common.characters.skills {
             foreach (Effect effect in this.EffectsOnSelf) {
                 effect.Apply(src, src);
             }
-        }     
+        }
+
+        public override string ToString() {
+            string str = $"{this.Name}\n\n"
+                       + $"{(this.UsageLimit > 0 ? $"Maximum Number of Use: {this.UsageLimit}\n" : "")}";
+            if (this.Requirements.Count > 0) {
+                str += "Can be used only if: \n";
+                foreach (Requirement req in this.Requirements) {
+                    str += $"{req}\n";
+                }
+            }
+            if (this.Costs.Count > 0) {
+                str += "\nCost: \n";
+                foreach (Cost cost in this.Costs) {
+                    str += $"{cost}\n";
+                }
+            }
+            int left = Math.Min(this.UserPosition.X, this.UserPosition.Y);
+            int right = Math.Max(this.UserPosition.X, this.UserPosition.Y);
+            str += $"\nCan be used at {(left == right ? $"position {left}" 
+                                                    : $"positions {left} to {right}")}\n";
+            left = Math.Min(this.TargetPosition.X, this.TargetPosition.Y);
+            right = Math.Max(this.TargetPosition.X, this.TargetPosition.Y);
+            str += $"Can target {(left == right ? $"position {left}"
+                                                : $"positions {left} to {right}")}\n";
+            str += $"\nBase precision: {this.Precision}";
+            if (this.EffectsOnTarget.Count > 0) {
+                str += $"\n\nTarget:";
+                foreach (Effect e in this.EffectsOnTarget) {
+                    str += $"\n{e}";
+                }
+            }
+            if (this.EffectsOnSelf.Count > 0) {
+                str += $"\n\nSelf:";
+                foreach (Effect e in this.EffectsOnSelf) {
+                    str += $"\n{e}";
+                }
+            }
+            return str;
+        }
     }
 }

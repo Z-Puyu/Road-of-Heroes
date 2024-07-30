@@ -26,6 +26,12 @@ namespace Game.common.tokens {
             } 
         }
 
+        public void Remove(EoT.Effect eot) {
+            if (this.eots.TryGetValue(eot, out Token token)) {
+                token.Cure();
+            } 
+        }
+
         public async Task ApplyTo() {
             foreach (Token token in this.eots.Values) {
                 await token.Apply();

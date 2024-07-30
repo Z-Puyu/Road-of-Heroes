@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Game.common.characters;
 using Game.util;
@@ -14,6 +15,7 @@ namespace Game.common.effects {
             {Type.FatigueLoss, Stat.Category.Fatigue}
         };
 
+        [Export] private bool IsPercentage { set; get; } = false;
         [Export] private Vector2I DrainRange { set; get; } = Vector2I.Zero;
 
         public override void Apply(IEffectEmitter src, IEffectReceiver target, bool crit = false) {
@@ -23,10 +25,36 @@ namespace Game.common.effects {
                 return;
             }
             if (DrainEffect.stats.TryGetValue(this.EffectType, out Stat.Category stat)) {
-                receiver.Update(stat, -target.Receive(Type.PhysicalHeal, src.Emit(
-                    Type.PhysicalHeal, Utilities.Randi(this.DrainRange.X, this.DrainRange.Y)
-                )));
+                int amount;
+                if (this.IsPercentage && receiver.Get(stat, out Stat value)) {
+                    amount = (int)Math.Round(
+                        Utilities.Randi(this.DrainRange.X, this.DrainRange.Y) * 
+                        value.MaxValue / 100.0
+                    );
+                } else {
+                    amount = Utilities.Randi(this.DrainRange.X, this.DrainRange.Y);
+                }
+                receiver.Update(
+                    stat, target.Receive(this.EffectType, src.Emit(this.EffectType, -amount))
+                );
             }
+        }
+
+        public override string ToString() {
+            string stat = this.EffectType switch {
+                Type.SanityDrain => "sanity",
+                Type.MagickaDrain => "magicka",
+                Type.FatigueLoss => "fatigue",
+                _ => ""
+            };
+            if (this.IsPercentage) {
+                return $"Drain {(this.DrainRange.X == this.DrainRange.Y 
+                    ? $"{this.DrainRange.X}%" 
+                    : $"{this.DrainRange.X}% to {this.DrainRange.Y}%")} of maximum {stat}";
+            }
+            return $"Drain {(this.DrainRange.X == this.DrainRange.Y 
+                    ? $"{this.DrainRange.X}" 
+                    : $"{this.DrainRange.X} to {this.DrainRange.Y}")} {stat}";
         }
     }
 }

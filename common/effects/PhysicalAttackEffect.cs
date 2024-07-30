@@ -23,5 +23,17 @@ namespace Game.common.effects {
             );
             receiver.Update(Stat.Category.Health, -dmg);
         }
+
+        public override string ToDesc(Character character) {
+            string attack = this.EffectType switch {
+                Type.MeleeAttack => "melee damage",
+                Type.RangedAttack => "ranged damage",
+                _ => ""
+            };
+            int strength = character.Get(Stat.Category.Strength);
+            int min = (int)Math.Round(strength * this.DamageMultiplier / 100.0);
+            int max = (int)Math.Round(strength * 2 * this.DamageMultiplier / 100.0);
+            return $"{(min == max ? $"{min}" : $"{min} to {max}")} {attack}";
+        }
     }
 }
