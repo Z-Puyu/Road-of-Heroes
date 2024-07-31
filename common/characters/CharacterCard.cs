@@ -7,9 +7,9 @@ using Godot;
 
 public abstract partial class CharacterCard : TextureButton, IEffectEmitter, IEffectReceiver {
 	private Character character;
-    [Export] protected VBoxContainer Bars { set; get; }
-	[Export] protected TextureRect Avatar { set; get; }
-	[Export] protected Label NameLabel { set; get; }
+    [Export] protected NodePath Bars { set; get; }
+	[Export] protected NodePath Avatar { set; get; }
+	[Export] protected NodePath NameLabel { set; get; }
 	[Export] public NodePath EoTManager { set; get;}
 
 	public Character Character => character;

@@ -86,5 +86,9 @@
     <Content Include="common\effects\CureEffect.cs" />
     <Content Include="common\characters\skills\Requirement.cs" />
     <Content Include="interface\characters\player\SkillButton.cs" />
+    <Content Include="common\battle\BattleView.cs" />
+    <Content Include="common\battle\CharacterManager.cs" />
+    <Content Include="common\MainScene.cs" />
+    <Content Include="util\events\battle\BattleStartEvent.cs" />
   </ItemGroup>
 </Project>

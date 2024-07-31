@@ -14,9 +14,7 @@ region = Rect2(3349, 2336, 1540, 1707)
 texture = SubResource("AtlasTexture_p63q8")
 
 [node name="SkillButton" type="TextureButton"]
-z_index = 1
-custom_minimum_size = Vector2(64, 0)
-size_flags_vertical = 3
+custom_minimum_size = Vector2(64, 64)
 toggle_mode = true
 texture_normal = ExtResource("1_mwq3w")
 texture_pressed = ExtResource("2_qnxnd")
@@ -31,6 +29,7 @@ Label = NodePath("Tooltip/Background/MarginContainer/VBoxContainer/Label")
 Desc = NodePath("Tooltip/Background/MarginContainer/VBoxContainer/Desc")
 
 [node name="Icon" type="TextureRect" parent="."]
+z_index = -1
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -43,9 +42,10 @@ offset_right = 30.0
 offset_bottom = 29.0
 grow_horizontal = 2
 grow_vertical = 2
-expand_mode = 2
+expand_mode = 4
 
 [node name="Tooltip" type="AspectRatioContainer" parent="."]
+visible = false
 z_index = 2
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 0

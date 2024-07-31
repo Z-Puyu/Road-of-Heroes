@@ -64,7 +64,7 @@ EffectType = 11
 
 [resource]
 script = ExtResource("6_y14b8")
-IsRacialSkill = false
+IsRacialSkill = true
 Name = "Divine Protection"
 Icon = ExtResource("5_tojip")
 NeverMiss = true

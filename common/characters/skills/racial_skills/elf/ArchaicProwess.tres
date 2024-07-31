@@ -26,7 +26,7 @@ EffectType = 12
 
 [resource]
 script = ExtResource("1_5nlu7")
-IsRacialSkill = false
+IsRacialSkill = true
 Name = "Archaic Prowess"
 Icon = ExtResource("4_8r3o1")
 NeverMiss = true

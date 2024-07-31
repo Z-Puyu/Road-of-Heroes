@@ -34,7 +34,7 @@ EffectType = 12
 
 [resource]
 script = ExtResource("1_cce04")
-IsRacialSkill = false
+IsRacialSkill = true
 Name = " Life Resurrection"
 Icon = ExtResource("3_tq244")
 NeverMiss = true

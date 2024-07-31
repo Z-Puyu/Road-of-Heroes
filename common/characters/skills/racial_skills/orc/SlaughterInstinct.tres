@@ -43,7 +43,7 @@ EffectType = 11
 
 [resource]
 script = ExtResource("1_36dg7")
-IsRacialSkill = false
+IsRacialSkill = true
 Name = "Slaughter Instinct"
 Icon = ExtResource("4_xy4au")
 NeverMiss = true

@@ -18,6 +18,7 @@ namespace Game.common.characters {
         private readonly List<Skill> activeSkills = [];
 
         public Race Race => race;
+        public int LevelAsInt => level;
         public string Level => $"LV. {level} " + this.level switch {
             0 => "Novice",
             1 => "Amateur",
@@ -48,19 +49,13 @@ namespace Game.common.characters {
                 PlayerManager.RandomName(race.RaceName, isFemale), level, race, 
                 PlayerManager.RandomPortrait(race.RaceName, isFemale), stats
             );
-            int nRacialSkills = Utilities.Randi(1, 2);
-            Skill[] racialSkills = [..race.Skills.Permute()];
-            for (int i = 0; i < nRacialSkills; i += 1) {
-                character.skills.Add(
-                    racialSkills[i], Utilities.Randi(1, Math.Min((level + 1) / 2, 3))
-                );
-                character.activeSkills.Add(racialSkills[i]);
+            foreach (Skill skill in race.Skills.Permute()) {
+                character.skills.Add(skill, 1);
+                if ((level == 0 && character.Skills.Count == 1) || 
+                        (level + 1) / 2 >= character.skills.Count) {
+                    character.ActiveSkills.Add(skill);
+                }
             }
-            /* Skill[] skills = [..PlayerManager.RandomSkill(5 - nRacialSkills)];
-            for (int i = 0; i < 5 - nRacialSkills; i += 1) {
-                character.skills.Add(skills[i], Utilities.Randi(1, Math.Min((level + 1) / 2, 3)));
-                character.activeSkills.Add(skills[i]);
-            } */
             return character;
         }
 

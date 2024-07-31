@@ -12,7 +12,7 @@ ComparisonMethod = 2
 
 [resource]
 script = ExtResource("1_i8l7r")
-IsRacialSkill = false
+IsRacialSkill = true
 Name = "Enroot"
 Icon = ExtResource("1_licb6")
 NeverMiss = true

@@ -67,7 +67,7 @@ ComparisonMethod = 2
 
 [resource]
 script = ExtResource("1_rh01c")
-IsRacialSkill = false
+IsRacialSkill = true
 Name = "Beastise"
 Icon = ExtResource("4_ya6nr")
 NeverMiss = true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b44f5j6e7vbx"]
+[gd_scene load_steps=12 format=3 uid="uid://b44f5j6e7vbx"]
 
 [ext_resource type="Texture2D" uid="uid://bvryn65t0j6xo" path="res://gfx/ui/background/musk.png" id="1_v8h52"]
 [ext_resource type="Texture2D" uid="uid://b5v1jveap0ujr" path="res://gfx/ui/tilemap/tile_set.png" id="2_ouiit"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" path="res://common/fsm/StateMachine.cs" id="4_6c5og"]
 [ext_resource type="Script" path="res://common/fsm/states/map/NormalState.cs" id="5_8axyb"]
 [ext_resource type="Script" path="res://common/fsm/states/map/PlayerMovingState.cs" id="6_qposa"]
+[ext_resource type="PackedScene" uid="uid://jlgke8nh5t3v" path="res://assets/interface/PartyUI.tscn" id="7_ougmy"]
+[ext_resource type="PackedScene" uid="uid://w8285w4b7kah" path="res://assets/interface/CharacterInfoSheet.tscn" id="8_edywj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jgqoq"]
 texture = ExtResource("2_ouiit")
@@ -134,3 +136,33 @@ FSM = NodePath("..")
 [node name="PlayerMovingState" type="Node" parent="Musk/GameBoard/GameBoardFSM" node_paths=PackedStringArray("FSM")]
 script = ExtResource("6_qposa")
 FSM = NodePath("..")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="PlayerStatus" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="PartyUI" parent="UI/PlayerStatus" instance=ExtResource("7_ougmy")]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -198.0
+offset_top = -178.0
+offset_right = 198.0
+offset_bottom = -82.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="CharacterInfoSheet" parent="UI/PlayerStatus" instance=ExtResource("8_edywj")]
+layout_mode = 1
+offset_left = -730.0
+offset_right = -107.0

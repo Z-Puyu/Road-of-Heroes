@@ -75,9 +75,17 @@ public partial class CharacterInfoSheet : Panel {
 		foreach (Skill skill in character.Skills.Keys) {
 			SkillButton button = skills.GetChild<SkillButton>(idx);
 			button.Load(skill);
+			if (skill.IsRacialSkill && character.LevelAsInt + 1 / 2 < idx) {
+				button.Disabled = true;
+			}
 			if (character.ActiveSkills.Contains(skill)) {
 				button.ButtonPressed = true;
 			}
+			idx += 1;
+		}
+		while (idx < skills.GetChildCount()) {
+			skills.GetChild<SkillButton>(idx).Disabled = true;
+			idx += 1;
 		}
 		if (!this.Visible) {
 			this.GlobalPosition = new Vector2(this.GetViewportRect().Size.X + this.Size.X, this.GlobalPosition.Y);

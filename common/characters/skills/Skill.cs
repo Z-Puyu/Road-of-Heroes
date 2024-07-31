@@ -98,7 +98,14 @@ namespace Game.common.characters.skills {
                                                 : $"positions {left} to {right}")}\n";
             str += $"\nBase precision: {this.Precision}";
             if (this.EffectsOnTarget.Count > 0) {
-                str += $"\n\nTarget:";
+                str += this.TargetRange switch {
+                    Range.SingleEnemy => $"\n\nEnemy target:",
+                    Range.AOEEnemy => "\n\nEnemy target:",
+                    Range.SingleAlly => "\n\nAlly target:",
+                    Range.AOEAlly => "\n\nAlly target:",
+                    Range.SelfOnly => "\n\nSelf:",
+                    _ => ""
+                };
                 foreach (Effect e in this.EffectsOnTarget) {
                     str += $"\n{e}";
                 }

@@ -29,7 +29,7 @@ EffectType = 3
 
 [resource]
 script = ExtResource("4_3ax2r")
-IsRacialSkill = false
+IsRacialSkill = true
 Name = "Survival Instinct"
 Icon = ExtResource("3_pmweq")
 NeverMiss = true

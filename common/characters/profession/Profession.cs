@@ -24,11 +24,5 @@ namespace Game.common.characters.profession {
         [Export] public Name ProfessionName { set; get; }
         [Export] public string Description { set; get; }
         [Export] public Texture2D Icon { set; get; }
-        [Export] public Array<Skill> Skills { set; get; } = [];
-        [ExportGroup("Racial Avatars")]
-        [Export] public Array<Texture2D> Humans { set; get; } = [];  
-        [Export] public Array<Texture2D> Elves { set; get; } = [];  
-        [Export] public Array<Texture2D> Dwarves { set; get; } = [];  
-        [Export] public Array<Texture2D> Orcs { set; get; } = [];  
     }
 }

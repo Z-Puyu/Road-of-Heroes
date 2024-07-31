@@ -12,8 +12,11 @@ namespace Game.common.autoload {
         [Export] public Array<Vector2I> Resolutions { set; get; } = [];
         [Export] private Array<Profession> Professions { get; set; } = [];
         [Export] private Array<Race> Races { get; set; } = [];
+        private static Node2D world;
 
 		public static GameManager Instance => instance;
+        public static Node2D World { get => world; set => world = value; }
+
 
         public override void _Ready() {
             GameManager.instance = this;

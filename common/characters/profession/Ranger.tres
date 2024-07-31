@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Profession" load_steps=2 format=3 uid="uid://c3rv45gcp14jf"]
+
+[ext_resource type="Script" path="res://common/characters/profession/Profession.cs" id="1_snfhn"]
+
+[resource]
+script = ExtResource("1_snfhn")
+ProfessionName = 3
+Description = ""

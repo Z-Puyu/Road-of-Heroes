@@ -55,7 +55,7 @@ EffectType = 11
 
 [resource]
 script = ExtResource("1_04grg")
-IsRacialSkill = false
+IsRacialSkill = true
 Name = "Adrenalin Burst"
 Icon = ExtResource("6_ht30w")
 NeverMiss = true

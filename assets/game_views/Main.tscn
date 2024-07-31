@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://ce34et501ldny"]
+
+[ext_resource type="Texture2D" uid="uid://cr4gcro87kv0o" path="res://gfx/ui/background/overlay.png" id="1_v8lcy"]
+[ext_resource type="Script" path="res://common/MainScene.cs" id="2_koceh"]
+[ext_resource type="PackedScene" uid="uid://bikll6xr8u5vc" path="res://assets/game_views/BattleView.tscn" id="3_f4sxf"]
+[ext_resource type="PackedScene" uid="uid://b44f5j6e7vbx" path="res://assets/game_views/WorldView.tscn" id="3_t3a0r"]
+
+[node name="Main" type="Sprite2D"]
+position = Vector2(960, 540)
+texture = ExtResource("1_v8lcy")
+script = ExtResource("2_koceh")
+World = NodePath("WorldView")
+BattleView = ExtResource("3_f4sxf")
+
+[node name="WorldView" parent="." instance=ExtResource("3_t3a0r")]
+position = Vector2(1, 13)

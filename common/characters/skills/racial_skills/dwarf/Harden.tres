@@ -64,7 +64,7 @@ ComparisonMethod = 2
 
 [resource]
 script = ExtResource("1_o4g8n")
-IsRacialSkill = false
+IsRacialSkill = true
 Name = "Harden"
 Icon = ExtResource("1_ilxfs")
 NeverMiss = true

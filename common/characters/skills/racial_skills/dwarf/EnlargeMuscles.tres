@@ -35,7 +35,7 @@ EffectType = 11
 
 [resource]
 script = ExtResource("1_5w6v0")
-IsRacialSkill = false
+IsRacialSkill = true
 Name = "Enlarge Muscles"
 Icon = ExtResource("2_d8n2i")
 NeverMiss = true

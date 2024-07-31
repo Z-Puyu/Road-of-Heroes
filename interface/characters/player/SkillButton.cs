@@ -14,7 +14,13 @@ namespace Game.ui.characters.player {
 			this.GetNode<AspectRatioContainer>(this.Tooltip).Hide();
             this.MouseEntered += this.OnMouseEntered;
 			this.MouseExited += this.OnMouseExited;
+			this.Pressed += this.OnPressed;
         }
+
+        private void OnPressed() {
+            
+        }
+
 
         private void OnMouseExited() {
 			AspectRatioContainer tooltip = this.GetNode<AspectRatioContainer>(this.Tooltip);
@@ -24,6 +30,9 @@ namespace Game.ui.characters.player {
 
 
         private void OnMouseEntered() {
+			if (this.Disabled) {
+				return;
+			}
 			AspectRatioContainer tooltip = this.GetNode<AspectRatioContainer>(this.Tooltip);
 			if (this.skill == null && tooltip.Visible) {
 				return;
@@ -38,7 +47,6 @@ namespace Game.ui.characters.player {
 			this.anchor = this.GetGlobalTransformWithCanvas().Origin;
 			tooltip.GlobalPosition = this.anchor - new Vector2(tooltip.Size.X, 0);
         }
-
 
         public void Load(Skill skill) {
 			this.skill = skill;

@@ -82,7 +82,7 @@ EffectType = 11
 
 [resource]
 script = ExtResource("6_2jc2g")
-IsRacialSkill = false
+IsRacialSkill = true
 Name = "Blessing of the Ancestors"
 Icon = ExtResource("5_u2gdp")
 NeverMiss = true
