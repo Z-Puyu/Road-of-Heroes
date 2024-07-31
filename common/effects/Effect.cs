@@ -21,7 +21,8 @@ namespace Game.common.effects {
             DoT,
             Frenzy,
             HoT,
-            Cure
+            Cure,
+            Displace
         }
 
         [Export] public Type EffectType { get; set; }

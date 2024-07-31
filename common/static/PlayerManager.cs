@@ -11,7 +11,7 @@ namespace Game.common.autoload {
         private static PlayerManager instance;
         [Export] public int MaxPartySize { set; get; } = 10;
         [Export] public Array<Race> DefaultStartingRaces { set; get; } = [];
-        [Export] public Array<Skill> AllPlayerSkills { set; get; } = [];
+        [Export] public Array<Skill> AllPlayerSkills { set; get; }
         private Dictionary<Race.Name, CharacterRandomiser> CharacterRandomisers = [];
         private static readonly Array<PlayerCharacter> combatants = [];
         private static readonly Array<PlayerCharacter> reserves = [];

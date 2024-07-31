@@ -17,7 +17,15 @@ namespace Game.common.battle {
 
         public override void _Ready() {
 			this.Subscribe<BattleStartEvent>(this.OnBattleStart);
+			this.Subscribe<DisplaceCharacterEvent>(this.OnDisplaceCharacter);
         }
+
+        private void OnDisplaceCharacter(object sender, EventArgs e) {
+            if (e is DisplaceCharacterEvent @event) {
+				this.Move(@event.Card, @event.StepSize);
+			}
+        }
+
 
         private void OnBattleStart(object sender, EventArgs e) {
 			this.Init();
@@ -33,11 +41,18 @@ namespace Game.common.battle {
 			}
 		}
 
-		public async void Move(PlayerCard card, int position) {
+		private async void Move(CharacterCard card, int offset) {
+			if (card is PlayerCard playerCard) {
+				await this.Move(playerCard, this.playerCards.IndexOf(playerCard) + offset);
+			}
+		}
+
+		public async Task Move(PlayerCard card, int position) {
 			int currPos = this.playerCards.IndexOf(card);
-			if (position == currPos || position < 0 || position >= this.playerCards.Count) {
+			if (position == currPos) {
 				return;
 			}
+			position = Math.Clamp(position, 0, this.playerCards.Count - 1);
 			Dictionary<int, Vector2> positions = [];
 			List<Task> anims = [];
 			card.Reparent(this);

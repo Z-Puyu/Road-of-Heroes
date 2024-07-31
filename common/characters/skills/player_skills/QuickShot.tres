@@ -1,0 +1,49 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=12 format=3 uid="uid://cakrf43f7n5ae"]
+
+[ext_resource type="Script" path="res://common/effects/DisplaceEffect.cs" id="1_g545h"]
+[ext_resource type="Script" path="res://common/characters/skills/Skill.cs" id="1_knw2g"]
+[ext_resource type="Script" path="res://common/effects/PhysicalAttackEffect.cs" id="2_km5gm"]
+[ext_resource type="Texture2D" uid="uid://doa3bchux2k7" path="res://gfx/icons/skills/quick_shot.png" id="3_xh6md"]
+[ext_resource type="Resource" uid="uid://xs8106tjcbth" path="res://common/characters/profession/Archer.tres" id="4_jy623"]
+[ext_resource type="Resource" uid="uid://21cnoyvffoqu" path="res://common/characters/profession/Assassin.tres" id="5_4lkvy"]
+[ext_resource type="Resource" uid="uid://smag347olskj" path="res://common/characters/profession/Mercenary.tres" id="6_crqg8"]
+[ext_resource type="Resource" uid="uid://c3rv45gcp14jf" path="res://common/characters/profession/Ranger.tres" id="7_i6emq"]
+
+[sub_resource type="Resource" id="Resource_xxg4d"]
+script = ExtResource("1_g545h")
+SuccessChance = 100
+StepSize = 2
+EffectType = 16
+
+[sub_resource type="Resource" id="Resource_sfv1j"]
+script = ExtResource("2_km5gm")
+DamageMultiplier = 50
+EffectType = 1
+
+[sub_resource type="Resource" id="Resource_une78"]
+script = ExtResource("1_g545h")
+SuccessChance = 50
+StepSize = 1
+EffectType = 16
+
+[resource]
+script = ExtResource("1_knw2g")
+IsRacialSkill = false
+Name = "Quick Shot"
+Icon = ExtResource("3_xh6md")
+NeverMiss = false
+Precision = 75
+TargetRange = 0
+UserPosition = Vector2i(1, 2)
+TargetPosition = Vector2i(1, 2)
+Requirements = []
+Costs = []
+EffectsOnSelf = [SubResource("Resource_xxg4d")]
+EffectsOnTarget = [SubResource("Resource_sfv1j"), SubResource("Resource_une78")]
+UsageLimit = -1
+ProfessionScores = {
+ExtResource("4_jy623"): 3,
+ExtResource("5_4lkvy"): 3,
+ExtResource("6_crqg8"): 1,
+ExtResource("7_i6emq"): 2
+}

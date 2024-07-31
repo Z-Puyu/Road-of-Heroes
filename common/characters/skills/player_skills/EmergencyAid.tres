@@ -1,0 +1,49 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=12 format=3 uid="uid://cetwd35ofdyrv"]
+
+[ext_resource type="Script" path="res://common/characters/skills/Skill.cs" id="1_j1vid"]
+[ext_resource type="Script" path="res://common/effects/HealEffect.cs" id="1_y3pjv"]
+[ext_resource type="Script" path="res://common/effects/CureEffect.cs" id="2_nkdby"]
+[ext_resource type="Texture2D" uid="uid://y7n8agnvh1r5" path="res://gfx/icons/skills/emergency_aid.png" id="3_yai3p"]
+[ext_resource type="Resource" uid="uid://c3rv45gcp14jf" path="res://common/characters/profession/Ranger.tres" id="4_1vold"]
+[ext_resource type="Resource" uid="uid://d4cksjp8nuenl" path="res://common/characters/profession/Alchemist.tres" id="5_ay0mq"]
+[ext_resource type="Resource" uid="uid://smag347olskj" path="res://common/characters/profession/Mercenary.tres" id="6_d2ppb"]
+[ext_resource type="Resource" uid="uid://21cnoyvffoqu" path="res://common/characters/profession/Assassin.tres" id="7_ehf8q"]
+
+[sub_resource type="Resource" id="Resource_ajve5"]
+script = ExtResource("1_y3pjv")
+IsPercentage = false
+HealRange = Vector2i(1, 3)
+CriticalChance = 5
+EffectType = 3
+
+[sub_resource type="Resource" id="Resource_86gw5"]
+script = ExtResource("2_nkdby")
+TargetEffect = 9
+EffectType = 15
+
+[sub_resource type="Resource" id="Resource_wpnl1"]
+script = ExtResource("2_nkdby")
+TargetEffect = 10
+EffectType = 15
+
+[resource]
+script = ExtResource("1_j1vid")
+IsRacialSkill = false
+Name = "Emergency Aid"
+Icon = ExtResource("3_yai3p")
+NeverMiss = true
+Precision = 100
+TargetRange = 1
+UserPosition = Vector2i(3, 4)
+TargetPosition = Vector2i(1, 4)
+Requirements = []
+Costs = []
+EffectsOnSelf = []
+EffectsOnTarget = [SubResource("Resource_ajve5"), SubResource("Resource_86gw5"), SubResource("Resource_wpnl1")]
+UsageLimit = -1
+ProfessionScores = {
+ExtResource("4_1vold"): 3,
+ExtResource("5_ay0mq"): 2,
+ExtResource("6_d2ppb"): 2,
+ExtResource("7_ehf8q"): 1
+}

@@ -24,5 +24,9 @@ namespace Game.common.characters.profession {
         [Export] public Name ProfessionName { set; get; }
         [Export] public string Description { set; get; }
         [Export] public Texture2D Icon { set; get; }
+
+        public override string ToString() {
+            return this.ProfessionName.ToString();
+        }
     }
 }

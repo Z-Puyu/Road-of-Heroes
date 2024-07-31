@@ -1,0 +1,84 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=19 format=3 uid="uid://dtu5tf8y182qs"]
+
+[ext_resource type="Script" path="res://common/characters/Cost.cs" id="1_0ag43"]
+[ext_resource type="Script" path="res://common/characters/skills/Skill.cs" id="1_xojmt"]
+[ext_resource type="Script" path="res://common/effects/DrainEffect.cs" id="2_7h67m"]
+[ext_resource type="Script" path="res://common/modifier/StatModifier.cs" id="3_5xydc"]
+[ext_resource type="Script" path="res://common/effects/effects_over_time/data/MoT.cs" id="4_b6xeq"]
+[ext_resource type="Script" path="res://common/effects/ModifierEffect.cs" id="5_qg4ym"]
+[ext_resource type="Texture2D" uid="uid://8qdn5ky7jjhd" path="res://gfx/icons/skills/dark_prowess.png" id="6_p6pv0"]
+[ext_resource type="Resource" uid="uid://bmpf6vioa24qd" path="res://common/characters/profession/Occultist.tres" id="7_kxe8s"]
+[ext_resource type="Resource" uid="uid://c0djr8xaiur1m" path="res://common/characters/profession/Necromancer.tres" id="8_06s2c"]
+[ext_resource type="Resource" uid="uid://2nhgoe6s03j3" path="res://common/characters/profession/Mage.tres" id="9_02s16"]
+
+[sub_resource type="Resource" id="Resource_8bn8w"]
+script = ExtResource("1_0ag43")
+StatType = 2
+Amount = 10
+IsPercentage = false
+
+[sub_resource type="Resource" id="Resource_vebop"]
+script = ExtResource("1_0ag43")
+StatType = 0
+Amount = 33
+IsPercentage = true
+
+[sub_resource type="Resource" id="Resource_a65o8"]
+script = ExtResource("2_7h67m")
+IsPercentage = false
+DrainRange = Vector2i(20, 20)
+EffectType = 6
+
+[sub_resource type="Resource" id="Resource_8lg86"]
+script = ExtResource("3_5xydc")
+TargetStat = 6
+TimeToLast = 3
+UsePercentage = false
+Value = 4
+
+[sub_resource type="Resource" id="Resource_lieif"]
+script = ExtResource("4_b6xeq")
+Modifier = SubResource("Resource_8lg86")
+EffectType = 14
+TimeToLast = 3
+
+[sub_resource type="Resource" id="Resource_8isok"]
+script = ExtResource("3_5xydc")
+TargetStat = 8
+TimeToLast = 3
+UsePercentage = false
+Value = 15
+
+[sub_resource type="Resource" id="Resource_48de3"]
+script = ExtResource("4_b6xeq")
+Modifier = SubResource("Resource_8isok")
+EffectType = 14
+TimeToLast = 3
+
+[sub_resource type="Resource" id="Resource_31irv"]
+script = ExtResource("5_qg4ym")
+Buffs = [SubResource("Resource_lieif"), SubResource("Resource_48de3")]
+Debuffs = []
+SuccessChance = 100
+EffectType = 11
+
+[resource]
+script = ExtResource("1_xojmt")
+IsRacialSkill = false
+Name = "Dark Prowess"
+Icon = ExtResource("6_p6pv0")
+NeverMiss = true
+Precision = 100
+TargetRange = 1
+UserPosition = Vector2i(1, 4)
+TargetPosition = Vector2i(1, 4)
+Requirements = []
+Costs = [SubResource("Resource_8bn8w"), SubResource("Resource_vebop")]
+EffectsOnSelf = []
+EffectsOnTarget = [SubResource("Resource_a65o8"), SubResource("Resource_31irv")]
+UsageLimit = 3
+ProfessionScores = {
+ExtResource("7_kxe8s"): 3,
+ExtResource("8_06s2c"): 2,
+ExtResource("9_02s16"): 1
+}

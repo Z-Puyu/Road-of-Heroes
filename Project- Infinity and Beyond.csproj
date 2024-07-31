@@ -90,5 +90,8 @@
     <Content Include="common\battle\CharacterManager.cs" />
     <Content Include="common\MainScene.cs" />
     <Content Include="util\events\battle\BattleStartEvent.cs" />
+    <Content Include="common\effects\DisplaceEffect.cs" />
+    <Content Include="util\events\battle\DisplaceCharacterEvent.cs" />
+    <Content Include="util\events\battle\SkillChangedEvent.cs" />
   </ItemGroup>
 </Project>

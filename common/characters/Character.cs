@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Game.common.characters.skills;
-using Game.common.effects;
 using Game.common.modifier;
 using Godot;
 using MonoCustomResourceRegistry;

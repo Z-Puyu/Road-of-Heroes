@@ -74,12 +74,9 @@ public partial class CharacterInfoSheet : Panel {
 		int idx = 0;
 		foreach (Skill skill in character.Skills.Keys) {
 			SkillButton button = skills.GetChild<SkillButton>(idx);
-			button.Load(skill);
+			button.Load(skill, character, idx);
 			if (skill.IsRacialSkill && character.LevelAsInt + 1 / 2 < idx) {
 				button.Disabled = true;
-			}
-			if (character.ActiveSkills.Contains(skill)) {
-				button.ButtonPressed = true;
 			}
 			idx += 1;
 		}

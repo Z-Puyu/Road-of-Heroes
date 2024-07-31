@@ -12,7 +12,6 @@ namespace Game.common.characters {
     [RegisteredType(nameof(PlayerCharacter), "", nameof(Resource)), GlobalClass]
     public partial class PlayerCharacter : Character {
         private int level;
-        private readonly Dictionary<Profession, int> ProfessionTendency = [];
         private readonly Race race;
         private Profession profession;
         private readonly List<Skill> activeSkills = [];
@@ -56,22 +55,28 @@ namespace Game.common.characters {
                     character.ActiveSkills.Add(skill);
                 }
             }
+            foreach (Skill skill in PlayerManager.RandomSkill(3)) {
+                character.skills.Add(skill, Math.Max((level + 1) / 2, 1));
+                character.ActiveSkills.Add(skill);
+            }
+            character.EvaluateProfession();
             return character;
         }
 
         private void EvaluateProfession() {
+            Dictionary<Profession, int> professionTendency = [];
             foreach (Skill skill in this.skills.Keys) {
                 foreach (KeyValuePair<Profession, int> pair in skill.ProfessionScores) {
-                    if (this.ProfessionTendency.ContainsKey(pair.Key)) {
-                        this.ProfessionTendency[pair.Key] += pair.Value;
+                    if (professionTendency.ContainsKey(pair.Key)) {
+                        professionTendency[pair.Key] += pair.Value;
                     } else {
-                        this.ProfessionTendency[pair.Key] = pair.Value;
+                        professionTendency[pair.Key] = pair.Value;
                     }
                 }
             }
             List<Profession> professions = [];
             int highScore = int.MinValue;
-            foreach (KeyValuePair<Profession, int> pair in this.ProfessionTendency) {
+            foreach (KeyValuePair<Profession, int> pair in professionTendency) {
                 if (pair.Value > highScore) {
                     professions.Clear();
                     highScore = pair.Value;
@@ -80,7 +85,9 @@ namespace Game.common.characters {
                     professions.Add(pair.Key);
                 }
             }
-            this.profession = professions[Utilities.Randi(0, professions.Count - 1)];
+            if (!professions.Contains(this.profession)) {
+                this.profession = professions[Utilities.Randi(0, professions.Count - 1)];
+            }
         }
 
         public override string ToString() {

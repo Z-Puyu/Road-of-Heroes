@@ -1,0 +1,45 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=11 format=3 uid="uid://v22mvafktqek"]
+
+[ext_resource type="Script" path="res://common/characters/Cost.cs" id="1_hy0ot"]
+[ext_resource type="Script" path="res://common/characters/skills/Skill.cs" id="1_tix81"]
+[ext_resource type="Script" path="res://common/effects/HealEffect.cs" id="2_uoiut"]
+[ext_resource type="Texture2D" uid="uid://b0j06g188et0e" path="res://gfx/icons/skills/elixir_of_life.png" id="3_ncraj"]
+[ext_resource type="Resource" uid="uid://d4cksjp8nuenl" path="res://common/characters/profession/Alchemist.tres" id="4_vs7ht"]
+[ext_resource type="Resource" uid="uid://2nhgoe6s03j3" path="res://common/characters/profession/Mage.tres" id="5_t5yg8"]
+[ext_resource type="Resource" uid="uid://c0djr8xaiur1m" path="res://common/characters/profession/Necromancer.tres" id="6_gv56i"]
+[ext_resource type="Resource" uid="uid://bmpf6vioa24qd" path="res://common/characters/profession/Occultist.tres" id="7_tn6em"]
+
+[sub_resource type="Resource" id="Resource_gegm8"]
+script = ExtResource("1_hy0ot")
+StatType = 1
+Amount = 7
+IsPercentage = false
+
+[sub_resource type="Resource" id="Resource_y8pu3"]
+script = ExtResource("2_uoiut")
+IsPercentage = false
+HealRange = Vector2i(3, 6)
+CriticalChance = 5
+EffectType = 4
+
+[resource]
+script = ExtResource("1_tix81")
+IsRacialSkill = false
+Name = "Elixir of Life"
+Icon = ExtResource("3_ncraj")
+NeverMiss = true
+Precision = 100
+TargetRange = 1
+UserPosition = Vector2i(3, 4)
+TargetPosition = Vector2i(1, 4)
+Requirements = []
+Costs = [SubResource("Resource_gegm8")]
+EffectsOnSelf = []
+EffectsOnTarget = [SubResource("Resource_y8pu3")]
+UsageLimit = -1
+ProfessionScores = {
+ExtResource("4_vs7ht"): 3,
+ExtResource("5_t5yg8"): 2,
+ExtResource("6_gv56i"): 1,
+ExtResource("7_tn6em"): 1
+}

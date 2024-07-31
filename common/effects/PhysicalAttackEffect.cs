@@ -16,10 +16,10 @@ namespace Game.common.effects {
             }
             int strength = emitter.Get(Stat.Category.Strength);
             int dmg = target.Receive(
-                this.EffectType, src.Emit(this.EffectType, (int)Math.Round(
+                this.EffectType, src.Emit(this.EffectType, Math.Max(1, (int)Math.Round(
                     (crit ? strength * 2 * 1.5 : Utilities.Randi(strength, strength * 2)) 
                     * this.DamageMultiplier / 100.0
-                ))
+                )))
             );
             receiver.Update(Stat.Category.Health, -dmg);
         }
@@ -31,8 +31,8 @@ namespace Game.common.effects {
                 _ => ""
             };
             int strength = character.Get(Stat.Category.Strength);
-            int min = (int)Math.Round(strength * this.DamageMultiplier / 100.0);
-            int max = (int)Math.Round(strength * 2 * this.DamageMultiplier / 100.0);
+            int min = Math.Max(1, (int)Math.Round(strength * this.DamageMultiplier / 100.0));
+            int max = Math.Max(1, (int)Math.Round(strength * 2 * this.DamageMultiplier / 100.0));
             return $"{(min == max ? $"{min}" : $"{min} to {max}")} {attack}";
         }
     }

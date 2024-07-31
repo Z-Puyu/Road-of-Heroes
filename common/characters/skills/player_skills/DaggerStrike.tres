@@ -1,0 +1,43 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=11 format=3 uid="uid://cgtqsi7cbqpmq"]
+
+[ext_resource type="Script" path="res://common/characters/skills/Skill.cs" id="1_fowho"]
+[ext_resource type="Script" path="res://common/effects/DisplaceEffect.cs" id="1_h1ll2"]
+[ext_resource type="Script" path="res://common/effects/PhysicalAttackEffect.cs" id="2_ch3kv"]
+[ext_resource type="Texture2D" uid="uid://2pa3uqrral7h" path="res://gfx/icons/skills/dagger_strike.png" id="3_ersfb"]
+[ext_resource type="Resource" uid="uid://21cnoyvffoqu" path="res://common/characters/profession/Assassin.tres" id="4_tl2ne"]
+[ext_resource type="Resource" uid="uid://brcfuwrragues" path="res://common/characters/profession/Bard.tres" id="5_x0msa"]
+[ext_resource type="Resource" uid="uid://c3rv45gcp14jf" path="res://common/characters/profession/Ranger.tres" id="6_4sx8g"]
+[ext_resource type="Resource" uid="uid://smag347olskj" path="res://common/characters/profession/Mercenary.tres" id="7_e8jkg"]
+
+[sub_resource type="Resource" id="Resource_avknb"]
+script = ExtResource("1_h1ll2")
+SuccessChance = 100
+StepSize = -2
+EffectType = 16
+
+[sub_resource type="Resource" id="Resource_87hl3"]
+script = ExtResource("2_ch3kv")
+DamageMultiplier = 120
+EffectType = 0
+
+[resource]
+script = ExtResource("1_fowho")
+IsRacialSkill = false
+Name = "Dagger Strike"
+Icon = ExtResource("3_ersfb")
+NeverMiss = false
+Precision = 90
+TargetRange = 0
+UserPosition = Vector2i(3, 4)
+TargetPosition = Vector2i(2, 4)
+Requirements = []
+Costs = []
+EffectsOnSelf = [SubResource("Resource_avknb")]
+EffectsOnTarget = [SubResource("Resource_87hl3")]
+UsageLimit = -1
+ProfessionScores = {
+ExtResource("4_tl2ne"): 3,
+ExtResource("5_x0msa"): 1,
+ExtResource("6_4sx8g"): 2,
+ExtResource("7_e8jkg"): 1
+}

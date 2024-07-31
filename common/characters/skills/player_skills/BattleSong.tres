@@ -1,0 +1,72 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=14 format=3 uid="uid://baxldgppyb0av"]
+
+[ext_resource type="Script" path="res://common/characters/skills/Skill.cs" id="1_aa28j"]
+[ext_resource type="Script" path="res://common/modifier/EffectModifier.cs" id="1_ir5hh"]
+[ext_resource type="Script" path="res://common/effects/effects_over_time/data/MoT.cs" id="2_1eid4"]
+[ext_resource type="Script" path="res://common/modifier/StatModifier.cs" id="3_nl6sl"]
+[ext_resource type="Script" path="res://common/effects/ModifierEffect.cs" id="4_h7eoe"]
+[ext_resource type="Texture2D" uid="uid://d4bjfbarhjjj5" path="res://gfx/icons/skills/battle_song.png" id="5_a8upt"]
+
+[sub_resource type="Resource" id="Resource_ffetp"]
+script = ExtResource("1_ir5hh")
+TargetEffect = 6
+ActOnReceive = true
+TimeToLast = 2
+UsePercentage = true
+Value = -10
+
+[sub_resource type="Resource" id="Resource_o0cv7"]
+script = ExtResource("2_1eid4")
+Modifier = SubResource("Resource_ffetp")
+EffectType = 14
+TimeToLast = 2
+
+[sub_resource type="Resource" id="Resource_147bp"]
+script = ExtResource("3_nl6sl")
+TargetStat = 5
+TimeToLast = 2
+UsePercentage = false
+Value = 2
+
+[sub_resource type="Resource" id="Resource_2m7k8"]
+script = ExtResource("2_1eid4")
+Modifier = SubResource("Resource_147bp")
+EffectType = 14
+TimeToLast = 2
+
+[sub_resource type="Resource" id="Resource_rqbte"]
+script = ExtResource("3_nl6sl")
+TargetStat = 7
+TimeToLast = 2
+UsePercentage = false
+Value = 5
+
+[sub_resource type="Resource" id="Resource_o5vpc"]
+script = ExtResource("2_1eid4")
+Modifier = SubResource("Resource_rqbte")
+EffectType = 14
+TimeToLast = 2
+
+[sub_resource type="Resource" id="Resource_3mvkb"]
+script = ExtResource("4_h7eoe")
+Buffs = [SubResource("Resource_o0cv7"), SubResource("Resource_2m7k8"), SubResource("Resource_o5vpc")]
+Debuffs = []
+SuccessChance = 100
+EffectType = 11
+
+[resource]
+script = ExtResource("1_aa28j")
+IsRacialSkill = false
+Name = "Battle Song"
+Icon = ExtResource("5_a8upt")
+NeverMiss = true
+Precision = 100
+TargetRange = 3
+UserPosition = Vector2i(3, 4)
+TargetPosition = Vector2i(1, 4)
+Requirements = []
+Costs = []
+EffectsOnSelf = []
+EffectsOnTarget = [SubResource("Resource_3mvkb")]
+UsageLimit = -1
+ProfessionScores = {}

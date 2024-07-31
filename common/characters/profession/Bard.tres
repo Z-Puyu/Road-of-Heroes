@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Profession" load_steps=3 format=3 uid="uid://brcfuwrragues"]
+
+[ext_resource type="Texture2D" uid="uid://celvopwdp0cxa" path="res://gfx/icons/professions/bard.svg" id="1_yaavv"]
+[ext_resource type="Script" path="res://common/characters/profession/Profession.cs" id="1_ynxxg"]
+
+[resource]
+script = ExtResource("1_ynxxg")
+ProfessionName = 10
+Description = ""
+Icon = ExtResource("1_yaavv")
