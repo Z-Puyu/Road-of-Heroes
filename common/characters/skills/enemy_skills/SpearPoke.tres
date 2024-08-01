@@ -1,0 +1,51 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=13 format=3 uid="uid://csykh0rwa6dtw"]
+
+[ext_resource type="Script" path="res://common/characters/skills/Skill.cs" id="1_2swgs"]
+[ext_resource type="Script" path="res://common/effects/PhysicalAttackEffect.cs" id="1_hjp53"]
+[ext_resource type="Script" path="res://common/effects/effects_over_time/data/DoT.cs" id="2_cu1ly"]
+[ext_resource type="Script" path="res://common/effects/DoTEffect.cs" id="3_wj7lv"]
+[ext_resource type="Resource" uid="uid://cnlt8gyodnrgd" path="res://common/characters/profession/Warrior.tres" id="4_c683u"]
+[ext_resource type="Resource" uid="uid://smag347olskj" path="res://common/characters/profession/Mercenary.tres" id="5_utkj2"]
+[ext_resource type="Resource" uid="uid://21cnoyvffoqu" path="res://common/characters/profession/Assassin.tres" id="6_3uffw"]
+[ext_resource type="Resource" uid="uid://c3rv45gcp14jf" path="res://common/characters/profession/Ranger.tres" id="7_56snl"]
+[ext_resource type="Resource" uid="uid://b6m4q3bjya5u4" path="res://common/characters/profession/Spellsword.tres" id="8_i6ybq"]
+
+[sub_resource type="Resource" id="Resource_aa01y"]
+script = ExtResource("1_hjp53")
+DamageMultiplier = 100
+EffectType = 0
+
+[sub_resource type="Resource" id="Resource_y5dti"]
+script = ExtResource("2_cu1ly")
+Amount = 3
+EffectType = 9
+TimeToLast = 2
+
+[sub_resource type="Resource" id="Resource_55hw1"]
+script = ExtResource("3_wj7lv")
+DoT = SubResource("Resource_y5dti")
+SuccessChance = 80
+EffectType = 12
+
+[resource]
+script = ExtResource("1_2swgs")
+IsRacialSkill = false
+Name = "Spear Poke"
+NeverMiss = false
+Precision = 85
+TargetRange = 0
+UserPosition = Vector2i(1, 2)
+TargetPosition = Vector2i(1, 2)
+Requirements = []
+Costs = []
+EffectsOnSelf = []
+EffectsOnTarget = [SubResource("Resource_aa01y"), SubResource("Resource_55hw1")]
+CanBeLearnt = true
+UsageLimit = -1
+ProfessionScores = {
+ExtResource("4_c683u"): 3,
+ExtResource("5_utkj2"): 3,
+ExtResource("6_3uffw"): 2,
+ExtResource("7_56snl"): 2,
+ExtResource("8_i6ybq"): 1
+}

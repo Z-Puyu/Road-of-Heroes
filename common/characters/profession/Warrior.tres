@@ -1,11 +1,10 @@
 [gd_resource type="Resource" script_class="Profession" load_steps=3 format=3 uid="uid://cnlt8gyodnrgd"]
 
 [ext_resource type="Script" path="res://common/characters/profession/Profession.cs" id="1_8k0v1"]
-[ext_resource type="Texture2D" uid="uid://bmstnonlx6mgk" path="res://gfx/icons/professions/warrior.svg" id="1_kflo1"]
+[ext_resource type="Texture2D" uid="uid://cej8rx58y3j4r" path="res://gfx/icons/professions/warrior.png" id="1_iul8s"]
 
 [resource]
 script = ExtResource("1_8k0v1")
 ProfessionName = 0
 Description = "An experienced fighter surviving countless cruel battles. This person is strong, fearless, and intimidating to any adversary."
-Icon = ExtResource("1_kflo1")
-Skills = []
+Icon = ExtResource("1_iul8s")

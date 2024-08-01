@@ -3,7 +3,7 @@ using Godot;
 
 namespace Game.util {
     public static class GodotExtensions {
-        private static Stack<Node> GetSubTree(this Node node) {
+        public static Stack<Node> GetSubTree(this Node node) {
             Stack<Node> offsprings = [];
             offsprings.Push(node);
             foreach (Node child in node.GetChildren()) {

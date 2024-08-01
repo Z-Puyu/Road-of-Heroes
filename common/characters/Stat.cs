@@ -29,6 +29,8 @@ namespace Game.common.characters {
         [Export] public int MaxValue { set; get; } = int.MaxValue;
         [Export] public int MinValue { set; get; } = 0;
 
+        public Stat() {}
+
         public Stat(Category type, int value, int maxValue = int.MaxValue, int minValue = 0) {
             this.Type = type;
             this.Value = value;

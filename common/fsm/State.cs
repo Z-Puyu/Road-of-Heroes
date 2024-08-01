@@ -8,7 +8,11 @@ namespace Game.common.fsm {
     public abstract partial class State : Node {
         public enum Type {
             GameBoardNormal,
-            GameBoardPlayerMoving  
+            GameBoardPlayerMoving,
+            AvatarIdle,
+            AvatarClicked,
+            AvatarDragging,
+            AvatarReleased
         }
 
         private readonly Type type;

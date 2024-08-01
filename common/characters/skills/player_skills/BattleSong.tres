@@ -68,5 +68,6 @@ Requirements = []
 Costs = []
 EffectsOnSelf = []
 EffectsOnTarget = [SubResource("Resource_3mvkb")]
+CanBeLearnt = true
 UsageLimit = -1
 ProfessionScores = {}

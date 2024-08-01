@@ -34,6 +34,7 @@ Requirements = []
 Costs = []
 EffectsOnSelf = [SubResource("Resource_avknb")]
 EffectsOnTarget = [SubResource("Resource_87hl3")]
+CanBeLearnt = true
 UsageLimit = -1
 ProfessionScores = {
 ExtResource("4_tl2ne"): 3,

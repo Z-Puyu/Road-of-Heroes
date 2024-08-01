@@ -67,5 +67,6 @@ Requirements = []
 Costs = [SubResource("Resource_xleox")]
 EffectsOnSelf = []
 EffectsOnTarget = [SubResource("Resource_sdalp"), SubResource("Resource_rbvry")]
+CanBeLearnt = true
 UsageLimit = 1
 ProfessionScores = {}

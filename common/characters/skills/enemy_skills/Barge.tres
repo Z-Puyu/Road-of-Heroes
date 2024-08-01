@@ -1,0 +1,50 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=11 format=3 uid="uid://dne7x1ksu1fbe"]
+
+[ext_resource type="Script" path="res://common/characters/skills/Skill.cs" id="1_0ikk2"]
+[ext_resource type="Script" path="res://common/effects/DisplaceEffect.cs" id="1_v870t"]
+[ext_resource type="Script" path="res://common/effects/PhysicalAttackEffect.cs" id="2_si7ex"]
+[ext_resource type="Resource" uid="uid://cnlt8gyodnrgd" path="res://common/characters/profession/Warrior.tres" id="3_eqodt"]
+[ext_resource type="Resource" uid="uid://c3rv45gcp14jf" path="res://common/characters/profession/Ranger.tres" id="4_tt54w"]
+[ext_resource type="Resource" uid="uid://smag347olskj" path="res://common/characters/profession/Mercenary.tres" id="5_urf2k"]
+
+[sub_resource type="Resource" id="Resource_p505e"]
+script = ExtResource("1_v870t")
+SuccessChance = 100
+StepSize = -1
+EffectType = 16
+
+[sub_resource type="Resource" id="Resource_6n4i3"]
+script = ExtResource("2_si7ex")
+DamageMultiplier = 20
+EffectType = 0
+
+[sub_resource type="Resource" id="Resource_bgapm"]
+script = ExtResource("1_v870t")
+SuccessChance = 75
+StepSize = 1
+EffectType = 16
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_rj3mv"]
+size = Vector2(64, 64)
+
+[resource]
+script = ExtResource("1_0ikk2")
+IsRacialSkill = false
+Name = "Barge"
+Icon = SubResource("PlaceholderTexture2D_rj3mv")
+NeverMiss = false
+Precision = 60
+TargetRange = 0
+UserPosition = Vector2i(3, 4)
+TargetPosition = Vector2i(1, 2)
+Requirements = []
+Costs = []
+EffectsOnSelf = [SubResource("Resource_p505e")]
+EffectsOnTarget = [SubResource("Resource_6n4i3"), SubResource("Resource_bgapm")]
+CanBeLearnt = true
+UsageLimit = -1
+ProfessionScores = {
+ExtResource("3_eqodt"): 3,
+ExtResource("4_tt54w"): 2,
+ExtResource("5_urf2k"): 2
+}

@@ -27,6 +27,7 @@ Requirements = []
 Costs = []
 EffectsOnSelf = []
 EffectsOnTarget = [SubResource("Resource_dyaf1")]
+CanBeLearnt = true
 UsageLimit = -1
 ProfessionScores = {
 ExtResource("3_dmtnp"): 3,

@@ -76,5 +76,6 @@ Requirements = []
 Costs = [SubResource("Resource_7sgpe")]
 EffectsOnSelf = []
 EffectsOnTarget = [SubResource("Resource_k1yby")]
+CanBeLearnt = true
 UsageLimit = 1
 ProfessionScores = {}

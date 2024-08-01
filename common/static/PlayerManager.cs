@@ -13,7 +13,7 @@ namespace Game.common.autoload {
         [Export] public Array<Race> DefaultStartingRaces { set; get; } = [];
         [Export] public Array<Skill> AllPlayerSkills { set; get; }
         private Dictionary<Race.Name, CharacterRandomiser> CharacterRandomisers = [];
-        private static readonly Array<PlayerCharacter> combatants = [];
+        private static readonly Array<PlayerCharacter> combatants = [null, null, null, null];
         private static readonly Array<PlayerCharacter> reserves = [];
 
         public static PlayerManager Instance => instance;
@@ -28,7 +28,7 @@ namespace Game.common.autoload {
                 }
             }
             for (int i = 0; i < this.DefaultStartingRaces.Count; i += 1) {
-                PlayerManager.combatants.Add(PlayerCharacter.Random(race: this.DefaultStartingRaces[i]));
+                PlayerManager.combatants[i] = PlayerCharacter.Random(race: this.DefaultStartingRaces[i]);
             }
         }
 

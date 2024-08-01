@@ -24,5 +24,6 @@ Requirements = [SubResource("Resource_bhkq1")]
 Costs = []
 EffectsOnSelf = []
 EffectsOnTarget = []
+CanBeLearnt = true
 UsageLimit = 3
 ProfessionScores = {}

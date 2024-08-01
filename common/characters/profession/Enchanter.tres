@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="Profession" load_steps=3 format=3 uid="uid://dc3ra3l4xbwvr"]
 
+[ext_resource type="Texture2D" uid="uid://bs8usutuvmss5" path="res://gfx/icons/professions/enchanter.png" id="1_6magv"]
 [ext_resource type="Script" path="res://common/characters/profession/Profession.cs" id="1_640c7"]
-[ext_resource type="Texture2D" uid="uid://dhu5q5hpagpqt" path="res://gfx/icons/professions/enchanter.svg" id="1_fomdk"]
 
 [resource]
 script = ExtResource("1_640c7")
 ProfessionName = 9
 Description = ""
-Icon = ExtResource("1_fomdk")
+Icon = ExtResource("1_6magv")

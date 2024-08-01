@@ -41,5 +41,6 @@ Requirements = []
 Costs = []
 EffectsOnSelf = []
 EffectsOnTarget = [SubResource("Resource_x6cto"), SubResource("Resource_pshjv"), SubResource("Resource_8102a"), SubResource("Resource_wsahn")]
+CanBeLearnt = true
 UsageLimit = 3
 ProfessionScores = {}

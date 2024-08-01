@@ -76,5 +76,6 @@ Requirements = [SubResource("Resource_8i3op")]
 Costs = []
 EffectsOnSelf = []
 EffectsOnTarget = [SubResource("Resource_sl8io")]
+CanBeLearnt = true
 UsageLimit = 3
 ProfessionScores = {}

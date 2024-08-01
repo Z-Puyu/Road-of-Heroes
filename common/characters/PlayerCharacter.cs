@@ -101,7 +101,7 @@ namespace Game.common.characters {
                 6 => "Legendary",
                 _ => "",
             };
-            return this.name;                                                                                                   
+            return this.Name;                                                                                                   
         }
     }
 }

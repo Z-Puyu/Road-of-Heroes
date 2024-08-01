@@ -124,7 +124,7 @@ script = ExtResource("3_wpa00")
 CellTexture = SubResource("AtlasTexture_70egb")
 FSM = NodePath("GameBoardFSM")
 
-[node name="GameBoardFSM" type="Node" parent="Musk/GameBoard" node_paths=PackedStringArray("InitialState", "root")]
+[node name="GameBoardFSM" type="Node" parent="Musk/GameBoard" node_paths=PackedStringArray("InitialState")]
 script = ExtResource("4_6c5og")
 InitialState = NodePath("NormalState")
 root = NodePath("..")
@@ -138,6 +138,7 @@ script = ExtResource("6_qposa")
 FSM = NodePath("..")
 
 [node name="UI" type="CanvasLayer" parent="."]
+layer = 0
 
 [node name="PlayerStatus" type="Control" parent="UI"]
 layout_mode = 3

@@ -1,0 +1,102 @@
+[gd_resource type="Resource" script_class="EnemyCharacter" load_steps=21 format=3 uid="uid://jt4phk301w5x"]
+
+[ext_resource type="Texture2D" uid="uid://bseaijwyjky3p" path="res://gfx/icons/enemies/humanoids/orc_thug.png" id="1_7nfi5"]
+[ext_resource type="Resource" uid="uid://dne7x1ksu1fbe" path="res://common/characters/skills/enemy_skills/Barge.tres" id="1_65fa8"]
+[ext_resource type="Script" path="res://common/characters/Stat.cs" id="2_clfi3"]
+[ext_resource type="Resource" uid="uid://c5rsivnasfxl4" path="res://common/characters/skills/enemy_skills/DaggerThrash.tres" id="2_hv5fu"]
+[ext_resource type="Resource" uid="uid://h0rxrbrnuafw" path="res://common/characters/skills/enemy_skills/Uppercut.tres" id="3_7fru5"]
+[ext_resource type="Resource" uid="uid://i1c8x2p27u1o" path="res://common/characters/enemies/species/Humanoid.tres" id="3_54y2n"]
+[ext_resource type="Script" path="res://common/characters/enemies/EnemyCharacter.cs" id="4_ecye5"]
+[ext_resource type="Resource" uid="uid://idgxbnfwtvik" path="res://common/characters/skills/enemy_skills/WildRoar.tres" id="4_fhman"]
+
+[sub_resource type="Resource" id="Resource_a0fnx"]
+script = ExtResource("2_clfi3")
+Type = 0
+Value = 15
+MaxValue = 15
+MinValue = 0
+
+[sub_resource type="Resource" id="Resource_wmjlk"]
+script = ExtResource("2_clfi3")
+Type = 1
+Value = 0
+MaxValue = 0
+MinValue = 0
+
+[sub_resource type="Resource" id="Resource_lujn8"]
+script = ExtResource("2_clfi3")
+Type = 4
+Value = 10
+MaxValue = 2147483647
+MinValue = 0
+
+[sub_resource type="Resource" id="Resource_dcm83"]
+script = ExtResource("2_clfi3")
+Type = 5
+Value = 3
+MaxValue = 2147483647
+MinValue = 0
+
+[sub_resource type="Resource" id="Resource_ynj15"]
+script = ExtResource("2_clfi3")
+Type = 6
+Value = 4
+MaxValue = 2147483647
+MinValue = 0
+
+[sub_resource type="Resource" id="Resource_77wpg"]
+script = ExtResource("2_clfi3")
+Type = 7
+Value = 5
+MaxValue = 2147483647
+MinValue = 0
+
+[sub_resource type="Resource" id="Resource_l5p6j"]
+script = ExtResource("2_clfi3")
+Type = 8
+Value = 0
+MaxValue = 2147483647
+MinValue = 0
+
+[sub_resource type="Resource" id="Resource_dxdye"]
+script = ExtResource("2_clfi3")
+Type = 9
+Value = 10
+MaxValue = 2147483647
+MinValue = 0
+
+[sub_resource type="Resource" id="Resource_2myhd"]
+script = ExtResource("2_clfi3")
+Type = 10
+Value = 10
+MaxValue = 2147483647
+MinValue = 0
+
+[sub_resource type="Resource" id="Resource_3wywt"]
+script = ExtResource("2_clfi3")
+Type = 11
+Value = 10
+MaxValue = 2147483647
+MinValue = 0
+
+[sub_resource type="Resource" id="Resource_3iq5t"]
+script = ExtResource("2_clfi3")
+Type = 12
+Value = 10
+MaxValue = 2147483647
+MinValue = 0
+
+[sub_resource type="Resource" id="Resource_8xgpc"]
+script = ExtResource("2_clfi3")
+Type = 13
+Value = 10
+MaxValue = 2147483647
+MinValue = 0
+
+[resource]
+script = ExtResource("4_ecye5")
+Type = ExtResource("3_54y2n")
+ListOfStats = [SubResource("Resource_a0fnx"), SubResource("Resource_wmjlk"), SubResource("Resource_lujn8"), SubResource("Resource_dcm83"), SubResource("Resource_ynj15"), SubResource("Resource_77wpg"), SubResource("Resource_l5p6j"), SubResource("Resource_dxdye"), SubResource("Resource_2myhd"), SubResource("Resource_3wywt"), SubResource("Resource_3iq5t"), SubResource("Resource_8xgpc")]
+ActiveSkills = [ExtResource("1_65fa8"), ExtResource("2_hv5fu"), ExtResource("3_7fru5"), ExtResource("4_fhman")]
+Name = "Orc Thug"
+Avatar = ExtResource("1_7nfi5")

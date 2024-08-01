@@ -1,8 +1,6 @@
 using System;
 using Game.common.characters;
 using Game.common.effects;
-using Game.common.tokens;
-using Game.UI.characters;
 using Godot;
 
 public abstract partial class CharacterCard : TextureButton, IEffectEmitter, IEffectReceiver {

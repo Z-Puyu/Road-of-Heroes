@@ -8,22 +8,23 @@ using MonoCustomResourceRegistry;
 namespace Game.common.characters {
     [RegisteredType(nameof(Character), "", nameof(Resource)), GlobalClass]
     public abstract partial class Character : Resource {
-        private readonly IDictionary<Stat.Category, Stat> stats;
-        protected readonly string name;
-        private readonly Texture2D avatar;
+        protected readonly IDictionary<Stat.Category, Stat> stats = new 
+                Dictionary<Stat.Category, Stat>();
+        [Export] public string Name { set; get; }
+        [Export] public Texture2D Avatar { set; get; }
         protected readonly Dictionary<Skill, int> skills = [];
         private readonly ModifierManager modifier = new ModifierManager();
 
-        public Texture2D Avatar => avatar;
-        public string Name => name;
         public ModifierManager Modifier => modifier;
         public Dictionary<Skill, int> Skills => skills;
+
+        protected Character() {}
 
         protected Character(
             string name, Texture2D avatar, IDictionary<Stat.Category, Stat> stats
         ) {
-            this.name = name;
-            this.avatar = avatar;
+            this.Name = name;
+            this.Avatar = avatar;
             this.stats = stats;
         }
 

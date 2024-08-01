@@ -35,9 +35,18 @@ namespace Game.common.battle {
         public void Init() {
 			HBoxContainer playerParty = this.GetNode<HBoxContainer>(this.PlayerParty);
 			foreach (PlayerCharacter character in PlayerManager.Combatants) {
+				if (character == null) {
+					continue;
+				}
 				PlayerCard card = PlayerCard.Of(character);
 				this.playerCards.Add(card);
 				playerParty.AddChild(card);
+			}
+			HBoxContainer enemyParty = this.GetNode<HBoxContainer>(this.EnemyParty);
+			foreach (EnemyCharacter enemy in GameManager.RandomEnemies()) {
+				EnemyCard card = EnemyCard.Of(enemy);
+				this.enemyCards.Add(card);
+				enemyParty.AddChild(card);
 			}
 		}
 

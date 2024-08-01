@@ -38,5 +38,6 @@ Requirements = []
 Costs = []
 EffectsOnSelf = []
 EffectsOnTarget = [SubResource("Resource_nb5bh"), SubResource("Resource_kwpvh")]
+CanBeLearnt = true
 UsageLimit = 1
 ProfessionScores = {}

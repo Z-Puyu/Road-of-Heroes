@@ -40,6 +40,7 @@ Requirements = []
 Costs = []
 EffectsOnSelf = []
 EffectsOnTarget = [SubResource("Resource_ajve5"), SubResource("Resource_86gw5"), SubResource("Resource_wpnl1")]
+CanBeLearnt = true
 UsageLimit = -1
 ProfessionScores = {
 ExtResource("4_1vold"): 3,

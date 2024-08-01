@@ -76,6 +76,7 @@ Requirements = []
 Costs = [SubResource("Resource_8bn8w"), SubResource("Resource_vebop")]
 EffectsOnSelf = []
 EffectsOnTarget = [SubResource("Resource_a65o8"), SubResource("Resource_31irv")]
+CanBeLearnt = true
 UsageLimit = 3
 ProfessionScores = {
 ExtResource("7_kxe8s"): 3,

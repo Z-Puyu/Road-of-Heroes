@@ -23,6 +23,7 @@ namespace Game.common.characters.skills {
         [Export] private Array<Cost> Costs { set; get; } = [];
         [Export] private Array<Effect> EffectsOnSelf { set; get; } = [];
         [Export] private Array<Effect> EffectsOnTarget { set; get; } = [];
+        [Export] private bool CanBeLearnt { set; get; } = true;
         [Export] private int UsageLimit { set; get; } = -1;
         [Export] public Dictionary<Profession, int> ProfessionScores { set; get; } = [];
 

@@ -1,4 +1,5 @@
 using System;
+using Game.common.characters.enemies;
 using Game.common.characters.profession;
 using Game.common.characters.race;
 using Game.util;
@@ -12,6 +13,8 @@ namespace Game.common.autoload {
         [Export] public Array<Vector2I> Resolutions { set; get; } = [];
         [Export] private Array<Profession> Professions { get; set; } = [];
         [Export] private Array<Race> Races { get; set; } = [];
+        [Export] private Array<Array<EnemyCharacter>> EnemyParties { set; get; } = [];
+        [Export] public CanvasLayer TempLayer { set; get; }
         private static Node2D world;
 
 		public static GameManager Instance => instance;
@@ -20,6 +23,11 @@ namespace Game.common.autoload {
 
         public override void _Ready() {
             GameManager.instance = this;
+            foreach (Array<EnemyCharacter> party in this.EnemyParties) {
+                foreach (EnemyCharacter enemy in party) {
+                    enemy.InitStats();
+                }
+            }
         }
 
         public static T Instantiate<T>(PackedScene scene, Vector2 position, Node parent = null) 
@@ -42,6 +50,11 @@ namespace Game.common.autoload {
         public static Race RandomRace() {
             int idx = Utilities.Randi(0, GameManager.instance.Races.Count - 1);
             return GameManager.instance.Races[idx];
+        }
+
+        public static Array<EnemyCharacter> RandomEnemies() {
+            int idx = Utilities.Randi(0, GameManager.instance.EnemyParties.Count - 1);
+            return GameManager.instance.EnemyParties[idx];
         }
     }
 }

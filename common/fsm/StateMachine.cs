@@ -10,12 +10,12 @@ namespace Game.common.fsm {
 		[Export] public State InitialState { set; get; }
         private readonly Dictionary<State.Type, State> states = [];
 		private State currState;
-		[Export] private Node root;
+		[Export] private NodePath root;
 
-		public Node Root => root;
+		public Node Root => this.GetNode<Node>(this.root);
 
 		public override async void _Ready() {
-			await this.ToSignal(this.root, Node.SignalName.Ready);
+			await this.ToSignal(this.Root, Node.SignalName.Ready);
 			foreach (Node node in this.GetChildren()) {
 				if (node is State s) {
 					this.states[s.StateType] = s;

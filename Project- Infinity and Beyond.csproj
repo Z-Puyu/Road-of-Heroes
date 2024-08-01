@@ -93,5 +93,12 @@
     <Content Include="common\effects\DisplaceEffect.cs" />
     <Content Include="util\events\battle\DisplaceCharacterEvent.cs" />
     <Content Include="util\events\battle\SkillChangedEvent.cs" />
+    <Content Include="common\characters\enemies\Species.cs" />
+    <Content Include="interface\Placeholder.cs" />
+    <Content Include="common\fsm\states\character_avatar\IdleState.cs" />
+    <Content Include="common\fsm\states\character_avatar\ClickedState.cs" />
+    <Content Include="common\fsm\states\character_avatar\DraggingState.cs" />
+    <Content Include="util\events\party\HoverOverAvatarEvent.cs" />
+    <Content Include="util\events\party\LeftAvatarEvent.cs" />
   </ItemGroup>
 </Project>
