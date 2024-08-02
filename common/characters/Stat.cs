@@ -38,6 +38,10 @@ namespace Game.common.characters {
             this.MinValue = minValue;
         }
 
+        public override string ToString() {
+            return $"{this.Type}: {this.Value}, min: {this.MinValue}, max: {this.MaxValue}";
+        }
+
         public static Dictionary<Category, Stat> Random() {
             Dictionary<Category, Stat> stats = [];
             for (Category cat = Category.Health; cat <= Category.Magicka; cat += 1) {

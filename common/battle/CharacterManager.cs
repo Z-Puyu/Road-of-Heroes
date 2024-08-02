@@ -1,22 +1,25 @@
 using Game.common.autoload;
 using Game.common.characters;
 using Game.common.characters.enemies;
+using Game.ui.battle;
 using Game.util;
 using Game.util.events.battle;
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Game.common.battle {
 	public partial class CharacterManager : Control {
 		[Export] private NodePath PlayerParty { set; get; }
 		[Export] private NodePath EnemyParty { set; get; }
+		[Export] private NodePath CharacterPanel { set; get; }
 		private readonly List<PlayerCard> playerCards = [];
 		private readonly List<EnemyCard> enemyCards = [];
+		private PlayerCharacter active;
 
         public override void _Ready() {
-			this.Subscribe<BattleStartEvent>(this.OnBattleStart);
 			this.Subscribe<DisplaceCharacterEvent>(this.OnDisplaceCharacter);
         }
 
@@ -25,12 +28,6 @@ namespace Game.common.battle {
 				this.Move(@event.Card, @event.StepSize);
 			}
         }
-
-
-        private void OnBattleStart(object sender, EventArgs e) {
-			this.Init();
-        }
-
 
         public void Init() {
 			HBoxContainer playerParty = this.GetNode<HBoxContainer>(this.PlayerParty);
@@ -41,6 +38,8 @@ namespace Game.common.battle {
 				PlayerCard card = PlayerCard.Of(character);
 				this.playerCards.Add(card);
 				playerParty.AddChild(card);
+				card.MouseEntered += () => this.OnMouseEntered(character);
+				card.MouseExited += () => this.OnMouseExited(character);
 			}
 			HBoxContainer enemyParty = this.GetNode<HBoxContainer>(this.EnemyParty);
 			foreach (EnemyCharacter enemy in GameManager.RandomEnemies()) {
@@ -48,6 +47,44 @@ namespace Game.common.battle {
 				this.enemyCards.Add(card);
 				enemyParty.AddChild(card);
 			}
+		}
+
+		public async Task SetActive(Character character) {
+			foreach (PlayerCard card in this.playerCards) {
+				card.Disabled = card.Character != character;
+			}
+			foreach (EnemyCard card in this.enemyCards) {
+				card.Disabled = card.Character != character;
+			}
+			if (character is PlayerCharacter c) {
+				this.active = c;
+				await this.GetNode<CharacterPanel>(this.CharacterPanel).Display(this.active);
+			} else {
+				this.active = null;
+				await this.GetNode<CharacterPanel>(this.CharacterPanel).Erase();
+			}
+		}
+
+		private async void OnMouseEntered(PlayerCharacter character) {
+			if (character != this.active) {
+				await this.GetNode<CharacterPanel>(this.CharacterPanel).Erase();
+				await this.GetNode<CharacterPanel>(this.CharacterPanel).Display(character);
+			}
+		}
+
+		private async void OnMouseExited(PlayerCharacter character) {
+			if (this.active != character) {
+				await this.GetNode<CharacterPanel>(this.CharacterPanel).Erase();
+			}
+			if (this.active != null) {
+				await this.GetNode<CharacterPanel>(this.CharacterPanel).Display(this.active);
+			}
+		}
+
+		public List<Character> GetAllCharacters() {
+			IEnumerable<Character> heroes = this.playerCards.Select(card => card.Character);
+			IEnumerable<Character> enemies = this.enemyCards.Select(card => card.Character);
+			return [..heroes.Concat(enemies)];
 		}
 
 		private async void Move(CharacterCard card, int offset) {

@@ -129,20 +129,24 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -60.0
-offset_top = -105.0
+offset_top = -95.0
 offset_right = 60.0
-offset_bottom = -33.0
+offset_bottom = -43.0
 grow_horizontal = 2
 grow_vertical = 0
 
 [node name="HealthBar" parent="Bars" instance=ExtResource("12_jchqc")]
+custom_minimum_size = Vector2(100, 10)
 layout_mode = 2
 
 [node name="MagickaBar" parent="Bars" instance=ExtResource("13_v2j6k")]
+custom_minimum_size = Vector2(100, 10)
 layout_mode = 2
 
 [node name="SanityBar" parent="Bars" instance=ExtResource("14_kyntr")]
+custom_minimum_size = Vector2(100, 10)
 layout_mode = 2
 
 [node name="FatigueBar" parent="Bars" instance=ExtResource("15_s7bnb")]
+custom_minimum_size = Vector2(100, 10)
 layout_mode = 2

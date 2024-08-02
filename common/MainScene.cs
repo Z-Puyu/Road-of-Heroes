@@ -20,7 +20,6 @@ namespace Game.common {
 					this.RemoveChild(GameManager.World);
 					this.battleView = this.BattleView.Instantiate<Node2D>();
 					this.AddChild(this.battleView);
-					this.Publish(new BattleStartEvent());
 				}
 			}
         }

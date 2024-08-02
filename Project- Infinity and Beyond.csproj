@@ -100,5 +100,8 @@
     <Content Include="common\fsm\states\character_avatar\DraggingState.cs" />
     <Content Include="util\events\party\HoverOverAvatarEvent.cs" />
     <Content Include="util\events\party\LeftAvatarEvent.cs" />
+    <Content Include="common\battle\TurnManager.cs" />
+    <Content Include="interface\battle\CharacterPanel.cs" />
+    <Content Include="interface\battle\BattleSkillButton.cs" />
   </ItemGroup>
 </Project>

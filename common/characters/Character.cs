@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Game.common.characters.skills;
 using Game.common.modifier;
+using Game.util;
 using Godot;
 using MonoCustomResourceRegistry;
 
@@ -14,6 +15,7 @@ namespace Game.common.characters {
         [Export] public Texture2D Avatar { set; get; }
         protected readonly Dictionary<Skill, int> skills = [];
         private readonly ModifierManager modifier = new ModifierManager();
+        private int speedOffset = 0;
 
         public ModifierManager Modifier => modifier;
         public Dictionary<Skill, int> Skills => skills;
@@ -32,8 +34,19 @@ namespace Game.common.characters {
             this.modifier.Collect(modifier);
         }
 
+        public void RandomiseSped() {
+            this.speedOffset = Utilities.Randi(-3, 3);
+        }
+
+        public void ResetSpeed() {
+            this.speedOffset = 0;
+        }
+
         public bool Get(Stat.Category stat, out Stat value) {
             if (this.stats.TryGetValue(stat, out value)) {
+                if (stat == Stat.Category.Speed) {
+                    value += (this.speedOffset, 0, 0);
+                }
                 return true;
             }
             return false;
@@ -41,9 +54,9 @@ namespace Game.common.characters {
         
         public int Get(Stat.Category stat) {
             if (this.stats.TryGetValue(stat, out Stat value)) {
-                return Math.Clamp(
-                    this.modifier.Modify(value.Type, value.Value), value.MinValue, value.MaxValue
-                );
+                int val = this.modifier.Modify(value.Type, value.Value) 
+                        + (stat == Stat.Category.Speed ? this.speedOffset : 0);
+                return Math.Clamp(val, value.MinValue, value.MaxValue);
             }
             return 0;
         }

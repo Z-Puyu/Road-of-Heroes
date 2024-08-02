@@ -1,13 +1,36 @@
-[gd_scene load_steps=2 format=3 uid="uid://bikll6xr8u5vc"]
+[gd_scene load_steps=13 format=3 uid="uid://bikll6xr8u5vc"]
 
+[ext_resource type="Script" path="res://common/battle/TurnManager.cs" id="1_ro42t"]
+[ext_resource type="Theme" uid="uid://b467chlxnpgy6" path="res://data/ui/BaseTheme.tres" id="2_1midk"]
 [ext_resource type="Script" path="res://common/battle/CharacterManager.cs" id="2_ktvnn"]
+[ext_resource type="Script" path="res://interface/battle/CharacterPanel.cs" id="4_6oa5r"]
+[ext_resource type="Script" path="res://interface/characters/StatLabel.cs" id="4_lmy8h"]
+[ext_resource type="PackedScene" uid="uid://o045245nu8dv" path="res://assets/interface/BattleSkillButton.tscn" id="6_74oho"]
+[ext_resource type="PackedScene" uid="uid://d2i2g0jfn1tbq" path="res://assets/interface/ResistanceLabel.tscn" id="6_ih6il"]
+[ext_resource type="Texture2D" uid="uid://law8g46ldcnb" path="res://gfx/icons/effects/stun.png" id="7_5nlmu"]
+[ext_resource type="Texture2D" uid="uid://ds50owiwph5q2" path="res://gfx/icons/effects/bleed.png" id="8_hnjdu"]
+[ext_resource type="Texture2D" uid="uid://d2t8y74k2bn4i" path="res://gfx/icons/effects/poison.png" id="9_40nbn"]
+[ext_resource type="Texture2D" uid="uid://2xfkt718duh4" path="res://gfx/icons/effects/burn.png" id="10_3lf63"]
+[ext_resource type="Texture2D" uid="uid://gui8i1m22ryv" path="res://gfx/icons/effects/blight.png" id="11_gcoqh"]
 
 [node name="BattleView" type="Node2D"]
 
-[node name="UI" type="CanvasLayer" parent="."]
+[node name="TurnManager" type="Node" parent="."]
+script = ExtResource("1_ro42t")
+CharacterManager = NodePath("UI/CharacterManager")
+TurnLabel = NodePath("UI/TurnLabel")
 
-[node name="CharacterManager" type="Control" parent="UI"]
+[node name="UI" type="Control" parent="TurnManager"]
 layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_1midk")
+
+[node name="CharacterManager" type="Control" parent="TurnManager/UI"]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -16,8 +39,9 @@ grow_vertical = 2
 script = ExtResource("2_ktvnn")
 PlayerParty = NodePath("PlayerParty")
 EnemyParty = NodePath("EnemyParty")
+CharacterPanel = NodePath("CharacterPanel")
 
-[node name="PlayerParty" type="HBoxContainer" parent="UI/CharacterManager"]
+[node name="PlayerParty" type="HBoxContainer" parent="TurnManager/UI/CharacterManager"]
 layout_direction = 3
 layout_mode = 1
 anchors_preset = 6
@@ -33,7 +57,7 @@ grow_horizontal = 0
 grow_vertical = 2
 theme_override_constants/separation = 30
 
-[node name="EnemyParty" type="HBoxContainer" parent="UI/CharacterManager"]
+[node name="EnemyParty" type="HBoxContainer" parent="TurnManager/UI/CharacterManager"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -47,3 +71,123 @@ offset_bottom = 175.0
 grow_horizontal = 0
 grow_vertical = 2
 theme_override_constants/separation = 30
+
+[node name="CharacterPanel" type="HBoxContainer" parent="TurnManager/UI/CharacterManager"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -266.0
+offset_top = -280.0
+offset_right = 266.0
+offset_bottom = -160.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+script = ExtResource("4_6oa5r")
+StatsInfo = NodePath("Left")
+Resistance = NodePath("Right/Resistances")
+Skills = NodePath("Right/Skills")
+
+[node name="Left" type="VBoxContainer" parent="TurnManager/UI/CharacterManager/CharacterPanel"]
+custom_minimum_size = Vector2(192, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="StatLabel2" type="Label" parent="TurnManager/UI/CharacterManager/CharacterPanel/Left"]
+layout_mode = 2
+text = "H"
+script = ExtResource("4_lmy8h")
+Stat = 6
+DisplayName = "Strength"
+
+[node name="StatLabel3" type="Label" parent="TurnManager/UI/CharacterManager/CharacterPanel/Left"]
+layout_mode = 2
+text = "H"
+script = ExtResource("4_lmy8h")
+Stat = 4
+DisplayName = "Agility"
+
+[node name="StatLabel4" type="Label" parent="TurnManager/UI/CharacterManager/CharacterPanel/Left"]
+layout_mode = 2
+text = "H"
+script = ExtResource("4_lmy8h")
+Stat = 7
+DisplayName = "Perception"
+
+[node name="StatLabel5" type="Label" parent="TurnManager/UI/CharacterManager/CharacterPanel/Left"]
+layout_mode = 2
+text = "H"
+script = ExtResource("4_lmy8h")
+Stat = 8
+DisplayName = "Precision"
+
+[node name="Right" type="VBoxContainer" parent="TurnManager/UI/CharacterManager/CharacterPanel"]
+layout_mode = 2
+
+[node name="Skills" type="GridContainer" parent="TurnManager/UI/CharacterManager/CharacterPanel/Right"]
+layout_mode = 2
+columns = 5
+
+[node name="SkillButton" parent="TurnManager/UI/CharacterManager/CharacterPanel/Right/Skills" instance=ExtResource("6_74oho")]
+layout_mode = 2
+
+[node name="SkillButton2" parent="TurnManager/UI/CharacterManager/CharacterPanel/Right/Skills" instance=ExtResource("6_74oho")]
+layout_mode = 2
+
+[node name="SkillButton3" parent="TurnManager/UI/CharacterManager/CharacterPanel/Right/Skills" instance=ExtResource("6_74oho")]
+layout_mode = 2
+
+[node name="SkillButton4" parent="TurnManager/UI/CharacterManager/CharacterPanel/Right/Skills" instance=ExtResource("6_74oho")]
+layout_mode = 2
+
+[node name="SkillButton5" parent="TurnManager/UI/CharacterManager/CharacterPanel/Right/Skills" instance=ExtResource("6_74oho")]
+layout_mode = 2
+
+[node name="Resistances" type="HBoxContainer" parent="TurnManager/UI/CharacterManager/CharacterPanel/Right"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="ResistanceLabel1" parent="TurnManager/UI/CharacterManager/CharacterPanel/Right/Resistances" instance=ExtResource("6_ih6il")]
+layout_mode = 2
+Texture = ExtResource("7_5nlmu")
+
+[node name="ResistanceLabel2" parent="TurnManager/UI/CharacterManager/CharacterPanel/Right/Resistances" instance=ExtResource("6_ih6il")]
+layout_mode = 2
+Effect = 9
+Texture = ExtResource("8_hnjdu")
+
+[node name="ResistanceLabel3" parent="TurnManager/UI/CharacterManager/CharacterPanel/Right/Resistances" instance=ExtResource("6_ih6il")]
+layout_mode = 2
+Effect = 10
+Texture = ExtResource("9_40nbn")
+
+[node name="ResistanceLabel4" parent="TurnManager/UI/CharacterManager/CharacterPanel/Right/Resistances" instance=ExtResource("6_ih6il")]
+layout_mode = 2
+Effect = 11
+Texture = ExtResource("10_3lf63")
+
+[node name="ResistanceLabel5" parent="TurnManager/UI/CharacterManager/CharacterPanel/Right/Resistances" instance=ExtResource("6_ih6il")]
+layout_mode = 2
+Effect = 12
+Texture = ExtResource("11_gcoqh")
+
+[node name="TurnLabel" type="Label" parent="TurnManager/UI"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = 200.0
+offset_right = 20.0
+offset_bottom = 223.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1

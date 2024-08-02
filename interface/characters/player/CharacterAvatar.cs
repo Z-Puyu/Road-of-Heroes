@@ -1,6 +1,8 @@
 using Game.common.autoload;
 using Game.common.characters;
 using Game.common.fsm;
+using Game.util;
+using Game.util.events.party;
 using Godot;
 
 public partial class CharacterAvatar : TextureRect {
@@ -20,6 +22,7 @@ public partial class CharacterAvatar : TextureRect {
 		Node parent = this.GetParent();
 		await this.ToSignal(parent, Node.SignalName.Ready);
 		this.index = parent.GetChildren().IndexOf(this);
+		this.AddToGroup("droppable");
     }
 
     public void Set(PlayerCharacter character) {
@@ -41,7 +44,10 @@ public partial class CharacterAvatar : TextureRect {
 	}
 
     public override bool _CanDropData(Vector2 atPosition, Variant data) {
-		return data.As<CharacterAvatar>() != null;
+		if (data.As<Node>() != null) {
+			return data.As<Node>().IsInGroup("droppable") && data.As<CharacterAvatar>() != null;
+		}
+		return false;
     }
 
     public override void _DropData(Vector2 atPosition, Variant data) {
@@ -76,8 +82,8 @@ public partial class CharacterAvatar : TextureRect {
     }
 
     public override void _GuiInput(InputEvent @event) {
-        if (this.character != null) {			
-			this.fsm.OnInput(@event);
+        if (this.character != null && @event.IsActionReleased("left_click")) {
+			this.Publish(new DisplayCharacterDetailEvent(this.character));
 		}
     }
 }
