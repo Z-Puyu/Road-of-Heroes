@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Game.common.autoload;
+using Game.common.characters;
 using Godot;
 
 namespace Game.common.effects.eot {

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Game.common.autoload;
@@ -6,6 +7,7 @@ using Game.common.characters.skills;
 using Game.common.effects.eot;
 using Game.ui.characters;
 using Game.ui.characters.player;
+using Game.util;
 using Godot; 
 
 namespace Game.ui.battle {
@@ -31,7 +33,7 @@ namespace Game.ui.battle {
 			this.Hide();
         }
 
-        public async Task Display(PlayerCharacter character) {
+        public async Task Display(PlayerCharacter character, int position = -1) {
 			foreach (KeyValuePair<EoT.Effect, ResistanceLabel> pair in this.resistances) {
 				pair.Value.Set(character.Get((Stat.Category)pair.Key));
 			}
@@ -44,7 +46,9 @@ namespace Game.ui.battle {
 					skills.GetChild<BattleSkillButton>(i).Disabled = true;
 				} else {
 					BattleSkillButton button = skills.GetChild<BattleSkillButton>(i);
+					Console.WriteLine(button.ButtonGroup);
 					button.Load(character.ActiveSkills[i], character);
+					button.Disabled = !position.In(character.ActiveSkills[i].UserPosition);
 				}
 			}
 			if (!this.Visible) {

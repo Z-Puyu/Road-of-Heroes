@@ -9,16 +9,16 @@ using MonoCustomResourceRegistry;
 namespace Game.common.characters.skills {
     [RegisteredType(nameof(Skill), "", nameof(Resource)), GlobalClass]
     public partial class Skill : Resource {
-        private enum Range { SingleEnemy, SingleAlly, AOEEnemy, AOEAlly, SelfOnly }
+        public enum Range { SingleEnemy, SingleAlly, AOEEnemy, AOEAlly, SelfOnly }
 
         [Export] public bool IsRacialSkill { set; get; } = false;
         [Export] private string Name { set; get; }
         [Export] public Texture2D Icon { set; get; }
         [Export] private bool NeverMiss { set; get; }
         [Export] private int Precision { set; get; }
-        [Export] private Range TargetRange { set; get; }
-        [Export] private Vector2I UserPosition { set; get; }
-        [Export] private Vector2I TargetPosition { set; get; }
+        [Export] public Range TargetRange { set; get; }
+        [Export] public Vector2I UserPosition { set; get; }
+        [Export] public Vector2I TargetPosition { set; get; }
         [Export] private Array<Requirement> Requirements { set; get; } = [];
         [Export] private Array<Cost> Costs { set; get; } = [];
         [Export] private Array<Effect> EffectsOnSelf { set; get; } = [];

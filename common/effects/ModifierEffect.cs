@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Game.common.characters;
 using Game.common.effects.eot;
 using Game.common.tokens;
 using Game.util;

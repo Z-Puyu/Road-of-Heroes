@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://o045245nu8dv"]
+[gd_scene load_steps=9 format=3 uid="uid://o045245nu8dv"]
 
 [ext_resource type="Texture2D" uid="uid://dh0q53vjgland" path="res://gfx/ui/buttons/skill_button_inactive.png" id="1_5mbwm"]
+[ext_resource type="ButtonGroup" uid="uid://tafxij4apkir" path="res://data/ui/SkillButtonGroup.tres" id="1_vao5u"]
 [ext_resource type="Texture2D" uid="uid://bascc7k0is0i1" path="res://gfx/ui/buttons/skill_button_active.png" id="2_w3ts5"]
 [ext_resource type="Script" path="res://interface/battle/BattleSkillButton.cs" id="3_juinq"]
 [ext_resource type="Texture2D" uid="uid://cirauwnb6w045" path="res://gfx/ui/atlases/game_menus.png" id="4_uvnqa"]
@@ -16,6 +17,7 @@ texture = SubResource("AtlasTexture_p63q8")
 [node name="BattleSkillButton" type="TextureButton"]
 custom_minimum_size = Vector2(64, 64)
 toggle_mode = true
+button_group = ExtResource("1_vao5u")
 texture_normal = ExtResource("1_5mbwm")
 texture_pressed = ExtResource("2_w3ts5")
 texture_hover = ExtResource("1_5mbwm")

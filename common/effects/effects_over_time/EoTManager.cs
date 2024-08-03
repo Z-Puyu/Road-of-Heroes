@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Game.common.characters;
 using Game.common.effects.eot;
 using Godot;
 

@@ -295,10 +295,10 @@ layout_mode = 2
 
 [node name="SkillIcons" type="GridContainer" parent="MarginContainer/VBoxContainer/CharacterSkills"]
 z_index = 1
-custom_minimum_size = Vector2(0, 128)
+custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
-theme_override_constants/h_separation = 26
-columns = 6
+theme_override_constants/h_separation = 0
+columns = 8
 
 [node name="SkillButton" parent="MarginContainer/VBoxContainer/CharacterSkills/SkillIcons" instance=ExtResource("18_73iob")]
 layout_mode = 2
@@ -322,18 +322,6 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="SkillButton8" parent="MarginContainer/VBoxContainer/CharacterSkills/SkillIcons" instance=ExtResource("18_73iob")]
-layout_mode = 2
-
-[node name="SkillButton9" parent="MarginContainer/VBoxContainer/CharacterSkills/SkillIcons" instance=ExtResource("18_73iob")]
-layout_mode = 2
-
-[node name="SkillButton10" parent="MarginContainer/VBoxContainer/CharacterSkills/SkillIcons" instance=ExtResource("18_73iob")]
-layout_mode = 2
-
-[node name="SkillButton11" parent="MarginContainer/VBoxContainer/CharacterSkills/SkillIcons" instance=ExtResource("18_73iob")]
-layout_mode = 2
-
-[node name="SkillButton12" parent="MarginContainer/VBoxContainer/CharacterSkills/SkillIcons" instance=ExtResource("18_73iob")]
 layout_mode = 2
 
 [node name="CloseButton" type="Button" parent="."]

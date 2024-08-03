@@ -1,4 +1,5 @@
 using System;
+using Game.common.characters;
 using Game.util;
 using Game.util.events.battle;
 using Godot;

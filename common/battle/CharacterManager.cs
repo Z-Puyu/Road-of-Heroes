@@ -1,6 +1,7 @@
 using Game.common.autoload;
 using Game.common.characters;
 using Game.common.characters.enemies;
+using Game.common.characters.skills;
 using Game.ui.battle;
 using Game.util;
 using Game.util.events.battle;
@@ -21,7 +22,57 @@ namespace Game.common.battle {
 
         public override void _Ready() {
 			this.Subscribe<DisplaceCharacterEvent>(this.OnDisplaceCharacter);
+			this.Subscribe<SkillReadyEvent>(this.OnSkillReady);
+			this.Subscribe<SkillUnequipedEvent>(this.OnUnequipSkill);
         }
+
+        private async void OnUnequipSkill(object sender, EventArgs e) {
+			List<Task> anims = [];
+            foreach (PlayerCard card in this.playerCards) {
+				anims.Add(card.Release());
+			}
+			foreach (EnemyCard card in this.enemyCards) {
+				anims.Add(card.Release());
+			}
+			foreach (Task anim in anims) {
+				await anim;
+			}
+        }
+
+
+        private async void OnSkillReady(object sender, EventArgs e) {
+            if (e is SkillReadyEvent @event) {
+				PlayerCharacter src = @event.Character;
+				Skill skill = @event.Skill;
+				if (src != this.active) {
+					return;
+				}
+				List<Task> anims = [];
+				switch (skill.TargetRange) {
+					case Skill.Range.AOEEnemy:
+					case Skill.Range.SingleEnemy:
+						for (int i = skill.TargetPosition.X; i < skill.TargetPosition.Y; i += 1) {
+							anims.Add(this.enemyCards[i].LockedOn());
+						}
+						break;
+					case Skill.Range.AOEAlly:
+					case Skill.Range.SingleAlly:
+						for (int i = skill.TargetPosition.X; i < skill.TargetPosition.Y; i += 1) {
+							anims.Add(this.playerCards[i].LockedOn());
+						}
+						break;
+					case Skill.Range.SelfOnly:
+						anims.Add(this.playerCards.Find(x => x.Character == this.active).LockedOn());
+						break;
+					default:
+						break;
+				}
+				foreach (Task anim in anims) {
+					await anim;
+				}
+			}
+        }
+
 
         private void OnDisplaceCharacter(object sender, EventArgs e) {
             if (e is DisplaceCharacterEvent @event) {
@@ -50,15 +101,15 @@ namespace Game.common.battle {
 		}
 
 		public async Task SetActive(Character character) {
-			foreach (PlayerCard card in this.playerCards) {
-				card.Disabled = card.Character != character;
-			}
-			foreach (EnemyCard card in this.enemyCards) {
-				card.Disabled = card.Character != character;
+			if (this.active != null) {
+				await this.playerCards.Find(x => x.Character == this.active).Deactivate();
 			}
 			if (character is PlayerCharacter c) {
 				this.active = c;
-				await this.GetNode<CharacterPanel>(this.CharacterPanel).Display(this.active);
+				await this.playerCards.Find(x => x.Character == this.active).Activate();
+				await this.GetNode<CharacterPanel>(this.CharacterPanel).Display(
+					this.active, this.playerCards.FindIndex(x => x.Character == this.active) + 1
+				);
 			} else {
 				this.active = null;
 				await this.GetNode<CharacterPanel>(this.CharacterPanel).Erase();

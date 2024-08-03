@@ -5,10 +5,10 @@
 [ext_resource type="Theme" uid="uid://b467chlxnpgy6" path="res://data/ui/BaseTheme.tres" id="1_y4nhb"]
 [ext_resource type="Texture2D" uid="uid://bmstnonlx6mgk" path="res://gfx/icons/professions/warrior.svg" id="2_8hh0p"]
 [ext_resource type="Texture2D" uid="uid://c63884tnxeciu" path="res://gfx/ui/cards/card_pressed.png" id="2_dl26n"]
-[ext_resource type="Texture2D" uid="uid://dryykcl812jls" path="res://gfx/ui/cards/card_hover.png" id="2_pw1a7"]
 [ext_resource type="Texture2D" uid="uid://baq043dxh0qvf" path="res://gfx/ui/cards/avatar_mask.png" id="3_vh4a1"]
 [ext_resource type="PackedScene" uid="uid://vjytcg8gc3r7" path="res://assets/interface/EoTManager.tscn" id="4_mwddf"]
 [ext_resource type="Script" path="res://common/player/PlayerCard.cs" id="5_rjuqh"]
+[ext_resource type="Texture2D" uid="uid://cu0iri64t3c2n" path="res://gfx/ui/cards/reticule.svg" id="9_fr837"]
 [ext_resource type="PackedScene" uid="uid://c2ygwihx3hinl" path="res://assets/interface/HealthBar.tscn" id="12_jchqc"]
 [ext_resource type="PackedScene" uid="uid://cgn52rfhbx1bs" path="res://assets/interface/MagickaBar.tscn" id="13_v2j6k"]
 [ext_resource type="PackedScene" uid="uid://gi1fxnr3wywg" path="res://assets/interface/SanityBar.tscn" id="14_kyntr"]
@@ -21,9 +21,9 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("1_y4nhb")
 disabled = true
-texture_normal = ExtResource("1_1wqem")
+texture_normal = ExtResource("1_lg4at")
 texture_pressed = ExtResource("2_dl26n")
-texture_hover = ExtResource("2_pw1a7")
+texture_hover = ExtResource("1_1wqem")
 texture_disabled = ExtResource("1_lg4at")
 ignore_texture_size = true
 stretch_mode = 0
@@ -35,6 +35,8 @@ Bars = NodePath("Bars")
 Avatar = NodePath("AvatarMusk/Avatar")
 NameLabel = NodePath("Name")
 EoTManager = NodePath("EoTManager")
+Reticule = NodePath("AvatarMusk/Avatar/Mark")
+Line = NodePath("Line")
 
 [node name="ProfessionIcon" type="TextureRect" parent="."]
 layout_mode = 1
@@ -73,6 +75,22 @@ grow_horizontal = 2
 grow_vertical = 2
 expand_mode = 4
 stretch_mode = 5
+
+[node name="Mark" type="TextureRect" parent="AvatarMusk/Avatar"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -7.0
+offset_right = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_fr837")
+expand_mode = 2
 
 [node name="Race" type="Label" parent="."]
 layout_mode = 0
@@ -150,3 +168,9 @@ layout_mode = 2
 [node name="FatigueBar" parent="Bars" instance=ExtResource("15_s7bnb")]
 custom_minimum_size = Vector2(100, 10)
 layout_mode = 2
+
+[node name="Line" type="Line2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(0, 362)
+points = PackedVector2Array(0, -1, 149, -1)
+default_color = Color(0.501961, 0, 0, 1)

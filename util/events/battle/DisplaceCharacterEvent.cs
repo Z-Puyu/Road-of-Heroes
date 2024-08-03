@@ -1,4 +1,5 @@
 using System;
+using Game.common.characters;
 
 namespace Game.util.events.battle {
     public class DisplaceCharacterEvent : EventArgs {

@@ -1,5 +1,7 @@
 using Game.common.characters;
 using Game.common.characters.skills;
+using Game.util;
+using Game.util.events.battle;
 using Godot;
 
 namespace Game.ui.characters.player {
@@ -17,7 +19,17 @@ namespace Game.ui.characters.player {
 			this.GetNode<AspectRatioContainer>(this.Tooltip).Hide();
             this.MouseEntered += this.OnMouseEntered;
 			this.MouseExited += this.OnMouseExited;
+			this.Toggled += this.OnToggled;
         }
+
+        private void OnToggled(bool toggledOn) {
+            if (toggledOn) {
+				this.Publish(new SkillReadyEvent(this.skill, this.character));
+			} else {
+				this.Publish(new SkillUnequipedEvent());
+			}
+        }
+
 
         private void OnMouseExited() {
 			AspectRatioContainer tooltip = this.GetNode<AspectRatioContainer>(this.Tooltip);

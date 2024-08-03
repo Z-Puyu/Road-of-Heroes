@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dryykcl812jls"
-path="res://.godot/imported/card_hover.png-70dbf676d157ffe8a4f63c6ab656e83f.ctex"
+uid="uid://cu0iri64t3c2n"
+path="res://.godot/imported/reticule.svg-271e9fe39be6b1ea66ef53edf81dcb5a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gfx/ui/cards/card_hover.png"
-dest_files=["res://.godot/imported/card_hover.png-70dbf676d157ffe8a4f63c6ab656e83f.ctex"]
+source_file="res://gfx/ui/cards/reticule.svg"
+dest_files=["res://.godot/imported/reticule.svg-271e9fe39be6b1ea66ef53edf81dcb5a.ctex"]
 
 [params]
 
@@ -32,3 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

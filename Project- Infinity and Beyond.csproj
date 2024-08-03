@@ -103,5 +103,7 @@
     <Content Include="common\battle\TurnManager.cs" />
     <Content Include="interface\battle\CharacterPanel.cs" />
     <Content Include="interface\battle\BattleSkillButton.cs" />
+    <Content Include="util\events\battle\SkillReadyEvent.cs" />
+    <Content Include="util\events\battle\SkillUnequipedEvent.cs" />
   </ItemGroup>
 </Project>
