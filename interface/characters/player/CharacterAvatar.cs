@@ -9,16 +9,13 @@ public partial class CharacterAvatar : TextureRect {
 	private readonly static PackedScene scene = GD.Load<PackedScene>("res://assets/interface/CharacterAvatar.tscn");
 	private PlayerCharacter character;
 	[Export] private NodePath Avatar { set; get; }
-	[Export] private NodePath FSMPath { set; get; }
     private TextureRect portrait;
-	private StateMachine fsm;
 	private int index;
 
 	public PlayerCharacter Character => character;
 
     public override async void _Ready() {
 		this.portrait = this.GetNode<TextureRect>(this.Avatar);
-		this.fsm = this.GetNode<StateMachine>(this.FSMPath);
 		Node parent = this.GetParent();
 		await this.ToSignal(parent, Node.SignalName.Ready);
 		this.index = parent.GetChildren().IndexOf(this);

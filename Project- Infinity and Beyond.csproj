@@ -50,7 +50,6 @@
     <Content Include="common\effects\DrainEffect.cs" />
     <Content Include="common\effects\GainEffect.cs" />
     <Content Include="common\effects\HealEffect.cs" />
-    <Content Include="common\effects\SyphonEffect.cs" />
     <Content Include="common\player\Party.cs" />
     <Content Include="common\effects\effects_over_time\data\MoT.cs" />
     <Content Include="common\effects\effects_over_time\MoTToken.cs" />

@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Game.common.characters;
 using Game.common.effects.eot;
 using Game.common.tokens;
@@ -21,7 +22,7 @@ namespace Game.common.effects {
         [Export] private DoT DoT { set; get; }
         [Export] private int SuccessChance { set; get; } = 100;
 
-        public override async void Apply(IEffectEmitter src, IEffectReceiver target, bool crit = false) {
+        public override async Task Apply(IEffectEmitter src, IEffectReceiver target, bool crit = false) {
             if (target is not CharacterCard receiver || this.EffectType != Type.DoT) {
                 return;
             }

@@ -5,7 +5,7 @@ using Game.common.effects.eot;
 using Godot;
 
 namespace Game.common.tokens {
-	public partial class EoTManager : VBoxContainer {
+	public partial class EoTManager : HFlowContainer {
 		private readonly Dictionary<EoT.Effect, Token> eots = [];
 		[Export] private CharacterCard Root { set; get; }
 

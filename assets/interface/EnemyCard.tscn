@@ -1,28 +1,23 @@
-[gd_scene load_steps=10 format=3 uid="uid://bt633y8u4uek4"]
+[gd_scene load_steps=9 format=3 uid="uid://bt633y8u4uek4"]
 
 [ext_resource type="Theme" uid="uid://b467chlxnpgy6" path="res://data/ui/BaseTheme.tres" id="1_p841k"]
 [ext_resource type="Texture2D" uid="uid://dom0jlkkuo537" path="res://gfx/ui/cards/card.png" id="1_pa77j"]
-[ext_resource type="Texture2D" uid="uid://c63884tnxeciu" path="res://gfx/ui/cards/card_pressed.png" id="2_2odh5"]
 [ext_resource type="PackedScene" uid="uid://vjytcg8gc3r7" path="res://assets/interface/EoTManager.tscn" id="3_imyqd"]
-[ext_resource type="Texture2D" uid="uid://c8v7jee75ut87" path="res://gfx/ui/cards/card_active.png" id="4_l40ve"]
 [ext_resource type="Script" path="res://common/characters/enemies/EnemyCard.cs" id="4_mnl2r"]
 [ext_resource type="Texture2D" uid="uid://cu0iri64t3c2n" path="res://gfx/ui/cards/reticule.svg" id="6_tgg1c"]
 [ext_resource type="PackedScene" uid="uid://c2ygwihx3hinl" path="res://assets/interface/HealthBar.tscn" id="12_ceg6d"]
 [ext_resource type="PackedScene" uid="uid://cgn52rfhbx1bs" path="res://assets/interface/MagickaBar.tscn" id="13_46aev"]
 
-[node name="EnemyCard" type="TextureButton"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hbc7l"]
+texture = ExtResource("1_pa77j")
+
+[node name="EnemyCard" type="Panel"]
 self_modulate = Color(1, 1, 1, 0.74)
 custom_minimum_size = Vector2(150, 350)
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("1_p841k")
-disabled = true
-texture_normal = ExtResource("1_pa77j")
-texture_pressed = ExtResource("2_2odh5")
-texture_hover = ExtResource("4_l40ve")
-texture_disabled = ExtResource("1_pa77j")
-ignore_texture_size = true
-stretch_mode = 0
+theme_override_styles/panel = SubResource("StyleBoxTexture_hbc7l")
 script = ExtResource("4_mnl2r")
 Bars = NodePath("Bars")
 Avatar = NodePath("Avatar")
@@ -30,6 +25,8 @@ NameLabel = NodePath("Name")
 EoTManager = NodePath("EoTManager")
 Reticule = NodePath("Avatar/Mark")
 Line = NodePath("Line")
+ModulationOnHover = Color(1, 0.882353, 0.882353, 1)
+ModulationOnPress = Color(0.752941, 0.752941, 0.752941, 1)
 
 [node name="Avatar" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(100, 100)
@@ -97,9 +94,11 @@ grow_vertical = 0
 
 [node name="HealthBar" parent="Bars" instance=ExtResource("12_ceg6d")]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="MagickaBar" parent="Bars" instance=ExtResource("13_46aev")]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="Line" type="Line2D" parent="."]
 position = Vector2(0, 362)

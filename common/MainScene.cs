@@ -1,6 +1,5 @@
 using Game.common.autoload;
 using Game.util;
-using Game.util.events.battle;
 using Godot;
 
 namespace Game.common {
@@ -12,7 +11,7 @@ namespace Game.common {
         public override void _UnhandledInput(InputEvent @event) {
             if (@event.IsActionReleased("space")) {
 				if (GameManager.World != null) {
-					this.RemoveChild(this.battleView);
+					this.battleView.Recycle();
 					this.AddChild(GameManager.World);
 					GameManager.World = null;
 				} else {

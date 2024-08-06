@@ -1,13 +1,31 @@
-[gd_scene load_steps=3 format=3 uid="uid://ddt64fayuvr0e"]
+[gd_scene load_steps=5 format=3 uid="uid://ddt64fayuvr0e"]
 
 [ext_resource type="Script" path="res://common/static/FloatingCaption.cs" id="1_mrfv6"]
+[ext_resource type="Theme" uid="uid://b467chlxnpgy6" path="res://data/ui/BaseTheme.tres" id="2_jsere"]
+[ext_resource type="FontFile" uid="uid://bm6xw1j1227e2" path="res://fonts/Beholden-Bold.ttf" id="3_mrnfn"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_fqcn1"]
+[sub_resource type="LabelSettings" id="LabelSettings_qfmla"]
+font = ExtResource("3_mrnfn")
+font_size = 23
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
 
 [node name="FloatingCaption" type="Node"]
 script = ExtResource("1_mrfv6")
+Damage = Color(0.752941, 0, 0, 1)
+Heal = Color(0, 0.752941, 0, 1)
+Miss = Color(1, 1, 1, 1)
+Bleed = Color(0.501961, 0, 0.12549, 1)
+Blight = Color(0.12549, 0, 0.501961, 1)
+Burn = Color(0.882353, 0.25098, 0, 1)
+Frenzy = Color(0.25098, 0.25098, 0.25098, 1)
+Poison = Color(0, 0.501961, 0.25098, 1)
+Stun = Color(0.882353, 0.752941, 0, 1)
 
 [node name="Caption" type="Label" parent="."]
+top_level = true
 offset_right = 40.0
 offset_bottom = 23.0
-label_settings = SubResource("LabelSettings_fqcn1")
+theme = ExtResource("2_jsere")
+text = "-10"
+label_settings = SubResource("LabelSettings_qfmla")

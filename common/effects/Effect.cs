@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Game.common.characters;
 using Godot;
 using MonoCustomResourceRegistry;
@@ -27,7 +28,7 @@ namespace Game.common.effects {
 
         [Export] public Type EffectType { get; set; }
 
-        public abstract void Apply(IEffectEmitter src, IEffectReceiver target, bool crit = false);
+        public abstract Task Apply(IEffectEmitter src, IEffectReceiver target, bool crit = false);
 
         public virtual string ToDesc(Character character) {
             return this.ToString();

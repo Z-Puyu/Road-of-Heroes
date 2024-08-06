@@ -98,6 +98,12 @@ size_flags_horizontal = 0
 theme_override_constants/separation = 10
 alignment = 1
 
+[node name="StatLabel1" type="Label" parent="TurnManager/UI/CharacterManager/CharacterPanel/Left"]
+layout_mode = 2
+script = ExtResource("4_lmy8h")
+Stat = 5
+DisplayName = "Speed"
+
 [node name="StatLabel2" type="Label" parent="TurnManager/UI/CharacterManager/CharacterPanel/Left"]
 layout_mode = 2
 text = "H"

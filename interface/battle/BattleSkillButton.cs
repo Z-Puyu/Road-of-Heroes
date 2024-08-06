@@ -26,7 +26,7 @@ namespace Game.ui.characters.player {
             if (toggledOn) {
 				this.Publish(new SkillReadyEvent(this.skill, this.character));
 			} else {
-				this.Publish(new SkillUnequipedEvent());
+				this.Publish(new SkillUnequipedEvent(this.skill));
 			}
         }
 

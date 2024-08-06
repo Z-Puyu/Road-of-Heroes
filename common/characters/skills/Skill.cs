@@ -43,7 +43,7 @@ namespace Game.common.characters.skills {
             return true;
         }
 
-        public void Fire(CharacterCard src, CharacterCard[] targets, int level = 1) {
+        public async void Fire(CharacterCard src, CharacterCard[] targets, int level = 1) {
             if (!this.IsUsableBy(src.Character)) {
                 return;
             }
@@ -60,17 +60,18 @@ namespace Game.common.characters.skills {
                     dice = Utilities.Randi(1, 100);
                     if (dice > hitChance) {
                         // Dodge!
+                        await FloatingCaption.Node.Display(miss: true);
                         continue;
                     }
                 }
                 int critChance = src.Character.Get(Stat.Category.Perception);
                 dice = Utilities.Randi(1, 100);
                 foreach (Effect effect in this.EffectsOnTarget) {
-                    effect.Apply(src, target, crit: dice <= critChance);
+                    await effect.Apply(src, target, crit: dice <= critChance);
                 }
             }
             foreach (Effect effect in this.EffectsOnSelf) {
-                effect.Apply(src, src);
+                await effect.Apply(src, src);
             }
         }
 

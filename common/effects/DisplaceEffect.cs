@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Game.common.characters;
 using Game.util;
 using Game.util.events.battle;
@@ -11,14 +12,15 @@ namespace Game.common.effects {
         [Export] private int SuccessChance { set; get; }
         [Export] private int StepSize { set; get; } = 1;
 
-        public override void Apply(IEffectEmitter src, IEffectReceiver target, bool crit = false) {
+        public override async Task Apply(IEffectEmitter src, IEffectReceiver target, bool crit = false) {
             if (target is not CharacterCard receiver || this.EffectType != Type.Displace) {
                 return;
             }
             int dice = Utilities.Randi(1, 100);
             if (dice <= this.SuccessChance) {
                 this.Publish(new DisplaceCharacterEvent(receiver, this.StepSize));
-            } 
+            }
+            await Task.CompletedTask;
         }
 
         public override string ToString() {

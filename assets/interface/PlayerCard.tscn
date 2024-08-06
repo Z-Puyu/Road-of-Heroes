@@ -1,10 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://cft56mqwg6uo7"]
+[gd_scene load_steps=13 format=3 uid="uid://cft56mqwg6uo7"]
 
-[ext_resource type="Texture2D" uid="uid://c8v7jee75ut87" path="res://gfx/ui/cards/card_active.png" id="1_1wqem"]
 [ext_resource type="Texture2D" uid="uid://dom0jlkkuo537" path="res://gfx/ui/cards/card.png" id="1_lg4at"]
 [ext_resource type="Theme" uid="uid://b467chlxnpgy6" path="res://data/ui/BaseTheme.tres" id="1_y4nhb"]
 [ext_resource type="Texture2D" uid="uid://bmstnonlx6mgk" path="res://gfx/icons/professions/warrior.svg" id="2_8hh0p"]
-[ext_resource type="Texture2D" uid="uid://c63884tnxeciu" path="res://gfx/ui/cards/card_pressed.png" id="2_dl26n"]
 [ext_resource type="Texture2D" uid="uid://baq043dxh0qvf" path="res://gfx/ui/cards/avatar_mask.png" id="3_vh4a1"]
 [ext_resource type="PackedScene" uid="uid://vjytcg8gc3r7" path="res://assets/interface/EoTManager.tscn" id="4_mwddf"]
 [ext_resource type="Script" path="res://common/player/PlayerCard.cs" id="5_rjuqh"]
@@ -14,19 +12,16 @@
 [ext_resource type="PackedScene" uid="uid://gi1fxnr3wywg" path="res://assets/interface/SanityBar.tscn" id="14_kyntr"]
 [ext_resource type="PackedScene" uid="uid://d2ef3bs1wgqhs" path="res://assets/interface/FatigueBar.tscn" id="15_s7bnb"]
 
-[node name="PlayerCard" type="TextureButton"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5dgxp"]
+texture = ExtResource("1_lg4at")
+
+[node name="PlayerCard" type="Panel"]
 custom_minimum_size = Vector2(150, 350)
 layout_direction = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("1_y4nhb")
-disabled = true
-texture_normal = ExtResource("1_lg4at")
-texture_pressed = ExtResource("2_dl26n")
-texture_hover = ExtResource("1_1wqem")
-texture_disabled = ExtResource("1_lg4at")
-ignore_texture_size = true
-stretch_mode = 0
+theme_override_styles/panel = SubResource("StyleBoxTexture_5dgxp")
 script = ExtResource("5_rjuqh")
 Profession = NodePath("ProfessionIcon")
 RaceLabel = NodePath("Race")
@@ -37,6 +32,8 @@ NameLabel = NodePath("Name")
 EoTManager = NodePath("EoTManager")
 Reticule = NodePath("AvatarMusk/Avatar/Mark")
 Line = NodePath("Line")
+ModulationOnHover = Color(1, 0.882353, 0.882353, 1)
+ModulationOnPress = Color(0.752941, 0.752941, 0.752941, 1)
 
 [node name="ProfessionIcon" type="TextureRect" parent="."]
 layout_mode = 1

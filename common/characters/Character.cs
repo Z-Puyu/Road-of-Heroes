@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Game.common.characters.skills;
 using Game.common.modifier;
 using Game.util;
+using Game.util.events.characters;
 using Godot;
 using MonoCustomResourceRegistry;
 
@@ -64,6 +65,7 @@ namespace Game.common.characters {
         public void Update(Stat.Category stat, int offset, int maxOffset = 0, int minOffset = 0) {
             if (this.stats.TryGetValue(stat, out Stat value)) {
                 this.stats[stat] = value + (offset, maxOffset, minOffset);
+                this.Publish(new StatValueUpdatedEvent(stat, value.Value, value.MaxValue));
             }
         }
     }

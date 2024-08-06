@@ -14,7 +14,7 @@ public partial class StatBar : HBoxContainer {
     }
 
     public void Init(Stat stat) {
-		this.GetNode<FancyProgressBar>(this.Bar).Init(stat);
+		this.GetNode<FancyProgressBar>(this.Bar).Init(stat, null);
 		this.GetNode<Label>(this.ValueLabel).Text = $"{stat.Value}/{stat.MaxValue}";
 	}
 }

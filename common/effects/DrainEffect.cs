@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Game.common.characters;
 using Game.util;
 using Godot;
@@ -18,12 +19,13 @@ namespace Game.common.effects {
         [Export] private bool IsPercentage { set; get; } = false;
         [Export] private Vector2I DrainRange { set; get; } = Vector2I.Zero;
 
-        public override void Apply(IEffectEmitter src, IEffectReceiver target, bool crit = false) {
-            if (src is not Character || target is not Character receiver || 
+        public override async Task Apply(IEffectEmitter src, IEffectReceiver target, bool crit = false) {
+            if (src is not Character || target is not CharacterCard card || 
                     (this.EffectType != Type.SanityDrain && this.EffectType != Type.MagickaDrain && 
                      this.EffectType != Type.FatigueLoss)) {
                 return;
             }
+            Character receiver = card.Character;
             if (DrainEffect.stats.TryGetValue(this.EffectType, out Stat.Category stat)) {
                 int amount;
                 if (this.IsPercentage && receiver.Get(stat, out Stat value)) {
@@ -34,6 +36,7 @@ namespace Game.common.effects {
                 } else {
                     amount = Utilities.Randi(this.DrainRange.X, this.DrainRange.Y);
                 }
+                await FloatingCaption.Node.Display(stat, -amount, card.GlobalPosition, crit);
                 receiver.Update(
                     stat, target.Receive(this.EffectType, src.Emit(this.EffectType, -amount))
                 );

@@ -16,7 +16,7 @@ public partial class PlayerCard : CharacterCard, IEffectEmitter, IEffectReceiver
 		base._Ready();
 		foreach (Node node in this.GetNode<VBoxContainer>(this.Bars).GetChildren()) {
 			if (node is FancyProgressBar bar && this.character.Get(bar.DataType, out Stat stat)) {
-				bar.Init(stat);
+				bar.Init(stat, this);
 			}
 		}
 		if (this.Character.Profession != null) {

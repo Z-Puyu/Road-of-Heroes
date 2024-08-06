@@ -42,7 +42,8 @@ public partial class TurnManager : Node {
 			this.Recycle();
 			return;
 		}
-		participants.Sort((x, y) => y.Get(Stat.Category.Speed) - x.Get(Stat.Category.Speed));
+		this.participants.ForEach(x => x.RandomiseSped());
+		this.participants.Sort((x, y) => y.Get(Stat.Category.Speed) - x.Get(Stat.Category.Speed));
 		foreach (Character participant in participants) {
 			this.queue.Enqueue(participant);
 		}

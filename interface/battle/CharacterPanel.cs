@@ -33,7 +33,7 @@ namespace Game.ui.battle {
 			this.Hide();
         }
 
-        public async Task Display(PlayerCharacter character, int position = -1) {
+        public async Task Display(PlayerCharacter character, Skill currActiveSkill, int position = -1) {
 			foreach (KeyValuePair<EoT.Effect, ResistanceLabel> pair in this.resistances) {
 				pair.Value.Set(character.Get((Stat.Category)pair.Key));
 			}
@@ -46,9 +46,9 @@ namespace Game.ui.battle {
 					skills.GetChild<BattleSkillButton>(i).Disabled = true;
 				} else {
 					BattleSkillButton button = skills.GetChild<BattleSkillButton>(i);
-					Console.WriteLine(button.ButtonGroup);
 					button.Load(character.ActiveSkills[i], character);
 					button.Disabled = !position.In(character.ActiveSkills[i].UserPosition);
+					button.ButtonPressed = character.ActiveSkills[i] == currActiveSkill;
 				}
 			}
 			if (!this.Visible) {

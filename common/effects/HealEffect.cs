@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Game.common.characters;
 using Game.util;
 using Godot;
@@ -11,13 +12,14 @@ namespace Game.common.effects {
         [Export] private Vector2I HealRange { set; get; } = Vector2I.Zero;
         [Export] private int CriticalChance { set; get; } = 5;
 
-        public override void Apply(IEffectEmitter src, IEffectReceiver target, bool crit = false) {
-            if (src is not Character || target is not Character receiver || 
+        public override async Task Apply(IEffectEmitter src, IEffectReceiver target, bool crit = false) {
+            if (src is not CharacterCard || target is not CharacterCard card || 
                     (this.EffectType != Type.PhysicalHeal && this.EffectType != Type.MagicHeal)) {
                 return;
             }
+            Character receiver = card.Character;
             int amount;
-             int dice = Utilities.Randi(1, 100);
+            int dice = Utilities.Randi(1, 100);
             if (this.IsPercentage && receiver.Get(Stat.Category.Health, out Stat value)) {
                 amount = (int)Math.Round(
                     Utilities.Randi(this.HealRange.X, this.HealRange.Y) * value.MaxValue / 100.0
@@ -34,6 +36,7 @@ namespace Game.common.effects {
                     ))
                 );
             }
+            await FloatingCaption.Node.Display(Stat.Category.Health, amount, card.GlobalPosition, crit, true);
             receiver.Update(Stat.Category.Health, amount);
         }
 

@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Game.common.characters;
 using Game.util;
 using Godot;
@@ -9,11 +10,13 @@ namespace Game.common.effects {
     public partial class PhysicalAttackEffect : Effect {
         [Export] private int DamageMultiplier;
 
-        public override void Apply(IEffectEmitter src, IEffectReceiver target, bool crit = false) {
-            if (src is not Character emitter || target is not Character receiver || 
+        public override async Task Apply(IEffectEmitter src, IEffectReceiver target, bool crit = false) {
+            if (src is not CharacterCard srcCard || target is not CharacterCard targetCard || 
                     (this.EffectType != Type.MeleeAttack && this.EffectType != Type.RangedAttack)) {
                 return;
             }
+            Character emitter = srcCard.Character;
+            Character receiver = targetCard.Character;
             int strength = emitter.Get(Stat.Category.Strength);
             int dmg = target.Receive(
                 this.EffectType, src.Emit(this.EffectType, Math.Max(1, (int)Math.Round(
@@ -21,6 +24,7 @@ namespace Game.common.effects {
                     * this.DamageMultiplier / 100.0
                 )))
             );
+            await FloatingCaption.Node.Display(Stat.Category.Health, -dmg, targetCard.GlobalPosition, crit);
             receiver.Update(Stat.Category.Health, -dmg);
         }
 

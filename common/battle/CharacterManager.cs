@@ -19,23 +19,42 @@ namespace Game.common.battle {
 		private readonly List<PlayerCard> playerCards = [];
 		private readonly List<EnemyCard> enemyCards = [];
 		private PlayerCharacter active;
+		private Skill skill;
 
         public override void _Ready() {
 			this.Subscribe<DisplaceCharacterEvent>(this.OnDisplaceCharacter);
 			this.Subscribe<SkillReadyEvent>(this.OnSkillReady);
 			this.Subscribe<SkillUnequipedEvent>(this.OnUnequipSkill);
+			this.Subscribe<SkillTargetSelectedEvent>(this.OnSelectSkillTarget);
         }
 
+        private void OnSelectSkillTarget(object sender, EventArgs e) {
+			Node node = this.GetParent();
+			bool yes0 = node.IsInsideTree();
+			bool yes = this.IsInsideTree();
+			SceneTree tree = this.GetTree();
+			bool b = this.GetTree().HasGroup("selected_targets");
+			int a = 0;
+			this.skill.Fire(
+				this.playerCards.Find(x => x.Character == this.active), 
+				[..this.GetTree().GetNodesInGroup("selected_targets").Cast<CharacterCard>()]
+			);
+        }
+
+
         private async void OnUnequipSkill(object sender, EventArgs e) {
-			List<Task> anims = [];
-            foreach (PlayerCard card in this.playerCards) {
-				anims.Add(card.Release());
-			}
-			foreach (EnemyCard card in this.enemyCards) {
-				anims.Add(card.Release());
-			}
-			foreach (Task anim in anims) {
-				await anim;
+			if (e is SkillUnequipedEvent @event && @event.Skill == this.skill) {
+				List<Task> anims = [];
+				foreach (PlayerCard card in this.playerCards) {
+					anims.Add(card.Release());
+				}
+				foreach (EnemyCard card in this.enemyCards) {
+					anims.Add(card.Release());
+				}
+				foreach (Task anim in anims) {
+					await anim;
+				}
+				this.skill = null;
 			}
         }
 
@@ -44,6 +63,7 @@ namespace Game.common.battle {
             if (e is SkillReadyEvent @event) {
 				PlayerCharacter src = @event.Character;
 				Skill skill = @event.Skill;
+				this.skill = skill;
 				if (src != this.active) {
 					return;
 				}
@@ -52,13 +72,13 @@ namespace Game.common.battle {
 					case Skill.Range.AOEEnemy:
 					case Skill.Range.SingleEnemy:
 						for (int i = skill.TargetPosition.X; i < skill.TargetPosition.Y; i += 1) {
-							anims.Add(this.enemyCards[i].LockedOn());
+							anims.Add(this.enemyCards[i - 1].LockedOn());
 						}
 						break;
 					case Skill.Range.AOEAlly:
 					case Skill.Range.SingleAlly:
 						for (int i = skill.TargetPosition.X; i < skill.TargetPosition.Y; i += 1) {
-							anims.Add(this.playerCards[i].LockedOn());
+							anims.Add(this.playerCards[i - 1].LockedOn());
 						}
 						break;
 					case Skill.Range.SelfOnly:
@@ -72,7 +92,6 @@ namespace Game.common.battle {
 				}
 			}
         }
-
 
         private void OnDisplaceCharacter(object sender, EventArgs e) {
             if (e is DisplaceCharacterEvent @event) {
@@ -89,14 +108,16 @@ namespace Game.common.battle {
 				PlayerCard card = PlayerCard.Of(character);
 				this.playerCards.Add(card);
 				playerParty.AddChild(card);
-				card.MouseEntered += () => this.OnMouseEntered(character);
-				card.MouseExited += () => this.OnMouseExited(character);
+				card.MouseEntered += () => this.OnMouseEntered(card);
+				card.MouseExited += () => this.OnMouseExited(card);
 			}
 			HBoxContainer enemyParty = this.GetNode<HBoxContainer>(this.EnemyParty);
 			foreach (EnemyCharacter enemy in GameManager.RandomEnemies()) {
 				EnemyCard card = EnemyCard.Of(enemy);
 				this.enemyCards.Add(card);
 				enemyParty.AddChild(card);
+				card.MouseEntered += () => this.OnMouseEntered(card);
+				card.MouseExited += () => this.OnMouseExited(card);
 			}
 		}
 
@@ -108,7 +129,7 @@ namespace Game.common.battle {
 				this.active = c;
 				await this.playerCards.Find(x => x.Character == this.active).Activate();
 				await this.GetNode<CharacterPanel>(this.CharacterPanel).Display(
-					this.active, this.playerCards.FindIndex(x => x.Character == this.active) + 1
+					this.active, this.skill, this.playerCards.FindIndex(x => x.Character == this.active) + 1
 				);
 			} else {
 				this.active = null;
@@ -116,20 +137,45 @@ namespace Game.common.battle {
 			}
 		}
 
-		private async void OnMouseEntered(PlayerCharacter character) {
+		private async void OnMouseEntered(PlayerCard card) {
+			PlayerCharacter character = card.Character;
 			if (character != this.active) {
 				await this.GetNode<CharacterPanel>(this.CharacterPanel).Erase();
-				await this.GetNode<CharacterPanel>(this.CharacterPanel).Display(character);
+				await this.GetNode<CharacterPanel>(this.CharacterPanel).Display(character, this.skill);
 			}
+			card.Focus(this.skill != null && this.skill.TargetRange == Skill.Range.AOEAlly);
 		}
 
-		private async void OnMouseExited(PlayerCharacter character) {
+		private async void OnMouseExited(PlayerCard card) {
+			PlayerCharacter character = card.Character;
 			if (this.active != character) {
 				await this.GetNode<CharacterPanel>(this.CharacterPanel).Erase();
 			}
 			if (this.active != null) {
-				await this.GetNode<CharacterPanel>(this.CharacterPanel).Display(this.active);
+				await this.GetNode<CharacterPanel>(this.CharacterPanel).Display(
+					this.active, this.skill, 
+					this.playerCards.FindIndex(x => x.Character == this.active) + 1
+				);
 			}
+			card.LoseFocus();
+		}
+
+		private void OnMouseEntered(EnemyCard card) {
+			/* if (character != this.active) {
+				await this.GetNode<CharacterPanel>(this.CharacterPanel).Erase();
+				await this.GetNode<CharacterPanel>(this.CharacterPanel).Display(character);
+			} */
+			card.Focus(this.skill != null && this.skill.TargetRange == Skill.Range.AOEEnemy);
+		}
+
+		private void OnMouseExited(EnemyCard card) {
+			/* if (this.active != character) {
+				await this.GetNode<CharacterPanel>(this.CharacterPanel).Erase();
+			}
+			if (this.active != null) {
+				await this.GetNode<CharacterPanel>(this.CharacterPanel).Display(this.active);
+			} */
+			card.LoseFocus();
 		}
 
 		public List<Character> GetAllCharacters() {

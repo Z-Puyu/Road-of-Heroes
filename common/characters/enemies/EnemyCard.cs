@@ -1,3 +1,4 @@
+using System;
 using Game.UI.characters;
 using Godot;
 
@@ -11,7 +12,7 @@ namespace Game.common.characters.enemies {
 			base._Ready();
 			foreach (Node node in this.GetNode<VBoxContainer>(this.Bars).GetChildren()) {
 				if (node is FancyProgressBar bar && this.character.Get(bar.DataType, out Stat stat)) {
-					bar.Init(stat);
+					bar.Init(stat, this);
 				}
 			}
 		}

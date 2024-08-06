@@ -126,6 +126,13 @@ theme_override_constants/separation = 11
 custom_minimum_size = Vector2(192, 0)
 layout_mode = 2
 size_flags_horizontal = 0
+theme_override_constants/separation = 12
+
+[node name="StatLabel1" type="Label" parent="MarginContainer/VBoxContainer/CharacterStats/Left"]
+layout_mode = 2
+script = ExtResource("6_f4jha")
+Stat = 5
+DisplayName = "Speed"
 
 [node name="StatLabel2" type="Label" parent="MarginContainer/VBoxContainer/CharacterStats/Left"]
 layout_mode = 2
