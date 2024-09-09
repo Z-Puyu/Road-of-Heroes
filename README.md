@@ -10,7 +10,7 @@ In a fantasy world, an apocalyptic catastrophe known as *the Eternal Night* has 
 
 ### Gameplay
 
-Project: Fire Seeker is a **2D roguelike turn-based tactical role-play game**. In the game, the player plays as a group of adventurers to set out for a journey to seek the Divine Fire in order to save the world from an apocalyptic catastrophe known as the Eternal Night. In this journey, the player will unravel the mysteries of the world, collect powerful relics to gear up the adventurers, and fend off enemies and complete quests to claim rewards. The world is divided into regions with each region controlled by a powerful demon. The player needs to defeat the demon in order to proceed to the next part of the journey, until the adventurers finally arrive at the Divine Fire.
+Road of Heroes is a **2D roguelike turn-based tactical role-play game**. In the game, the player plays as a group of adventurers to set out for a journey to seek the Divine Fire in order to save the world from an apocalyptic catastrophe known as the Eternal Night. In this journey, the player will unravel the mysteries of the world, collect powerful relics to gear up the adventurers, and fend off enemies and complete quests to claim rewards. The world is divided into regions with each region controlled by a powerful demon. The player needs to defeat the demon in order to proceed to the next part of the journey, until the adventurers finally arrive at the Divine Fire.
 
 ## Characters
 
