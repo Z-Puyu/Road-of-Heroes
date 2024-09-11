@@ -1,0 +1,106 @@
+[gd_scene load_steps=9 format=3 uid="uid://bt633y8u4uek4"]
+
+[ext_resource type="Theme" uid="uid://b467chlxnpgy6" path="res://data/ui/BaseTheme.tres" id="1_p841k"]
+[ext_resource type="Texture2D" uid="uid://dom0jlkkuo537" path="res://gfx/ui/cards/card.png" id="1_pa77j"]
+[ext_resource type="PackedScene" uid="uid://vjytcg8gc3r7" path="res://assets/interface/EoTManager.tscn" id="3_imyqd"]
+[ext_resource type="Script" path="res://common/characters/enemies/EnemyCard.cs" id="4_mnl2r"]
+[ext_resource type="Texture2D" uid="uid://cu0iri64t3c2n" path="res://gfx/ui/cards/reticule.svg" id="6_tgg1c"]
+[ext_resource type="PackedScene" uid="uid://c2ygwihx3hinl" path="res://assets/interface/HealthBar.tscn" id="12_ceg6d"]
+[ext_resource type="PackedScene" uid="uid://cgn52rfhbx1bs" path="res://assets/interface/MagickaBar.tscn" id="13_46aev"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hbc7l"]
+texture = ExtResource("1_pa77j")
+
+[node name="EnemyCard" type="Panel"]
+self_modulate = Color(1, 1, 1, 0.74)
+custom_minimum_size = Vector2(150, 350)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_p841k")
+theme_override_styles/panel = SubResource("StyleBoxTexture_hbc7l")
+script = ExtResource("4_mnl2r")
+Bars = NodePath("Bars")
+Avatar = NodePath("Avatar")
+NameLabel = NodePath("Name")
+EoTManager = NodePath("EoTManager")
+Reticule = NodePath("Avatar/Mark")
+Line = NodePath("Line")
+ModulationOnHover = Color(1, 0.882353, 0.882353, 1)
+ModulationOnPress = Color(0.752941, 0.752941, 0.752941, 1)
+
+[node name="Avatar" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -50.0
+offset_top = 86.0
+offset_right = 50.0
+offset_bottom = 186.0
+grow_horizontal = 2
+expand_mode = 2
+
+[node name="Mark" type="TextureRect" parent="Avatar"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -7.0
+offset_right = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_tgg1c")
+expand_mode = 2
+
+[node name="Name" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -130.0
+offset_top = 48.0
+offset_right = -17.0
+offset_bottom = 71.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 12
+text = "Your Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EoTManager" parent="." node_paths=PackedStringArray("Root") instance=ExtResource("3_imyqd")]
+layout_mode = 1
+offset_top = 200.0
+offset_bottom = 232.0
+Root = NodePath("")
+
+[node name="Bars" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -105.0
+offset_right = 60.0
+offset_bottom = -33.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HealthBar" parent="Bars" instance=ExtResource("12_ceg6d")]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="MagickaBar" parent="Bars" instance=ExtResource("13_46aev")]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Line" type="Line2D" parent="."]
+position = Vector2(0, 362)
+points = PackedVector2Array(0, -1, 149, -1)
+default_color = Color(0.501961, 0, 0, 1)

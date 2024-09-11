@@ -1,50 +1,72 @@
-using Game.common.effects;
+using System;
+using System.Collections.Generic;
+using Game.common.characters.skills;
 using Game.common.modifier;
+using Game.util;
+using Game.util.events.characters;
 using Godot;
-using Godot.Collections;
+using MonoCustomResourceRegistry;
 
 namespace Game.common.characters {
-    public partial class Character : Resource, IEffectEmitter, IEffectReceiver {
-        private readonly Dictionary<Stat.Category, Stat> stats = [];
-        private readonly string name;
-        private int level;
+    [RegisteredType(nameof(Character), "", nameof(Resource)), GlobalClass]
+    public abstract partial class Character : Resource {
+        protected readonly IDictionary<Stat.Category, Stat> stats = new 
+                Dictionary<Stat.Category, Stat>();
+        [Export] public string Name { set; get; }
+        [Export] public Texture2D Avatar { set; get; }
+        protected readonly Dictionary<Skill, int> skills = [];
         private readonly ModifierManager modifier = new ModifierManager();
+        private int speedOffset = 0;
 
-        public Character(string name, int level, params Stat[] stats) {
-            this.name = name;
-            this.level = level;
-            foreach (Stat stat in stats) {
-                this.stats.Add(stat.Type, stat);
+        public ModifierManager Modifier => modifier;
+        public Dictionary<Skill, int> Skills => skills;
+
+        protected Character() {}
+
+        protected Character(
+            string name, Texture2D avatar, IDictionary<Stat.Category, Stat> stats
+        ) {
+            this.Name = name;
+            this.Avatar = avatar;
+            this.stats = stats;
+        }
+
+        public void AddModifier(Modifier modifier) {
+            this.modifier.Collect(modifier);
+        }
+
+        public void RandomiseSped() {
+            this.speedOffset = Utilities.Randi(-3, 3);
+        }
+
+        public void ResetSpeed() {
+            this.speedOffset = 0;
+        }
+
+        public bool Get(Stat.Category stat, out Stat value) {
+            if (this.stats.TryGetValue(stat, out value)) {
+                if (stat == Stat.Category.Speed) {
+                    value += (this.speedOffset, 0, 0);
+                }
+                return true;
             }
+            return false;
         }
         
         public int Get(Stat.Category stat) {
             if (this.stats.TryGetValue(stat, out Stat value)) {
-                return this.modifier.Modify(value.Type, value.Value);
+                int val = this.modifier.Modify(value.Type, value.Value) 
+                        + (stat == Stat.Category.Speed ? this.speedOffset : 0);
+                return Math.Clamp(val, value.MinValue, value.MaxValue);
             }
             return 0;
         }
 
-        public int Emit(Effect.Type effect, int value) {
-            return this.modifier.ModifyOnEmit(effect, value);
-        }
-
-        public int Receive(Effect.Type effect, int value) {
-            return this.modifier.ModifyOnReceive(effect, value);
-        }
-
-        public override string ToString() {
-            string proficiency = this.level switch {
-                0 => "Novice",
-                1 => "Amateur",
-                2 => "Apprentice",
-                3 => "Professional",
-                4 => "Expert",
-                5 => "Master",
-                6 => "Legendary",
-                _ => "",
-            };
-            return this.name;                                                                                                   
+        public void Update(Stat.Category stat, int offset, int maxOffset = 0, int minOffset = 0) {
+            if (this.stats.TryGetValue(stat, out Stat value)) {
+                this.stats[stat] = value + (offset, maxOffset, minOffset);
+                this.Publish(new StatValueUpdatedEvent(stat, value.Value, value.MaxValue));
+            }
         }
     }
 }

@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://d2i2g0jfn1tbq"]
+
+[ext_resource type="Script" path="res://interface/characters/ResistanceLabel.cs" id="1_avlm5"]
+[ext_resource type="Texture2D" uid="uid://law8g46ldcnb" path="res://gfx/icons/effects/stun.png" id="2_6jyvl"]
+
+[node name="ResistanceLabel1" type="VBoxContainer"]
+custom_minimum_size = Vector2(43, 52)
+size_flags_horizontal = 4
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+alignment = 1
+script = ExtResource("1_avlm5")
+Effect = 13
+Value = NodePath("Value")
+Icon = NodePath("Icon")
+
+[node name="Icon" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(0, 33)
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("2_6jyvl")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Value" type="Label" parent="."]
+layout_mode = 2
+text = "100%"
+horizontal_alignment = 1
+vertical_alignment = 1

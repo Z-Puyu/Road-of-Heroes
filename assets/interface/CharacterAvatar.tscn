@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://cqirsnx7m0w76"]
+
+[ext_resource type="Texture2D" uid="uid://b870yrovgwlx0" path="res://gfx/ui/atlases/book_ui.png" id="1_7o3is"]
+[ext_resource type="Script" path="res://interface/characters/player/CharacterAvatar.cs" id="2_wxqjw"]
+[ext_resource type="Texture2D" uid="uid://dekb770ysmiuf" path="res://gfx/ui/player/avatar_mask.png" id="3_wxl3l"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tgtvj"]
+atlas = ExtResource("1_7o3is")
+region = Rect2(769, 17, 46, 46)
+
+[node name="CharacterAvatar" type="TextureRect"]
+custom_minimum_size = Vector2(96, 96)
+layout_direction = 2
+texture = SubResource("AtlasTexture_tgtvj")
+script = ExtResource("2_wxqjw")
+Avatar = NodePath("Mask/Avatar")
+
+[node name="Mask" type="TextureRect" parent="."]
+clip_children = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_wxl3l")
+
+[node name="Avatar" type="TextureRect" parent="Mask"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 3
+stretch_mode = 5

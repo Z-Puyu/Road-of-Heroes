@@ -185,6 +185,10 @@ namespace Game.util {
             return (n >= left && n <= right) || (n >= right && n <= left);
         }
 
+        public static bool In(this int n, Vector2 range) {
+            return (n >= range.X && n <= range.Y) || (n >= range.Y && n <= range.X);
+        }
+
         public static bool Move<K, V>(this IDictionary<K, V> dict, K oldKey, K newKey) {
             return dict.Remove(oldKey, out V value) && dict.TryAdd(newKey, value);
         }

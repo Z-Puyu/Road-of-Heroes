@@ -1,0 +1,41 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=10 format=3 uid="uid://c4k6okptv5jnj"]
+
+[ext_resource type="Script" path="res://common/characters/skills/Skill.cs" id="1_mwc14"]
+[ext_resource type="Script" path="res://common/effects/PhysicalAttackEffect.cs" id="1_phas0"]
+[ext_resource type="Resource" uid="uid://cnlt8gyodnrgd" path="res://common/characters/profession/Warrior.tres" id="2_u6o1r"]
+[ext_resource type="Resource" uid="uid://c3rv45gcp14jf" path="res://common/characters/profession/Ranger.tres" id="3_b7olj"]
+[ext_resource type="Resource" uid="uid://xs8106tjcbth" path="res://common/characters/profession/Archer.tres" id="4_jy8uq"]
+[ext_resource type="Resource" uid="uid://21cnoyvffoqu" path="res://common/characters/profession/Assassin.tres" id="5_4b83b"]
+[ext_resource type="Resource" uid="uid://smag347olskj" path="res://common/characters/profession/Mercenary.tres" id="6_evshh"]
+
+[sub_resource type="Resource" id="Resource_7ql2h"]
+script = ExtResource("1_phas0")
+DamageMultiplier = 125
+EffectType = 1
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_8ptcn"]
+size = Vector2(64, 64)
+
+[resource]
+script = ExtResource("1_mwc14")
+IsRacialSkill = false
+Name = "Spear Thrash"
+Icon = SubResource("PlaceholderTexture2D_8ptcn")
+NeverMiss = false
+Precision = 75
+TargetRange = 0
+UserPosition = Vector2i(3, 4)
+TargetPosition = Vector2i(3, 4)
+Requirements = []
+Costs = []
+EffectsOnSelf = []
+EffectsOnTarget = [SubResource("Resource_7ql2h")]
+CanBeLearnt = true
+UsageLimit = -1
+ProfessionScores = {
+ExtResource("2_u6o1r"): 2,
+ExtResource("3_b7olj"): 3,
+ExtResource("4_jy8uq"): 1,
+ExtResource("5_4b83b"): 2,
+ExtResource("6_evshh"): 1
+}

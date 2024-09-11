@@ -1,0 +1,86 @@
+[gd_scene load_steps=8 format=3 uid="uid://betniy6arif57"]
+
+[ext_resource type="Texture2D" uid="uid://dh0q53vjgland" path="res://gfx/ui/buttons/skill_button_inactive.png" id="1_mwq3w"]
+[ext_resource type="Texture2D" uid="uid://bascc7k0is0i1" path="res://gfx/ui/buttons/skill_button_active.png" id="2_qnxnd"]
+[ext_resource type="Script" path="res://interface/characters/player/SkillButton.cs" id="3_5pxtp"]
+[ext_resource type="Texture2D" uid="uid://cirauwnb6w045" path="res://gfx/ui/atlases/game_menus.png" id="4_1mdxm"]
+[ext_resource type="FontFile" uid="uid://gxos176b14i0" path="res://fonts/Beholden-Bold-Italic.ttf" id="5_fhnia"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p63q8"]
+atlas = ExtResource("4_1mdxm")
+region = Rect2(3349, 2336, 1540, 1707)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_axcoh"]
+texture = SubResource("AtlasTexture_p63q8")
+
+[node name="SkillButton" type="TextureButton"]
+custom_minimum_size = Vector2(64, 64)
+toggle_mode = true
+texture_normal = ExtResource("1_mwq3w")
+texture_pressed = ExtResource("2_qnxnd")
+texture_hover = ExtResource("1_mwq3w")
+texture_disabled = ExtResource("1_mwq3w")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("3_5pxtp")
+Tooltip = NodePath("Tooltip")
+Icon = NodePath("Icon")
+Label = NodePath("Tooltip/Background/MarginContainer/VBoxContainer/Label")
+Desc = NodePath("Tooltip/Background/MarginContainer/VBoxContainer/Desc")
+
+[node name="Icon" type="TextureRect" parent="."]
+z_index = -1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -29.0
+offset_right = 30.0
+offset_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 4
+
+[node name="Tooltip" type="AspectRatioContainer" parent="."]
+visible = false
+z_index = 2
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 0
+offset_right = 332.0
+offset_bottom = 124.0
+mouse_filter = 2
+stretch_mode = 3
+
+[node name="Background" type="PanelContainer" parent="Tooltip"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_axcoh")
+
+[node name="MarginContainer" type="MarginContainer" parent="Tooltip/Background"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Tooltip/Background/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="Tooltip/Background/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.882353, 0.752941, 0.25098, 1)
+theme_override_fonts/font = ExtResource("5_fhnia")
+text = "Racial Skill"
+
+[node name="Desc" type="Label" parent="Tooltip/Background/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.882353, 0.882353, 0.752941, 1)
+text = "Terst"

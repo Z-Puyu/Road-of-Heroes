@@ -1,52 +1,43 @@
 using System;
-// using Game.util.errors;
+using Game.util;
+
 using Godot;
 
-namespace Game.util.fsm {
+namespace Game.common.fsm {
     [GlobalClass]
     public abstract partial class State : Node {
         public enum Type {
-            HeroCardNormal,
-            HeroCardClicked,
-            HeroCardDragging,
-            HeroCardReleased,
-            SkillNormal,
-            SkillReady,
-            SkillDisabled,
-            CharacterIdle,
-            CharacterActive,
-            CharacterMoving,
-            CharacterInactive    
+            GameBoardNormal,
+            GameBoardPlayerMoving,
+            AvatarIdle,
+            AvatarClicked,
+            AvatarDragging,
+            AvatarReleased
         }
 
         private readonly Type type;
-        protected StateMachine fsm;
+        [Export] protected StateMachine FSM { set; get; }
 
         public Type StateType => type;
-
-        public StateMachine Fsm { 
-            set {
-                /* if (value != null && value != this.GetParent<StateMachine>()) {
-                    throw new NoSuchParentException(
-                        $"{value} is not the StateMachine owning this {this.type} State."
-                    );
-                } */
-                fsm = value; 
-            } 
-        }
 
         public State(Type type) {
             this.type = type;
         }
 
-        public bool OwnedBy(StateMachine sm) {
-            return sm == this.fsm;
+        public override async void _Ready() {
+            await this.FSM.ToSignal(this.FSM, Node.SignalName.Ready);
         }
+
+        public bool OwnedBy(StateMachine sm) {
+            return sm == this.FSM;
+        }
+
         public virtual void Enter() {}
         public virtual void Exit() {
             this.UnsubscribeAllEvents();
         }  
-        public virtual void OnInput(InputEvent e) {}
+
+        public virtual void OnInput(InputEvent @event) {}
         public virtual void Handle(object sender, EventArgs @event) {}
     }
 }

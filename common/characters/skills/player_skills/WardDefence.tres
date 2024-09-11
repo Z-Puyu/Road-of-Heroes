@@ -1,0 +1,64 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=16 format=3 uid="uid://dnpafrcsgx0mx"]
+
+[ext_resource type="Script" path="res://common/characters/Cost.cs" id="1_4o2gu"]
+[ext_resource type="Script" path="res://common/characters/skills/Skill.cs" id="1_rk37s"]
+[ext_resource type="Script" path="res://common/modifier/EffectModifier.cs" id="2_1qcq5"]
+[ext_resource type="Script" path="res://common/effects/effects_over_time/data/MoT.cs" id="3_2qp2h"]
+[ext_resource type="Script" path="res://common/effects/ModifierEffect.cs" id="4_rsknl"]
+[ext_resource type="Texture2D" uid="uid://cd3ouq1a35x6l" path="res://gfx/icons/skills/ward_defence.png" id="5_52fo8"]
+[ext_resource type="Resource" uid="uid://2nhgoe6s03j3" path="res://common/characters/profession/Mage.tres" id="6_xqbgk"]
+[ext_resource type="Resource" uid="uid://b6m4q3bjya5u4" path="res://common/characters/profession/Spellsword.tres" id="7_7disc"]
+[ext_resource type="Resource" uid="uid://c0djr8xaiur1m" path="res://common/characters/profession/Necromancer.tres" id="8_pydrv"]
+[ext_resource type="Resource" uid="uid://dc3ra3l4xbwvr" path="res://common/characters/profession/Enchanter.tres" id="9_ohtiq"]
+[ext_resource type="Resource" uid="uid://bmpf6vioa24qd" path="res://common/characters/profession/Occultist.tres" id="10_y8dgh"]
+
+[sub_resource type="Resource" id="Resource_q5y21"]
+script = ExtResource("1_4o2gu")
+StatType = 1
+Amount = 12
+IsPercentage = false
+
+[sub_resource type="Resource" id="Resource_j6o45"]
+script = ExtResource("2_1qcq5")
+TargetEffect = 2
+ActOnReceive = true
+TimeToLast = 3
+UsePercentage = true
+Value = -20
+
+[sub_resource type="Resource" id="Resource_nqt05"]
+script = ExtResource("3_2qp2h")
+Modifier = SubResource("Resource_j6o45")
+EffectType = 14
+TimeToLast = 3
+
+[sub_resource type="Resource" id="Resource_y8x8f"]
+script = ExtResource("4_rsknl")
+Buffs = [SubResource("Resource_nqt05")]
+Debuffs = []
+SuccessChance = 100
+EffectType = 11
+
+[resource]
+script = ExtResource("1_rk37s")
+IsRacialSkill = false
+Name = "Ward Defence"
+Icon = ExtResource("5_52fo8")
+NeverMiss = true
+Precision = 100
+TargetRange = 1
+UserPosition = Vector2i(2, 4)
+TargetPosition = Vector2i(1, 4)
+Requirements = []
+Costs = [SubResource("Resource_q5y21")]
+EffectsOnSelf = []
+EffectsOnTarget = [SubResource("Resource_y8x8f")]
+CanBeLearnt = true
+UsageLimit = -1
+ProfessionScores = {
+ExtResource("6_xqbgk"): 3,
+ExtResource("7_7disc"): 3,
+ExtResource("8_pydrv"): 1,
+ExtResource("9_ohtiq"): 1,
+ExtResource("10_y8dgh"): 1
+}

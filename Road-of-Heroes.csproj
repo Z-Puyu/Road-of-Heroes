@@ -1,0 +1,107 @@
+<Project Sdk="Godot.NET.Sdk/4.2.1">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net7.0</TargetFramework>
+    <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'ios' ">net8.0</TargetFramework>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <RootNamespace>RoadofHeroes</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="common\static\GameManager.cs" />
+    <Content Include="common\map\GameBoard.cs" />
+    <Content Include="util\EventBus.cs" />
+    <Content Include="util\Utilities.cs" />
+    <Content Include="util\GodotExtensions.cs" />
+    <Content Include="common\static\FloatingCaption.cs" />
+    <Content Include="common\fsm\State.cs" />
+    <Content Include="common\fsm\StateMachine.cs" />
+    <Content Include="common\map\Test.cs" />
+    <Content Include="common\player\Player.cs" />
+    <Content Include="common\characters\Stat.cs" />
+    <Content Include="common\characters\Character.cs" />
+    <Content Include="common\effects\Effect.cs" />
+    <Content Include="common\modifier\Modifier.cs" />
+    <Content Include="common\modifier\StatModifier.cs" />
+    <Content Include="common\modifier\EffectModifier.cs" />
+    <Content Include="common\modifier\AggregateModifier.cs" />
+    <Content Include="common\modifier\ModifierManager.cs" />
+    <Content Include="common\effects\IEffectReceiver.cs" />
+    <Content Include="common\effects\IEffectEmitter.cs" />
+    <Content Include="common\static\AnimationManager.cs" />
+    <Content Include="common\player\modules\MovementModule.cs" />
+    <Content Include="common\player\modules\Module.cs" />
+    <Content Include="common\fsm\states\map\NormalState.cs" />
+    <Content Include="common\fsm\states\map\PlayerMovingState.cs" />
+    <Content Include="common\effects\PhysicalAttackEffect.cs" />
+    <Content Include="common\characters\skills\Skill.cs" />
+    <Content Include="common\effects\MagicAttackEffect.cs" />
+    <Content Include="common\effects\PhysicalHealEffect.cs" />
+    <Content Include="common\effects\effects_over_time\data\EffectOverTime.cs" />
+    <Content Include="common\effects\effects_over_time\data\DamageOverTime.cs" />
+    <Content Include="common\effects\effects_over_time\EoT.cs" />
+    <Content Include="common\effects\effects_over_time\Token.cs" />
+    <Content Include="common\effects\effects_over_time\data\DoT.cs" />
+    <Content Include="common\effects\effects_over_time\data\EoT.cs" />
+    <Content Include="common\effects\effects_over_time\DoTToken.cs" />
+    <Content Include="common\characters\race\Race.cs" />
+    <Content Include="common\characters\PlayerCharacter.cs" />
+    <Content Include="common\characters\EnemyCharacter.cs" />
+    <Content Include="common\effects\DrainEffect.cs" />
+    <Content Include="common\effects\GainEffect.cs" />
+    <Content Include="common\effects\HealEffect.cs" />
+    <Content Include="common\player\Party.cs" />
+    <Content Include="common\effects\effects_over_time\data\MoT.cs" />
+    <Content Include="common\effects\effects_over_time\MoTToken.cs" />
+    <Content Include="common\characters\CharacterCard.cs" />
+    <Content Include="common\characters\enemies\EnemyCharacter.cs" />
+    <Content Include="common\characters\enemies\EnemyCard.cs" />
+    <Content Include="common\player\PlayerCard.cs" />
+    <Content Include="common\effects\ModifierEffect.cs" />
+    <Content Include="common\effects\effects_over_time\EoTManager.cs" />
+    <Content Include="common\effects\effects_over_time\data\Stun.cs" />
+    <Content Include="common\characters\profession\Profession.cs" />
+    <Content Include="common\static\PortraitContainer.cs" />
+    <Content Include="data\names\elf\female.txt" />
+    <Content Include="data\names\elf\male.txt" />
+    <Content Include="common\static\CharacterRandomiser.cs" />
+    <Content Include="data\names\elf\neutral.txt" />
+    <Content Include="data\names\dwarf\female.txt" />
+    <Content Include="data\names\dwarf\male.txt" />
+    <Content Include="data\names\orc\male.txt" />
+    <Content Include="data\names\orc\female.txt" />
+    <Content Include="common\effects\DoTEffect.cs" />
+    <Content Include="util\events\party\CombatantReadyEvent.cs" />
+    <Content Include="interface\characters\player\PartyUI.cs" />
+    <Content Include="common\static\PlayerManager.cs" />
+    <Content Include="interface\characters\StatLabel.cs" />
+    <Content Include="interface\characters\ResistanceLabel.cs" />
+    <Content Include="interface\characters\CharacterInfoSheet.cs" />
+    <Content Include="interface\characters\player\CharacterAvatar.cs" />
+    <Content Include="util\events\party\DisplayCharacterDetailEvent.cs" />
+    <Content Include="common\characters\FancyProgressBar.cs" />
+    <Content Include="interface\characters\StatBar.cs" />
+    <Content Include="common\characters\Cost.cs" />
+    <Content Include="common\effects\CureEffect.cs" />
+    <Content Include="common\characters\skills\Requirement.cs" />
+    <Content Include="interface\characters\player\SkillButton.cs" />
+    <Content Include="common\battle\BattleView.cs" />
+    <Content Include="common\battle\CharacterManager.cs" />
+    <Content Include="common\MainScene.cs" />
+    <Content Include="util\events\battle\BattleStartEvent.cs" />
+    <Content Include="common\effects\DisplaceEffect.cs" />
+    <Content Include="util\events\battle\DisplaceCharacterEvent.cs" />
+    <Content Include="util\events\battle\SkillChangedEvent.cs" />
+    <Content Include="common\characters\enemies\Species.cs" />
+    <Content Include="interface\Placeholder.cs" />
+    <Content Include="common\fsm\states\character_avatar\IdleState.cs" />
+    <Content Include="common\fsm\states\character_avatar\ClickedState.cs" />
+    <Content Include="common\fsm\states\character_avatar\DraggingState.cs" />
+    <Content Include="util\events\party\HoverOverAvatarEvent.cs" />
+    <Content Include="util\events\party\LeftAvatarEvent.cs" />
+    <Content Include="common\battle\TurnManager.cs" />
+    <Content Include="interface\battle\CharacterPanel.cs" />
+    <Content Include="interface\battle\BattleSkillButton.cs" />
+    <Content Include="util\events\battle\SkillReadyEvent.cs" />
+    <Content Include="util\events\battle\SkillUnequipedEvent.cs" />
+  </ItemGroup>
+</Project>

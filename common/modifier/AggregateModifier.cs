@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using Godot;
+using MonoCustomResourceRegistry;
 
 namespace Game.common.modifier {
+    [RegisteredType(nameof(AggregateModifier), "", nameof(Resource)), GlobalClass]
     public partial class AggregateModifier : Resource {
         private int offset = 0;
         private int factor = 0;

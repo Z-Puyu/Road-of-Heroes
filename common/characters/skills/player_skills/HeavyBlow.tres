@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=10 format=3 uid="uid://s3hgxd510nxd"]
+
+[ext_resource type="Script" path="res://common/effects/PhysicalAttackEffect.cs" id="1_13wbx"]
+[ext_resource type="Texture2D" uid="uid://bi2poy7fsfuke" path="res://gfx/icons/skills/heavy_blow.png" id="2_v5ag4"]
+[ext_resource type="Script" path="res://common/characters/skills/Skill.cs" id="3_fco6t"]
+[ext_resource type="Resource" uid="uid://cnlt8gyodnrgd" path="res://common/characters/profession/Warrior.tres" id="3_tu8dc"]
+[ext_resource type="Resource" uid="uid://b6m4q3bjya5u4" path="res://common/characters/profession/Spellsword.tres" id="4_k31vj"]
+[ext_resource type="Resource" uid="uid://smag347olskj" path="res://common/characters/profession/Mercenary.tres" id="5_mrn6l"]
+[ext_resource type="Resource" uid="uid://c3rv45gcp14jf" path="res://common/characters/profession/Ranger.tres" id="6_a7s2f"]
+[ext_resource type="Resource" uid="uid://21cnoyvffoqu" path="res://common/characters/profession/Assassin.tres" id="7_1naq5"]
+
+[sub_resource type="Resource" id="Resource_jk7j7"]
+script = ExtResource("1_13wbx")
+DamageMultiplier = 100
+EffectType = 0
+
+[resource]
+script = ExtResource("3_fco6t")
+IsRacialSkill = false
+Name = "Heavy Blow"
+Icon = ExtResource("2_v5ag4")
+NeverMiss = false
+Precision = 80
+TargetRange = 0
+UserPosition = Vector2i(1, 2)
+TargetPosition = Vector2i(1, 2)
+Requirements = []
+Costs = []
+EffectsOnSelf = []
+EffectsOnTarget = [SubResource("Resource_jk7j7")]
+CanBeLearnt = true
+UsageLimit = -1
+ProfessionScores = {
+ExtResource("3_tu8dc"): 3,
+ExtResource("4_k31vj"): 2,
+ExtResource("5_mrn6l"): 3,
+ExtResource("6_a7s2f"): 1,
+ExtResource("7_1naq5"): 1
+}

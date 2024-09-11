@@ -1,10 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://dph6kahvrdrcl"]
+[gd_scene load_steps=4 format=3 uid="uid://dph6kahvrdrcl"]
 
 [ext_resource type="Texture2D" uid="uid://8dscaqcwjwhi" path="res://gfx/ui/player/player_banner.svg" id="1_fsars"]
 [ext_resource type="Script" path="res://common/player/Player.cs" id="2_x5nom"]
+[ext_resource type="Script" path="res://common/player/modules/MovementModule.cs" id="3_xnuve"]
 
-[node name="PlayerBanner" type="Sprite2D"]
+[node name="Player" type="Sprite2D" node_paths=PackedStringArray("MovementModule")]
 position = Vector2(-48.125, -48.125)
 scale = Vector2(0.175293, 0.175293)
 texture = ExtResource("1_fsars")
 script = ExtResource("2_x5nom")
+MovementModule = NodePath("")
+
+[node name="MovementModule" type="Node" parent="." node_paths=PackedStringArray("Root")]
+script = ExtResource("3_xnuve")
+Root = NodePath("")
+
+[node name="Timer" type="Timer" parent="MovementModule"]
+wait_time = 0.2

@@ -1,0 +1,47 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=12 format=3 uid="uid://campgqwbqggnw"]
+
+[ext_resource type="Script" path="res://common/effects/effects_over_time/data/DoT.cs" id="1_ebmc3"]
+[ext_resource type="Script" path="res://common/characters/skills/Skill.cs" id="1_yc0wf"]
+[ext_resource type="Script" path="res://common/effects/DoTEffect.cs" id="2_305gm"]
+[ext_resource type="Texture2D" uid="uid://dgrgpmgiuf6h2" path="res://gfx/icons/skills/poison_splash.png" id="3_nhxr1"]
+[ext_resource type="Resource" uid="uid://d4cksjp8nuenl" path="res://common/characters/profession/Alchemist.tres" id="4_2rstt"]
+[ext_resource type="Resource" uid="uid://c0djr8xaiur1m" path="res://common/characters/profession/Necromancer.tres" id="5_4sa2x"]
+[ext_resource type="Resource" uid="uid://21cnoyvffoqu" path="res://common/characters/profession/Assassin.tres" id="6_2xxuw"]
+[ext_resource type="Resource" uid="uid://smag347olskj" path="res://common/characters/profession/Mercenary.tres" id="7_ap5tk"]
+[ext_resource type="Resource" uid="uid://c3rv45gcp14jf" path="res://common/characters/profession/Ranger.tres" id="8_5l0q0"]
+
+[sub_resource type="Resource" id="Resource_4fjm8"]
+script = ExtResource("1_ebmc3")
+Amount = 2
+EffectType = 10
+TimeToLast = 3
+
+[sub_resource type="Resource" id="Resource_m758v"]
+script = ExtResource("2_305gm")
+DoT = SubResource("Resource_4fjm8")
+SuccessChance = 100
+EffectType = 12
+
+[resource]
+script = ExtResource("1_yc0wf")
+IsRacialSkill = false
+Name = "Poison Splash"
+Icon = ExtResource("3_nhxr1")
+NeverMiss = false
+Precision = 100
+TargetRange = 2
+UserPosition = Vector2i(3, 4)
+TargetPosition = Vector2i(3, 4)
+Requirements = []
+Costs = []
+EffectsOnSelf = []
+EffectsOnTarget = [SubResource("Resource_m758v")]
+CanBeLearnt = true
+UsageLimit = -1
+ProfessionScores = {
+ExtResource("4_2rstt"): 3,
+ExtResource("5_4sa2x"): 2,
+ExtResource("6_2xxuw"): 3,
+ExtResource("7_ap5tk"): 1,
+ExtResource("8_5l0q0"): 1
+}

@@ -1,0 +1,97 @@
+[gd_resource type="Resource" script_class="EnemyCharacter" load_steps=17 format=3 uid="uid://c4jlbvqj1tx71"]
+
+[ext_resource type="Texture2D" uid="uid://b8nbpfbo4m1ux" path="res://gfx/icons/enemies/spirits/wraith.png" id="1_fs5d5"]
+[ext_resource type="Script" path="res://common/characters/enemies/EnemyCharacter.cs" id="1_v8o4a"]
+[ext_resource type="Script" path="res://common/characters/Stat.cs" id="2_pb5up"]
+[ext_resource type="Resource" uid="uid://4carcmmj17ut" path="res://common/characters/enemies/species/Spirit.tres" id="3_by4ns"]
+
+[sub_resource type="Resource" id="Resource_a0fnx"]
+script = ExtResource("2_pb5up")
+Type = 0
+Value = 15
+MaxValue = 15
+MinValue = 0
+
+[sub_resource type="Resource" id="Resource_wmjlk"]
+script = ExtResource("2_pb5up")
+Type = 1
+Value = 25
+MaxValue = 25
+MinValue = 0
+
+[sub_resource type="Resource" id="Resource_lujn8"]
+script = ExtResource("2_pb5up")
+Type = 4
+Value = 0
+MaxValue = 2147483647
+MinValue = 0
+
+[sub_resource type="Resource" id="Resource_dcm83"]
+script = ExtResource("2_pb5up")
+Type = 5
+Value = 5
+MaxValue = 2147483647
+MinValue = 0
+
+[sub_resource type="Resource" id="Resource_ynj15"]
+script = ExtResource("2_pb5up")
+Type = 6
+Value = 0
+MaxValue = 2147483647
+MinValue = 0
+
+[sub_resource type="Resource" id="Resource_77wpg"]
+script = ExtResource("2_pb5up")
+Type = 7
+Value = 0
+MaxValue = 2147483647
+MinValue = 0
+
+[sub_resource type="Resource" id="Resource_l5p6j"]
+script = ExtResource("2_pb5up")
+Type = 8
+Value = 0
+MaxValue = 2147483647
+MinValue = 0
+
+[sub_resource type="Resource" id="Resource_dxdye"]
+script = ExtResource("2_pb5up")
+Type = 9
+Value = 2147483647
+MaxValue = 2147483647
+MinValue = 0
+
+[sub_resource type="Resource" id="Resource_2myhd"]
+script = ExtResource("2_pb5up")
+Type = 10
+Value = 2147483647
+MaxValue = 2147483647
+MinValue = 0
+
+[sub_resource type="Resource" id="Resource_3wywt"]
+script = ExtResource("2_pb5up")
+Type = 11
+Value = 50
+MaxValue = 2147483647
+MinValue = 0
+
+[sub_resource type="Resource" id="Resource_3iq5t"]
+script = ExtResource("2_pb5up")
+Type = 12
+Value = 10
+MaxValue = 2147483647
+MinValue = 0
+
+[sub_resource type="Resource" id="Resource_8xgpc"]
+script = ExtResource("2_pb5up")
+Type = 13
+Value = 25
+MaxValue = 2147483647
+MinValue = 0
+
+[resource]
+script = ExtResource("1_v8o4a")
+Type = ExtResource("3_by4ns")
+ListOfStats = [SubResource("Resource_a0fnx"), SubResource("Resource_wmjlk"), SubResource("Resource_lujn8"), SubResource("Resource_dcm83"), SubResource("Resource_ynj15"), SubResource("Resource_77wpg"), SubResource("Resource_l5p6j"), SubResource("Resource_dxdye"), SubResource("Resource_2myhd"), SubResource("Resource_3wywt"), SubResource("Resource_3iq5t"), SubResource("Resource_8xgpc")]
+Name = "Wraith"
+Avatar = ExtResource("1_fs5d5")

@@ -1,0 +1,43 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=11 format=3 uid="uid://h0rxrbrnuafw"]
+
+[ext_resource type="Script" path="res://common/effects/PhysicalAttackEffect.cs" id="1_fgdub"]
+[ext_resource type="Script" path="res://common/characters/skills/Skill.cs" id="1_vo5wr"]
+[ext_resource type="Resource" uid="uid://c3rv45gcp14jf" path="res://common/characters/profession/Ranger.tres" id="2_6ci0k"]
+[ext_resource type="Resource" uid="uid://smag347olskj" path="res://common/characters/profession/Mercenary.tres" id="3_7mkha"]
+[ext_resource type="Resource" uid="uid://cnlt8gyodnrgd" path="res://common/characters/profession/Warrior.tres" id="4_nyd3h"]
+[ext_resource type="Resource" uid="uid://xs8106tjcbth" path="res://common/characters/profession/Archer.tres" id="5_c2exf"]
+[ext_resource type="Resource" uid="uid://21cnoyvffoqu" path="res://common/characters/profession/Assassin.tres" id="6_x6kx7"]
+[ext_resource type="Resource" uid="uid://b6m4q3bjya5u4" path="res://common/characters/profession/Spellsword.tres" id="7_vpcac"]
+
+[sub_resource type="Resource" id="Resource_qcxwq"]
+script = ExtResource("1_fgdub")
+DamageMultiplier = 70
+EffectType = 0
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ucvie"]
+size = Vector2(64, 64)
+
+[resource]
+script = ExtResource("1_vo5wr")
+IsRacialSkill = false
+Name = "Uppercut"
+Icon = SubResource("PlaceholderTexture2D_ucvie")
+NeverMiss = false
+Precision = 90
+TargetRange = 0
+UserPosition = Vector2i(1, 2)
+TargetPosition = Vector2i(1, 2)
+Requirements = []
+Costs = []
+EffectsOnSelf = []
+EffectsOnTarget = [SubResource("Resource_qcxwq")]
+CanBeLearnt = true
+UsageLimit = -1
+ProfessionScores = {
+ExtResource("2_6ci0k"): 2,
+ExtResource("3_7mkha"): 2,
+ExtResource("4_nyd3h"): 2,
+ExtResource("5_c2exf"): 1,
+ExtResource("6_x6kx7"): 1,
+ExtResource("7_vpcac"): 1
+}

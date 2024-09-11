@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://jlgke8nh5t3v"]
+
+[ext_resource type="Script" path="res://interface/characters/player/PartyUI.cs" id="1_gaijv"]
+[ext_resource type="PackedScene" uid="uid://cqirsnx7m0w76" path="res://assets/interface/CharacterAvatar.tscn" id="2_h1atk"]
+
+[node name="PartyUI" type="GridContainer"]
+layout_direction = 3
+offset_left = 140.0
+offset_top = 19.0
+offset_right = 536.0
+offset_bottom = 115.0
+columns = 4
+script = ExtResource("1_gaijv")
+avatars = [NodePath("CharacterAvatar1"), NodePath("CharacterAvatar2"), NodePath("CharacterAvatar3"), NodePath("CharacterAvatar4")]
+
+[node name="CharacterAvatar1" parent="." instance=ExtResource("2_h1atk")]
+layout_mode = 2
+
+[node name="CharacterAvatar2" parent="." instance=ExtResource("2_h1atk")]
+layout_mode = 2
+
+[node name="CharacterAvatar3" parent="." instance=ExtResource("2_h1atk")]
+layout_mode = 2
+
+[node name="CharacterAvatar4" parent="." instance=ExtResource("2_h1atk")]
+layout_mode = 2

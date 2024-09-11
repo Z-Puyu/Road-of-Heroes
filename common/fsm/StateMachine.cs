@@ -1,28 +1,28 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
+using Game.util;
 using Godot;
 
-namespace Game.util.fsm {
+namespace Game.common.fsm {
 	[GlobalClass]
 	public partial class StateMachine : Node {
-		[Export] public NodePath InitialState { set; get; }
-
-		private readonly Dictionary<State.Type, State> states = [];
+		[Export] public State InitialState { set; get; }
+        private readonly Dictionary<State.Type, State> states = [];
 		private State currState;
-		private Node parent;
+		[Export] private NodePath root;
 
-		public Node Parent { get => parent; set => parent = value; }
+		public Node Root => this.GetNode<Node>(this.root);
 
 		public override async void _Ready() {
-			await this.ToSignal(this.Parent, Node.SignalName.Ready);
+			await this.ToSignal(this.Root, Node.SignalName.Ready);
 			foreach (Node node in this.GetChildren()) {
 				if (node is State s) {
 					this.states[s.StateType] = s;
-					s.Fsm = this;
 					s.Exit(); // Reset the state.
 				}
 			}
-			this.currState = this.GetNode<State>(this.InitialState);
+			this.currState = this.InitialState;
 			this.currState.Enter(); // Activate the initial state.
 		}
 
@@ -49,7 +49,11 @@ namespace Game.util.fsm {
 			this.currState.OnInput(e);
 		}
 
-		public void Handle(object sender, EventArgs e) {
+		public void Listen<T>() where T : EventArgs {
+			this.Subscribe<T>(this.Handle);
+		}
+
+		private void Handle(object sender, EventArgs e) {
 			this.currState.Handle(sender, e);
 		}
 	}

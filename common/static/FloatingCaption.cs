@@ -1,5 +1,7 @@
 using System;
 using System.Threading.Tasks;
+using Game.common.characters;
+using Game.common.effects.eot;
 using Godot;
 
 namespace Game.util {
@@ -50,33 +52,33 @@ namespace Game.util {
 			this.caption.Hide();
 		}
 
-		/* public async Task Display(Vector2 pos, EffectOverTime eot, bool failed = false) {
-			this.caption.Text = eot.Effect.ToString();
+		public async Task Display(Vector2 pos, EoT.Effect eot, bool failed = false) {
+			this.caption.Text = eot.ToString();
 			if (failed) {
-				this.caption.Text = $"{this.caption.Text} Repelled";
+				this.caption.Text = $"{this.caption.Text} Resisted!";
 			}
-			this.caption.LabelSettings.FontColor = eot.Effect switch {
-				Token.Bleed => this.Bleed,
-				Token.Blight => this.Blight,
-				Token.Burn => this.Burn,
-				Token.Poison => this.Poison,
-				Token.Frenzy => this.Frenzy,
-				Token.Stun => this.Stun,
+			this.caption.LabelSettings.FontColor = eot switch {
+				EoT.Effect.Bleed => this.Bleed,
+				EoT.Effect.Blight => this.Blight,
+				EoT.Effect.Burn => this.Burn,
+				EoT.Effect.Poison => this.Poison,
+				EoT.Effect.Frenzy => this.Frenzy,
+				EoT.Effect.Stun => this.Stun,
 				_ => this.Miss
 			};
 			await this.Animate(pos, 0.25, 0.25, 0.5);
-		} */
+		}
 
-		/* public async Task Display(
-			Stat.Type stat = Stat.Type.Health, int value = 0, 
+		public async Task Display(
+			Stat.Category stat = Stat.Category.Health, int value = 0, 
 			Vector2 pos = default, bool crit = false, bool heal = false, 
 			bool miss = false
 		) {
 			string tag = stat switch {
-				Stat.Type.Health => "HP",
-				Stat.Type.Magicka => "Magicka",
-				Stat.Type.Sanity => "SAN",
-				Stat.Type.Fatigue => "Fatigue",
+				Stat.Category.Health => "HP",
+				Stat.Category.Magicka => "Magicka",
+				Stat.Category.Sanity => "SAN",
+				Stat.Category.Fatigue => "Fatigue",
 				_ => ""
 			};
 			if (!miss) {
@@ -95,7 +97,7 @@ namespace Game.util {
 				this.caption.LabelSettings.FontColor = this.Miss;
 			}
 			await this.Animate(pos, 0.25, 0.25, 0.5);
-		} */
+		}
 	}
 }
 

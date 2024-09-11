@@ -1,0 +1,81 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=15 format=3 uid="uid://dtf4qqail455f"]
+
+[ext_resource type="Script" path="res://common/characters/Cost.cs" id="1_bh060"]
+[ext_resource type="Script" path="res://common/modifier/EffectModifier.cs" id="2_023x0"]
+[ext_resource type="Script" path="res://common/effects/effects_over_time/data/MoT.cs" id="3_4rgra"]
+[ext_resource type="Script" path="res://common/effects/ModifierEffect.cs" id="4_qiuok"]
+[ext_resource type="Texture2D" uid="uid://l5rwjhkmdga0" path="res://gfx/icons/skills/divine_protection.png" id="5_tojip"]
+[ext_resource type="Script" path="res://common/characters/skills/Skill.cs" id="6_y14b8"]
+
+[sub_resource type="Resource" id="Resource_7sgpe"]
+script = ExtResource("1_bh060")
+StatType = 0
+Amount = 25
+IsPercentage = true
+
+[sub_resource type="Resource" id="Resource_ukvhd"]
+script = ExtResource("2_023x0")
+TargetEffect = 0
+ActOnReceive = true
+TimeToLast = 2
+UsePercentage = true
+Value = -75
+
+[sub_resource type="Resource" id="Resource_nskby"]
+script = ExtResource("3_4rgra")
+Modifier = SubResource("Resource_ukvhd")
+EffectType = 14
+TimeToLast = 2
+
+[sub_resource type="Resource" id="Resource_2smc7"]
+script = ExtResource("2_023x0")
+TargetEffect = 1
+ActOnReceive = true
+TimeToLast = 2
+UsePercentage = true
+Value = -75
+
+[sub_resource type="Resource" id="Resource_4coca"]
+script = ExtResource("3_4rgra")
+Modifier = SubResource("Resource_2smc7")
+EffectType = 14
+TimeToLast = 2
+
+[sub_resource type="Resource" id="Resource_tigao"]
+script = ExtResource("2_023x0")
+TargetEffect = 2
+ActOnReceive = true
+TimeToLast = 2
+UsePercentage = true
+Value = -75
+
+[sub_resource type="Resource" id="Resource_obraf"]
+script = ExtResource("3_4rgra")
+Modifier = SubResource("Resource_tigao")
+EffectType = 14
+TimeToLast = 2
+
+[sub_resource type="Resource" id="Resource_k1yby"]
+script = ExtResource("4_qiuok")
+Buffs = [SubResource("Resource_nskby"), SubResource("Resource_4coca"), SubResource("Resource_obraf")]
+Debuffs = []
+SuccessChance = 100
+EffectType = 11
+
+[resource]
+script = ExtResource("6_y14b8")
+IsRacialSkill = true
+Name = "Divine Protection"
+Icon = ExtResource("5_tojip")
+NeverMiss = true
+Precision = 100
+TargetRange = 1
+UserPosition = Vector2i(1, 3)
+TargetPosition = Vector2i(1, 4)
+Requirements = []
+Costs = [SubResource("Resource_7sgpe")]
+EffectsOnSelf = []
+EffectsOnTarget = [SubResource("Resource_k1yby")]
+CanBeLearnt = true
+UsageLimit = 1
+ProfessionScores = {}

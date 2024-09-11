@@ -1,0 +1,59 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=15 format=3 uid="uid://bhp7n6ywrbfyo"]
+
+[ext_resource type="Script" path="res://common/effects/DisplaceEffect.cs" id="1_c7x58"]
+[ext_resource type="Script" path="res://common/characters/skills/Skill.cs" id="1_xusi4"]
+[ext_resource type="Script" path="res://common/effects/PhysicalAttackEffect.cs" id="2_uy7e5"]
+[ext_resource type="Script" path="res://common/effects/effects_over_time/data/DoT.cs" id="3_6hfqs"]
+[ext_resource type="Script" path="res://common/effects/DoTEffect.cs" id="4_qipts"]
+[ext_resource type="Texture2D" uid="uid://uwt7r30osj0a" path="res://gfx/icons/skills/strike_through.png" id="5_toh6b"]
+[ext_resource type="Resource" uid="uid://smag347olskj" path="res://common/characters/profession/Mercenary.tres" id="6_evwdn"]
+[ext_resource type="Resource" uid="uid://cnlt8gyodnrgd" path="res://common/characters/profession/Warrior.tres" id="7_6xxwu"]
+[ext_resource type="Resource" uid="uid://21cnoyvffoqu" path="res://common/characters/profession/Assassin.tres" id="8_76ntx"]
+[ext_resource type="Resource" uid="uid://c3rv45gcp14jf" path="res://common/characters/profession/Ranger.tres" id="9_78dop"]
+
+[sub_resource type="Resource" id="Resource_o3h1x"]
+script = ExtResource("1_c7x58")
+SuccessChance = 100
+StepSize = -1
+UseTargetPosition = false
+EffectType = 16
+
+[sub_resource type="Resource" id="Resource_ekj08"]
+script = ExtResource("2_uy7e5")
+DamageMultiplier = 25
+EffectType = 0
+
+[sub_resource type="Resource" id="Resource_arfpv"]
+script = ExtResource("3_6hfqs")
+Amount = 2
+EffectType = 9
+TimeToLast = 3
+
+[sub_resource type="Resource" id="Resource_5u2mh"]
+script = ExtResource("4_qipts")
+DoT = SubResource("Resource_arfpv")
+SuccessChance = 100
+EffectType = 12
+
+[resource]
+script = ExtResource("1_xusi4")
+IsRacialSkill = false
+Name = "Strike Through"
+Icon = ExtResource("5_toh6b")
+NeverMiss = false
+Precision = 85
+TargetRange = 2
+UserPosition = Vector2i(2, 3)
+TargetPosition = Vector2i(1, 3)
+Requirements = []
+Costs = []
+EffectsOnSelf = [SubResource("Resource_o3h1x")]
+EffectsOnTarget = [SubResource("Resource_ekj08"), SubResource("Resource_5u2mh")]
+CanBeLearnt = true
+UsageLimit = -1
+ProfessionScores = {
+ExtResource("6_evwdn"): 3,
+ExtResource("7_6xxwu"): 2,
+ExtResource("8_76ntx"): 1,
+ExtResource("9_78dop"): 3
+}

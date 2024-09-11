@@ -1,0 +1,41 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=11 format=3 uid="uid://c25eb88oqqk83"]
+
+[ext_resource type="Script" path="res://common/characters/skills/Skill.cs" id="1_6lxi2"]
+[ext_resource type="Script" path="res://common/effects/PhysicalAttackEffect.cs" id="1_llg3p"]
+[ext_resource type="Texture2D" uid="uid://b07c5duabvkr5" path="res://gfx/icons/skills/swift_blow.png" id="2_dydh2"]
+[ext_resource type="Resource" uid="uid://cnlt8gyodnrgd" path="res://common/characters/profession/Warrior.tres" id="3_kxs2c"]
+[ext_resource type="Resource" uid="uid://smag347olskj" path="res://common/characters/profession/Mercenary.tres" id="4_v5qhu"]
+[ext_resource type="Resource" uid="uid://c3rv45gcp14jf" path="res://common/characters/profession/Ranger.tres" id="5_hevnq"]
+[ext_resource type="Resource" uid="uid://b6m4q3bjya5u4" path="res://common/characters/profession/Spellsword.tres" id="6_gckoo"]
+[ext_resource type="Resource" uid="uid://xs8106tjcbth" path="res://common/characters/profession/Archer.tres" id="7_xh1be"]
+[ext_resource type="Resource" uid="uid://21cnoyvffoqu" path="res://common/characters/profession/Assassin.tres" id="8_830ti"]
+
+[sub_resource type="Resource" id="Resource_87isg"]
+script = ExtResource("1_llg3p")
+DamageMultiplier = 75
+EffectType = 0
+
+[resource]
+script = ExtResource("1_6lxi2")
+IsRacialSkill = false
+Name = "Swift Blow"
+Icon = ExtResource("2_dydh2")
+NeverMiss = false
+Precision = 85
+TargetRange = 0
+UserPosition = Vector2i(1, 2)
+TargetPosition = Vector2i(1, 3)
+Requirements = []
+Costs = []
+EffectsOnSelf = []
+EffectsOnTarget = [SubResource("Resource_87isg")]
+CanBeLearnt = true
+UsageLimit = -1
+ProfessionScores = {
+ExtResource("3_kxs2c"): 3,
+ExtResource("4_v5qhu"): 3,
+ExtResource("5_hevnq"): 3,
+ExtResource("6_gckoo"): 2,
+ExtResource("7_xh1be"): 1,
+ExtResource("8_830ti"): 1
+}

@@ -1,0 +1,350 @@
+[gd_scene load_steps=24 format=3 uid="uid://w8285w4b7kah"]
+
+[ext_resource type="Theme" uid="uid://b467chlxnpgy6" path="res://data/ui/BaseTheme.tres" id="1_efcon"]
+[ext_resource type="Texture2D" uid="uid://wpp2k473emjv" path="res://gfx/ui/atlases/character_sheet.png" id="2_38i45"]
+[ext_resource type="Script" path="res://interface/characters/CharacterInfoSheet.cs" id="3_qs8tm"]
+[ext_resource type="Texture2D" uid="uid://b870yrovgwlx0" path="res://gfx/ui/atlases/book_ui.png" id="4_tr8ce"]
+[ext_resource type="Texture2D" uid="uid://dekb770ysmiuf" path="res://gfx/ui/player/avatar_mask.png" id="5_55c2p"]
+[ext_resource type="Script" path="res://interface/characters/StatLabel.cs" id="6_f4jha"]
+[ext_resource type="PackedScene" uid="uid://c2ygwihx3hinl" path="res://assets/interface/HealthBar.tscn" id="7_lr7ob"]
+[ext_resource type="Script" path="res://interface/characters/StatBar.cs" id="7_stto1"]
+[ext_resource type="PackedScene" uid="uid://cgn52rfhbx1bs" path="res://assets/interface/MagickaBar.tscn" id="8_1kr35"]
+[ext_resource type="PackedScene" uid="uid://gi1fxnr3wywg" path="res://assets/interface/SanityBar.tscn" id="9_wy71o"]
+[ext_resource type="PackedScene" uid="uid://d2ef3bs1wgqhs" path="res://assets/interface/FatigueBar.tscn" id="10_3x41f"]
+[ext_resource type="PackedScene" uid="uid://d2i2g0jfn1tbq" path="res://assets/interface/ResistanceLabel.tscn" id="11_ik5he"]
+[ext_resource type="Texture2D" uid="uid://law8g46ldcnb" path="res://gfx/icons/effects/stun.png" id="12_e0cr4"]
+[ext_resource type="Texture2D" uid="uid://ds50owiwph5q2" path="res://gfx/icons/effects/bleed.png" id="13_osv7f"]
+[ext_resource type="Texture2D" uid="uid://d2t8y74k2bn4i" path="res://gfx/icons/effects/poison.png" id="14_movck"]
+[ext_resource type="Texture2D" uid="uid://2xfkt718duh4" path="res://gfx/icons/effects/burn.png" id="15_cuy83"]
+[ext_resource type="Texture2D" uid="uid://gui8i1m22ryv" path="res://gfx/icons/effects/blight.png" id="16_melhg"]
+[ext_resource type="PackedScene" uid="uid://betniy6arif57" path="res://assets/interface/SkillButton.tscn" id="18_73iob"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_734st"]
+atlas = ExtResource("2_38i45")
+region = Rect2(3286, 0, 1675, 2246)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jocky"]
+texture = SubResource("AtlasTexture_734st")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uayil"]
+atlas = ExtResource("4_tr8ce")
+region = Rect2(769, 17, 46, 46)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2rqrb"]
+bg_color = Color(0.25098, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_37a2o"]
+bg_color = Color(0.376471, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="CharacterInfoSheet" type="Panel"]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -623.0
+offset_top = -400.0
+offset_bottom = 400.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("1_efcon")
+theme_override_styles/panel = SubResource("StyleBoxTexture_jocky")
+script = ExtResource("3_qs8tm")
+Bars = NodePath("MarginContainer/VBoxContainer/CharacterStats/Right/Bars")
+Left = NodePath("MarginContainer/VBoxContainer/CharacterStats/Left")
+Resistance = NodePath("MarginContainer/VBoxContainer/CharacterStats/Right/Resistances")
+Portrait = NodePath("MarginContainer/VBoxContainer/Header/Avatar/Mask/Portrait")
+Label = NodePath("MarginContainer/VBoxContainer/Header/Name")
+CloseButton = NodePath("CloseButton")
+Skills = NodePath("MarginContainer/VBoxContainer/CharacterSkills/SkillIcons")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -3.0
+offset_right = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 55
+theme_override_constants/margin_top = 55
+theme_override_constants/margin_right = 55
+theme_override_constants/margin_bottom = 55
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="Header" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Avatar" type="TextureRect" parent="MarginContainer/VBoxContainer/Header"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_uayil")
+
+[node name="Mask" type="TextureRect" parent="MarginContainer/VBoxContainer/Header/Avatar"]
+clip_children = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_55c2p")
+
+[node name="Portrait" type="TextureRect" parent="MarginContainer/VBoxContainer/Header/Avatar/Mask"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 2
+
+[node name="Name" type="Label" parent="MarginContainer/VBoxContainer/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+vertical_alignment = 1
+
+[node name="CharacterStats" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 11
+
+[node name="Left" type="VBoxContainer" parent="MarginContainer/VBoxContainer/CharacterStats"]
+custom_minimum_size = Vector2(192, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 12
+
+[node name="StatLabel1" type="Label" parent="MarginContainer/VBoxContainer/CharacterStats/Left"]
+layout_mode = 2
+script = ExtResource("6_f4jha")
+Stat = 5
+DisplayName = "Speed"
+
+[node name="StatLabel2" type="Label" parent="MarginContainer/VBoxContainer/CharacterStats/Left"]
+layout_mode = 2
+script = ExtResource("6_f4jha")
+Stat = 6
+DisplayName = "Strength"
+
+[node name="StatLabel3" type="Label" parent="MarginContainer/VBoxContainer/CharacterStats/Left"]
+layout_mode = 2
+script = ExtResource("6_f4jha")
+Stat = 4
+DisplayName = "Agility"
+
+[node name="StatLabel4" type="Label" parent="MarginContainer/VBoxContainer/CharacterStats/Left"]
+layout_mode = 2
+script = ExtResource("6_f4jha")
+Stat = 7
+DisplayName = "Perception"
+
+[node name="StatLabel5" type="Label" parent="MarginContainer/VBoxContainer/CharacterStats/Left"]
+layout_mode = 2
+script = ExtResource("6_f4jha")
+Stat = 8
+DisplayName = "Precision"
+
+[node name="Right" type="VBoxContainer" parent="MarginContainer/VBoxContainer/CharacterStats"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Bars" type="VBoxContainer" parent="MarginContainer/VBoxContainer/CharacterStats/Right"]
+layout_mode = 2
+
+[node name="Health" type="HBoxContainer" parent="MarginContainer/VBoxContainer/CharacterStats/Right/Bars"]
+layout_mode = 2
+script = ExtResource("7_stto1")
+Bar = NodePath("HealthBar")
+ValueLabel = NodePath("Value")
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/CharacterStats/Right/Bars/Health"]
+custom_minimum_size = Vector2(35, 0)
+layout_mode = 2
+text = "HP"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Value" type="Label" parent="MarginContainer/VBoxContainer/CharacterStats/Right/Bars/Health"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "100/100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HealthBar" parent="MarginContainer/VBoxContainer/CharacterStats/Right/Bars/Health" instance=ExtResource("7_lr7ob")]
+custom_minimum_size = Vector2(200, 15)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Magicka" type="HBoxContainer" parent="MarginContainer/VBoxContainer/CharacterStats/Right/Bars"]
+layout_mode = 2
+script = ExtResource("7_stto1")
+Bar = NodePath("MagickaBar")
+ValueLabel = NodePath("Value")
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/CharacterStats/Right/Bars/Magicka"]
+custom_minimum_size = Vector2(35, 0)
+layout_mode = 2
+text = "MG"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Value" type="Label" parent="MarginContainer/VBoxContainer/CharacterStats/Right/Bars/Magicka"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "100/100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MagickaBar" parent="MarginContainer/VBoxContainer/CharacterStats/Right/Bars/Magicka" instance=ExtResource("8_1kr35")]
+custom_minimum_size = Vector2(200, 15)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Sanity" type="HBoxContainer" parent="MarginContainer/VBoxContainer/CharacterStats/Right/Bars"]
+layout_mode = 2
+script = ExtResource("7_stto1")
+Bar = NodePath("SanityBar")
+ValueLabel = NodePath("Value")
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/CharacterStats/Right/Bars/Sanity"]
+custom_minimum_size = Vector2(35, 0)
+layout_mode = 2
+text = "SAN"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Value" type="Label" parent="MarginContainer/VBoxContainer/CharacterStats/Right/Bars/Sanity"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "100/100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SanityBar" parent="MarginContainer/VBoxContainer/CharacterStats/Right/Bars/Sanity" instance=ExtResource("9_wy71o")]
+custom_minimum_size = Vector2(200, 15)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Fatigue" type="HBoxContainer" parent="MarginContainer/VBoxContainer/CharacterStats/Right/Bars"]
+layout_mode = 2
+script = ExtResource("7_stto1")
+Bar = NodePath("FatigueBar")
+ValueLabel = NodePath("Value")
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/CharacterStats/Right/Bars/Fatigue"]
+custom_minimum_size = Vector2(35, 0)
+layout_mode = 2
+text = "FG"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Value" type="Label" parent="MarginContainer/VBoxContainer/CharacterStats/Right/Bars/Fatigue"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "100/100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FatigueBar" parent="MarginContainer/VBoxContainer/CharacterStats/Right/Bars/Fatigue" instance=ExtResource("10_3x41f")]
+custom_minimum_size = Vector2(200, 15)
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="Resistances" type="HBoxContainer" parent="MarginContainer/VBoxContainer/CharacterStats/Right"]
+custom_minimum_size = Vector2(310, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="ResistanceLabel1" parent="MarginContainer/VBoxContainer/CharacterStats/Right/Resistances" instance=ExtResource("11_ik5he")]
+layout_mode = 2
+Texture = ExtResource("12_e0cr4")
+
+[node name="ResistanceLabel2" parent="MarginContainer/VBoxContainer/CharacterStats/Right/Resistances" instance=ExtResource("11_ik5he")]
+layout_mode = 2
+Effect = 9
+Texture = ExtResource("13_osv7f")
+
+[node name="ResistanceLabel3" parent="MarginContainer/VBoxContainer/CharacterStats/Right/Resistances" instance=ExtResource("11_ik5he")]
+layout_mode = 2
+Effect = 10
+Texture = ExtResource("14_movck")
+
+[node name="ResistanceLabel4" parent="MarginContainer/VBoxContainer/CharacterStats/Right/Resistances" instance=ExtResource("11_ik5he")]
+layout_mode = 2
+Effect = 11
+Texture = ExtResource("15_cuy83")
+
+[node name="ResistanceLabel5" parent="MarginContainer/VBoxContainer/CharacterStats/Right/Resistances" instance=ExtResource("11_ik5he")]
+layout_mode = 2
+Effect = 12
+Texture = ExtResource("16_melhg")
+
+[node name="CharacterSkills" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="SkillIcons" type="GridContainer" parent="MarginContainer/VBoxContainer/CharacterSkills"]
+z_index = 1
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+theme_override_constants/h_separation = 0
+columns = 8
+
+[node name="SkillButton" parent="MarginContainer/VBoxContainer/CharacterSkills/SkillIcons" instance=ExtResource("18_73iob")]
+layout_mode = 2
+
+[node name="SkillButton2" parent="MarginContainer/VBoxContainer/CharacterSkills/SkillIcons" instance=ExtResource("18_73iob")]
+layout_mode = 2
+
+[node name="SkillButton3" parent="MarginContainer/VBoxContainer/CharacterSkills/SkillIcons" instance=ExtResource("18_73iob")]
+layout_mode = 2
+
+[node name="SkillButton4" parent="MarginContainer/VBoxContainer/CharacterSkills/SkillIcons" instance=ExtResource("18_73iob")]
+layout_mode = 2
+
+[node name="SkillButton5" parent="MarginContainer/VBoxContainer/CharacterSkills/SkillIcons" instance=ExtResource("18_73iob")]
+layout_mode = 2
+
+[node name="SkillButton6" parent="MarginContainer/VBoxContainer/CharacterSkills/SkillIcons" instance=ExtResource("18_73iob")]
+layout_mode = 2
+
+[node name="SkillButton7" parent="MarginContainer/VBoxContainer/CharacterSkills/SkillIcons" instance=ExtResource("18_73iob")]
+layout_mode = 2
+
+[node name="SkillButton8" parent="MarginContainer/VBoxContainer/CharacterSkills/SkillIcons" instance=ExtResource("18_73iob")]
+layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -74.0
+offset_top = 58.0
+offset_right = -64.0
+offset_bottom = 73.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(0.882353, 0.752941, 0.501961, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_2rqrb")
+theme_override_styles/hover = SubResource("StyleBoxFlat_37a2o")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_2rqrb")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_2rqrb")
+text = " X "

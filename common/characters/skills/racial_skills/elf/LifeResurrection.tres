@@ -1,0 +1,51 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=11 format=3 uid="uid://3y32kv2wbw2n"]
+
+[ext_resource type="Script" path="res://common/characters/skills/Skill.cs" id="1_cce04"]
+[ext_resource type="Script" path="res://common/characters/Cost.cs" id="1_wv2ou"]
+[ext_resource type="Script" path="res://common/effects/HealEffect.cs" id="2_471gq"]
+[ext_resource type="Script" path="res://common/effects/effects_over_time/data/DoT.cs" id="3_1uj0v"]
+[ext_resource type="Texture2D" uid="uid://csixyur7k4l0o" path="res://gfx/icons/skills/life_resurrection.png" id="3_tq244"]
+[ext_resource type="Script" path="res://common/effects/DoTEffect.cs" id="4_qtnju"]
+
+[sub_resource type="Resource" id="Resource_gm6xh"]
+script = ExtResource("1_wv2ou")
+StatType = 0
+Amount = 50
+IsPercentage = true
+
+[sub_resource type="Resource" id="Resource_wc3t2"]
+script = ExtResource("2_471gq")
+IsPercentage = true
+HealRange = Vector2i(33, 33)
+CriticalChance = 5
+EffectType = 4
+
+[sub_resource type="Resource" id="Resource_k387t"]
+script = ExtResource("3_1uj0v")
+Amount = 5
+EffectType = 12
+TimeToLast = 3
+
+[sub_resource type="Resource" id="Resource_ostgi"]
+script = ExtResource("4_qtnju")
+DoT = SubResource("Resource_k387t")
+SuccessChance = 33
+EffectType = 12
+
+[resource]
+script = ExtResource("1_cce04")
+IsRacialSkill = true
+Name = " Life Resurrection"
+Icon = ExtResource("3_tq244")
+NeverMiss = true
+Precision = 100
+TargetRange = 4
+UserPosition = Vector2i(1, 4)
+TargetPosition = Vector2i(1, 4)
+Requirements = []
+Costs = [SubResource("Resource_gm6xh")]
+EffectsOnSelf = []
+EffectsOnTarget = [SubResource("Resource_wc3t2"), SubResource("Resource_ostgi")]
+CanBeLearnt = true
+UsageLimit = 1
+ProfessionScores = {}

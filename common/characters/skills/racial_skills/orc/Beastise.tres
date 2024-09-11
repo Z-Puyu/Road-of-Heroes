@@ -1,0 +1,84 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=16 format=3 uid="uid://b5w5a5pd84epd"]
+
+[ext_resource type="Script" path="res://common/characters/skills/Skill.cs" id="1_rh01c"]
+[ext_resource type="Script" path="res://common/modifier/StatModifier.cs" id="1_wx61b"]
+[ext_resource type="Script" path="res://common/effects/effects_over_time/data/MoT.cs" id="2_3dpce"]
+[ext_resource type="Script" path="res://common/effects/ModifierEffect.cs" id="3_noa6e"]
+[ext_resource type="Texture2D" uid="uid://cvedx2numxnfm" path="res://gfx/icons/skills/beastise.png" id="4_ya6nr"]
+[ext_resource type="Script" path="res://common/characters/skills/Requirement.cs" id="5_446vp"]
+
+[sub_resource type="Resource" id="Resource_jhwkj"]
+script = ExtResource("1_wx61b")
+TargetStat = 6
+TimeToLast = 3
+UsePercentage = false
+Value = 3
+
+[sub_resource type="Resource" id="Resource_y80ky"]
+script = ExtResource("2_3dpce")
+Modifier = SubResource("Resource_jhwkj")
+EffectType = 14
+TimeToLast = 3
+
+[sub_resource type="Resource" id="Resource_upide"]
+script = ExtResource("1_wx61b")
+TargetStat = 5
+TimeToLast = 3
+UsePercentage = false
+Value = 2
+
+[sub_resource type="Resource" id="Resource_u1qns"]
+script = ExtResource("2_3dpce")
+Modifier = SubResource("Resource_upide")
+EffectType = 14
+TimeToLast = 3
+
+[sub_resource type="Resource" id="Resource_ryoxm"]
+script = ExtResource("1_wx61b")
+TargetStat = 4
+TimeToLast = 3
+UsePercentage = false
+Value = 10
+
+[sub_resource type="Resource" id="Resource_6b5dm"]
+script = ExtResource("2_3dpce")
+Modifier = SubResource("Resource_ryoxm")
+EffectType = 14
+TimeToLast = 3
+
+[sub_resource type="Resource" id="Resource_a5dt3"]
+script = ExtResource("3_noa6e")
+Buffs = [SubResource("Resource_y80ky"), SubResource("Resource_u1qns"), SubResource("Resource_6b5dm")]
+Debuffs = []
+SuccessChance = 100
+EffectType = 11
+
+[sub_resource type="Resource" id="Resource_gavuq"]
+script = ExtResource("5_446vp")
+StatType = 0
+Value = 50
+ComparisonMethod = 2
+
+[sub_resource type="Resource" id="Resource_71m41"]
+script = ExtResource("5_446vp")
+StatType = 0
+Value = 50
+ComparisonMethod = 2
+
+[resource]
+script = ExtResource("1_rh01c")
+IsRacialSkill = true
+Name = "Beastise"
+Icon = ExtResource("4_ya6nr")
+NeverMiss = true
+Precision = 100
+TargetRange = 4
+UserPosition = Vector2i(1, 4)
+TargetPosition = Vector2i(1, 4)
+Requirements = [SubResource("Resource_gavuq"), SubResource("Resource_71m41")]
+Costs = []
+EffectsOnSelf = [SubResource("Resource_a5dt3")]
+EffectsOnTarget = []
+CanBeLearnt = true
+UsageLimit = 1
+ProfessionScores = {}
