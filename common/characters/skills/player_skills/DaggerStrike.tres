@@ -13,6 +13,7 @@
 script = ExtResource("1_h1ll2")
 SuccessChance = 100
 StepSize = -2
+UseTargetPosition = false
 EffectType = 16
 
 [sub_resource type="Resource" id="Resource_87hl3"]

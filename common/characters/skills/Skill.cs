@@ -9,7 +9,7 @@ using MonoCustomResourceRegistry;
 namespace Game.common.characters.skills {
     [RegisteredType(nameof(Skill), "", nameof(Resource)), GlobalClass]
     public partial class Skill : Resource {
-        public enum Range { SingleEnemy, SingleAlly, AOEEnemy, AOEAlly, SelfOnly }
+        public enum Range { SingleEnemy, SingleAlly, AOEEnemy, AOEAlly, SelfOnly, Neighbours }
 
         [Export] public bool IsRacialSkill { set; get; } = false;
         [Export] private string Name { set; get; }

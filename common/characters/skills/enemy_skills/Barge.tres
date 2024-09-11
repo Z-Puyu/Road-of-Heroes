@@ -11,6 +11,7 @@
 script = ExtResource("1_v870t")
 SuccessChance = 100
 StepSize = -1
+UseTargetPosition = false
 EffectType = 16
 
 [sub_resource type="Resource" id="Resource_6n4i3"]
@@ -22,6 +23,7 @@ EffectType = 0
 script = ExtResource("1_v870t")
 SuccessChance = 75
 StepSize = 1
+UseTargetPosition = false
 EffectType = 16
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_rj3mv"]

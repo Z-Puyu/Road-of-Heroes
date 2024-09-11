@@ -42,10 +42,13 @@ namespace Game.ui.battle {
 			}
 			GridContainer skills = this.GetNode<GridContainer>(this.Skills);
 			for (int i = 0; i < skills.GetChildCount(); i += 1) {
+				BattleSkillButton button = skills.GetChild<BattleSkillButton>(i);
 				if (i >= character.ActiveSkills.Count) {
+					if (button.IsLoaded()) {
+						continue;
+					}
 					skills.GetChild<BattleSkillButton>(i).Disabled = true;
 				} else {
-					BattleSkillButton button = skills.GetChild<BattleSkillButton>(i);
 					button.Load(character.ActiveSkills[i], character);
 					button.Disabled = !position.In(character.ActiveSkills[i].UserPosition);
 					button.ButtonPressed = character.ActiveSkills[i] == currActiveSkill;

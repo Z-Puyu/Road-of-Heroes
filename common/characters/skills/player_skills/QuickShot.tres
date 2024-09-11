@@ -13,6 +13,7 @@
 script = ExtResource("1_g545h")
 SuccessChance = 100
 StepSize = 2
+UseTargetPosition = false
 EffectType = 16
 
 [sub_resource type="Resource" id="Resource_sfv1j"]
@@ -24,6 +25,7 @@ EffectType = 1
 script = ExtResource("1_g545h")
 SuccessChance = 50
 StepSize = 1
+UseTargetPosition = false
 EffectType = 16
 
 [resource]

@@ -11,6 +11,7 @@ namespace Game.common.effects {
     public partial class DisplaceEffect : Effect {
         [Export] private int SuccessChance { set; get; }
         [Export] private int StepSize { set; get; } = 1;
+        [Export] private bool UseTargetPosition { set; get; } = false;
 
         public override async Task Apply(IEffectEmitter src, IEffectReceiver target, bool crit = false) {
             if (target is not CharacterCard receiver || this.EffectType != Type.Displace) {
@@ -18,7 +19,9 @@ namespace Game.common.effects {
             }
             int dice = Utilities.Randi(1, 100);
             if (dice <= this.SuccessChance) {
-                this.Publish(new DisplaceCharacterEvent(receiver, this.StepSize));
+                this.Publish(new DisplaceCharacterEvent(
+                    receiver, this.StepSize, this.UseTargetPosition ? (CharacterCard)target : null
+                ));
             }
             await Task.CompletedTask;
         }

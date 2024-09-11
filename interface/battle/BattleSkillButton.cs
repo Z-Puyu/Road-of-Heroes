@@ -10,8 +10,8 @@ namespace Game.ui.characters.player {
 		[Export] private NodePath Icon { set; get; }
 		[Export] private NodePath Label { set; get; }
 		[Export] private NodePath Desc { set; get; }
+		[Export] private Skill Skill { set; get; }
 
-        private Skill skill;
 		private Vector2 anchor;
 		private PlayerCharacter character;
 
@@ -22,11 +22,15 @@ namespace Game.ui.characters.player {
 			this.Toggled += this.OnToggled;
         }
 
+		public bool IsLoaded() {
+			return this.Skill != null;
+		}
+
         private void OnToggled(bool toggledOn) {
             if (toggledOn) {
-				this.Publish(new SkillReadyEvent(this.skill, this.character));
+				this.Publish(new SkillReadyEvent(this.Skill, this.character));
 			} else {
-				this.Publish(new SkillUnequipedEvent(this.skill));
+				this.Publish(new SkillUnequipedEvent(this.Skill));
 			}
         }
 
@@ -42,22 +46,22 @@ namespace Game.ui.characters.player {
 				return;
 			}
 			AspectRatioContainer tooltip = this.GetNode<AspectRatioContainer>(this.Tooltip);
-			if (this.skill == null && tooltip.Visible) {
+			if (this.Skill == null && tooltip.Visible) {
 				return;
 			}
-			if (this.skill.IsRacialSkill) {
+			if (this.Skill.IsRacialSkill) {
 				this.GetNode<Label>(this.Label).Show();
 			} else {
 				this.GetNode<Label>(this.Label).Hide();
 			}
-			this.GetNode<Label>(this.Desc).Text = this.skill.ToDesc(this.character);
+			this.GetNode<Label>(this.Desc).Text = this.Skill.ToDesc(this.character);
 			tooltip.Show();
 			this.anchor = this.GetGlobalTransformWithCanvas().Origin;
 			tooltip.GlobalPosition = this.anchor - new Vector2(tooltip.Size.X, 0);
         }
 
         public void Load(Skill skill, PlayerCharacter character) {
-			this.skill = skill;
+			this.Skill = skill;
 			this.character = character;
 			this.GetNode<TextureRect>(this.Icon).Texture = skill.Icon;
 		}

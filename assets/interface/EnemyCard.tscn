@@ -76,7 +76,7 @@ vertical_alignment = 1
 layout_mode = 1
 offset_top = 200.0
 offset_bottom = 232.0
-Root = NodePath("..")
+Root = NodePath("")
 
 [node name="Bars" type="VBoxContainer" parent="."]
 layout_mode = 1

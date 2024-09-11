@@ -29,12 +29,6 @@ namespace Game.common.battle {
         }
 
         private void OnSelectSkillTarget(object sender, EventArgs e) {
-			Node node = this.GetParent();
-			bool yes0 = node.IsInsideTree();
-			bool yes = this.IsInsideTree();
-			SceneTree tree = this.GetTree();
-			bool b = this.GetTree().HasGroup("selected_targets");
-			int a = 0;
 			this.skill.Fire(
 				this.playerCards.Find(x => x.Character == this.active), 
 				[..this.GetTree().GetNodesInGroup("selected_targets").Cast<CharacterCard>()]
@@ -84,6 +78,15 @@ namespace Game.common.battle {
 					case Skill.Range.SelfOnly:
 						anims.Add(this.playerCards.Find(x => x.Character == this.active).LockedOn());
 						break;
+					case Skill.Range.Neighbours:
+						int pos = this.playerCards.FindIndex(x => x.Character == this.active);
+						if (pos + 1 < this.playerCards.Count) {
+							anims.Add(this.playerCards[pos + 1].LockedOn());
+						}
+						if (pos - 1 >= 0) {
+							anims.Add(this.playerCards[pos - 1].LockedOn());
+						}
+						break;
 					default:
 						break;
 				}
@@ -95,7 +98,11 @@ namespace Game.common.battle {
 
         private void OnDisplaceCharacter(object sender, EventArgs e) {
             if (e is DisplaceCharacterEvent @event) {
-				this.Move(@event.Card, @event.StepSize);
+				if (@event.Target == null) {
+					this.Move(@event.Card, @event.StepSize);
+				} else {
+					this.Move(@event.Card, @event.Target);
+				}
 			}
         }
 
@@ -184,6 +191,12 @@ namespace Game.common.battle {
 			return [..heroes.Concat(enemies)];
 		}
 
+		private async void Move(CharacterCard card, CharacterCard target) {
+			if (card is PlayerCard playerCard && target is PlayerCard targetCard) {
+				await this.Move(playerCard, this.playerCards.IndexOf(targetCard));
+			}
+		}
+
 		private async void Move(CharacterCard card, int offset) {
 			if (card is PlayerCard playerCard) {
 				await this.Move(playerCard, this.playerCards.IndexOf(playerCard) + offset);
@@ -192,41 +205,48 @@ namespace Game.common.battle {
 
 		public async Task Move(PlayerCard card, int position) {
 			int currPos = this.playerCards.IndexOf(card);
+			position = Math.Clamp(position, 0, this.playerCards.Count - 1);
 			if (position == currPos) {
 				return;
 			}
-			position = Math.Clamp(position, 0, this.playerCards.Count - 1);
-			Dictionary<int, Vector2> positions = [];
+			Dictionary<int, double> positions = [];
 			List<Task> anims = [];
-			card.Reparent(this);
+			foreach (PlayerCard c in this.playerCards) {
+				c.Reparent(this);
+			}
 			if (position > currPos) {
 				// Move back
 				for (int i = currPos + 1; i <= position; i += 1) {
-					positions.Add(i, this.playerCards[i - 1].GlobalPosition);
+					positions.Add(i, this.playerCards[i - 1].GlobalPosition.X);
 					this.playerCards[i].Reparent(this);
 				}
 				for (int i = currPos + 1; i <= position; i += 1) {
 					anims.Add(AnimationManager.Animate(
-						this.playerCards[i], "global_position", positions[i], 
+						this.playerCards[i], "global_position:x", positions[i], 
 						0.25, Tween.EaseType.InOut
 					));
 				}
 			} else {
 				// Move forward
 				for (int i = currPos - 1; i >= 0; i -= 1) {
-					positions.Add(i, this.playerCards[i + 1].GlobalPosition);
+					positions.Add(i, this.playerCards[i + 1].GlobalPosition.X);
 					this.playerCards[i].Reparent(this);
 				}
 				for (int i = currPos - 1; i >= 0; i -= 1) {
 					anims.Add(AnimationManager.Animate(
-						this.playerCards[i], "global_position", positions[i], 
+						this.playerCards[i], "global_position:x", positions[i], 
 						0.25, Tween.EaseType.InOut
 					));
 				}
 			}
 			anims.Add(AnimationManager.Animate(
-				card, "global_position", position, 0.25, Tween.EaseType.InOut
+				card, "global_position:x", position, 0.25, Tween.EaseType.InOut
 			));
+			this.playerCards.Insert(position, card);
+			this.playerCards.RemoveAt(currPos);
+			foreach (PlayerCard c in this.playerCards) {
+				c.Reparent(this.GetNode<HBoxContainer>(this.PlayerParty));
+			}
 			foreach (Task anim in anims) {
 				await anim;
 			}

@@ -12,7 +12,7 @@
 script = ExtResource("1_23pge")
 Races = [ExtResource("2_tks7c"), ExtResource("3_jxomn"), ExtResource("4_miiyg"), ExtResource("5_vblr3")]
 EnemyParties = [[ExtResource("6_wt032"), ExtResource("6_wt032"), ExtResource("7_iimdy"), ExtResource("7_iimdy")]]
-TempLayer = NodePath("TempLayer")
+TempLayer = NodePath("")
 
 [node name="TempLayer" type="CanvasLayer" parent="."]
 layer = 99

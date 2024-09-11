@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bikll6xr8u5vc"]
+[gd_scene load_steps=18 format=3 uid="uid://bikll6xr8u5vc"]
 
 [ext_resource type="Script" path="res://common/battle/TurnManager.cs" id="1_ro42t"]
 [ext_resource type="Theme" uid="uid://b467chlxnpgy6" path="res://data/ui/BaseTheme.tres" id="2_1midk"]
@@ -8,10 +8,40 @@
 [ext_resource type="PackedScene" uid="uid://o045245nu8dv" path="res://assets/interface/BattleSkillButton.tscn" id="6_74oho"]
 [ext_resource type="PackedScene" uid="uid://d2i2g0jfn1tbq" path="res://assets/interface/ResistanceLabel.tscn" id="6_ih6il"]
 [ext_resource type="Texture2D" uid="uid://law8g46ldcnb" path="res://gfx/icons/effects/stun.png" id="7_5nlmu"]
+[ext_resource type="Script" path="res://common/effects/DisplaceEffect.cs" id="7_105nb"]
+[ext_resource type="Script" path="res://common/characters/skills/Skill.cs" id="7_xen5n"]
 [ext_resource type="Texture2D" uid="uid://ds50owiwph5q2" path="res://gfx/icons/effects/bleed.png" id="8_hnjdu"]
 [ext_resource type="Texture2D" uid="uid://d2t8y74k2bn4i" path="res://gfx/icons/effects/poison.png" id="9_40nbn"]
 [ext_resource type="Texture2D" uid="uid://2xfkt718duh4" path="res://gfx/icons/effects/burn.png" id="10_3lf63"]
 [ext_resource type="Texture2D" uid="uid://gui8i1m22ryv" path="res://gfx/icons/effects/blight.png" id="11_gcoqh"]
+
+[sub_resource type="Resource" id="Resource_l4hcy"]
+script = ExtResource("7_105nb")
+SuccessChance = 100
+StepSize = 0
+UseTargetPosition = true
+EffectType = 16
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_gy71j"]
+size = Vector2(64, 64)
+
+[sub_resource type="Resource" id="Resource_op5oa"]
+script = ExtResource("7_xen5n")
+IsRacialSkill = false
+Name = "Move"
+Icon = SubResource("PlaceholderTexture2D_gy71j")
+NeverMiss = true
+Precision = 100
+TargetRange = 5
+UserPosition = Vector2i(1, 4)
+TargetPosition = Vector2i(1, 4)
+Requirements = []
+Costs = []
+EffectsOnSelf = [SubResource("Resource_l4hcy")]
+EffectsOnTarget = []
+CanBeLearnt = false
+UsageLimit = -1
+ProfessionScores = {}
 
 [node name="BattleView" type="Node2D"]
 
@@ -137,7 +167,7 @@ layout_mode = 2
 
 [node name="Skills" type="GridContainer" parent="TurnManager/UI/CharacterManager/CharacterPanel/Right"]
 layout_mode = 2
-columns = 5
+columns = 7
 
 [node name="SkillButton" parent="TurnManager/UI/CharacterManager/CharacterPanel/Right/Skills" instance=ExtResource("6_74oho")]
 layout_mode = 2
@@ -153,6 +183,10 @@ layout_mode = 2
 
 [node name="SkillButton5" parent="TurnManager/UI/CharacterManager/CharacterPanel/Right/Skills" instance=ExtResource("6_74oho")]
 layout_mode = 2
+
+[node name="SkillButton6" parent="TurnManager/UI/CharacterManager/CharacterPanel/Right/Skills" instance=ExtResource("6_74oho")]
+layout_mode = 2
+Skill = SubResource("Resource_op5oa")
 
 [node name="Resistances" type="HBoxContainer" parent="TurnManager/UI/CharacterManager/CharacterPanel/Right"]
 layout_mode = 2
