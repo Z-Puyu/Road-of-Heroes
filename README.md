@@ -24,7 +24,7 @@ In order to maintain coding style, standardise code structure and facilitate bet
 
 - All variables and class fields should be named in **camelCase**.
 
-- All constants, i.e., `const` variables and `static readonly` fields, should be named in **SNAKE_CASE_USING_ALL_CAPITAL_LETTERS**.
+- All constants should be named in **SNAKE_CASE_USING_ALL_CAPITAL_LETTERS**.
  
 - Names of variables and functions should be **in English**, **descriptive**. **No custom abbreviations** are allowed.
 
