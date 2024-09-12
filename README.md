@@ -1,5 +1,14 @@
 # Road of Heroes
 
+## Table of Contents
+
+1. [Overview](#overview)
+2. [Characters](#characters)
+3. [Gameplay](#gameplay)
+4. [Game Experience](#game-experience)
+5. [Items](#items)
+6. [Art & Music](#art--music)
+
 ## Overview
 
 ### Story
@@ -115,3 +124,13 @@ There are 3 types of items which can be collected and used in the game.
 - **Stimulant**: reduce s medium amount of fatigue, but increase fatigue generation.
 
 **Gold** is the currency in the game. The player can spend gold purchasing other items, or selling other items for gold at merchants. Merchants can be found in settlements, cities. There is also a very small chance of a merchant appearing in the wild at random.
+
+## Art & Music
+
+The art of the game will be dedecated to creating a grim and eerie atmosphere, and therefore a vision of a world at the verge of breaking apart amid an apocalypse. One important point to note is that **this is not meant to be a horror game**. The focus of the art and music is to convey a sense of **decay, darkness, despair and unholiness**. The player should be able to feel **tension and distress** from their immersion in the game, but **not direct horror** (however, fright might be *implicitly* felt from certain elements used in the art). The art should fit to the setting of a medieval fantasy world. For music, though, we are receptive to any genre and style.
+
+### Art Style
+
+We are receptive to all styles of art, including hand-drawn realistic art, doodling style sketches, pixel art etc. The specific detail and choice of art is largely dependent on the artist, as long as the art produced matches with the game's base tone.
+
+For music, instrumental (i.e. lyrics-free) style is preferred. However, both classical style and modern/electronic music are possible for the game's purpose.
