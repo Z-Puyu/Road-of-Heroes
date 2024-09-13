@@ -10,6 +10,8 @@ In order to maintain coding style, standardise code structure and facilitate bet
 
 - The game is to be developed in **C#**, **no GDScript** is allowed in scripting.
 
+- Identation is **4 spaces** per level.
+
 - Every operator should have **exactly one space before it** and **exactly one space after it**.
 
 - There should be **exactly one space** between a function's name and its parameters, and before an opening curly brace.
