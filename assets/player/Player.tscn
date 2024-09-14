@@ -9,11 +9,11 @@ position = Vector2(-48.125, -48.125)
 scale = Vector2(0.175293, 0.175293)
 texture = ExtResource("1_fsars")
 script = ExtResource("2_x5nom")
-MovementModule = NodePath("")
+MovementModule = NodePath("MovementModule")
 
 [node name="MovementModule" type="Node" parent="." node_paths=PackedStringArray("Root")]
 script = ExtResource("3_xnuve")
-Root = NodePath("")
+Root = NodePath("..")
 
 [node name="Timer" type="Timer" parent="MovementModule"]
 wait_time = 0.2
