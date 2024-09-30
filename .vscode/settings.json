@@ -1,6 +1,5 @@
 {
     "editor.formatOnType": true,
-    "godot_tools.editor_path": "f:\\Godot\\Godot_v4.2.1-stable_mono_win64.exe",
     "cSpell.words": [
         "Archaetech",
         "crit",
@@ -13,5 +12,5 @@
         "tres",
         "tscn"
     ],
-    "godotTools.editorPath.godot4": "d:\\Godot\\Godot_v4.2.1-stable_mono_win64.exe"
+    "godotTools.editorPath.godot4": "f:\\Godot\\Godot_v4.2.1-stable_mono_win64.exe"
 }
