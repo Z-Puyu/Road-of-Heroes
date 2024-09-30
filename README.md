@@ -2,7 +2,7 @@
 
 ## What Is This?
 
-*Road of Heroes* is a **2D roguelike turn-based role-play game** inspired by Darkest Dungeon and influenced by For the King. Read the [game design document](GDD.md) here for more detail.
+*Road of Heroes* is a **2D roguelike turn-based role-play game** inspired by Darkest Dungeon and influenced by For the King. Read the [game design document](GDD.md) here for more detail. A detailed version of the game design document is integrated into the [wiki](https://github.com/Z-Puyu/Road-of-Heroes/wiki) page, along side of the documentation for the implementation fo various systems, mechanics and classes used in the development of the game.
 
 ## Coding Standards
 
