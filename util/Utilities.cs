@@ -109,6 +109,15 @@ namespace Game.util {
         }
 
         /// <summary>
+        /// Produce a random 32-bit integer in a closed interval <paramref name="range"/>.
+        /// </summary>
+        /// <param name="range">A closed interval of possible integers to be generated.</param>
+        /// <returns>A random integer in <paramref name="range"/>.</returns>
+        public static int Randi((int, int) range) {
+            return Utilities.rng.RandiRange(range.Item1, range.Item2);
+        }
+
+        /// <summary>
         /// Produce a random real number between <c>0</c> and <c>1</c> inclusive.
         /// </summary>
         /// <returns>A random real number between <c>0</c> and <c>1</c> inclusive.</returns>
