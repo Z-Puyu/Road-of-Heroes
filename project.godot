@@ -17,16 +17,16 @@ ResourceScriptDirectories=["res://"]
 [application]
 
 config/name="Road of Heroes"
-run/main_scene="res://assets/game_views/Main.tscn"
+run/main_scene="res://assets/tests/CharacterStatsTest.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
-GameManager="*res://assets/static/GameManager.tscn"
-AnimationManager="*res://assets/static/AnimationManager.tscn"
-FloatingCaption="*res://assets/static/FloatingCaption.tscn"
-PlayerManager="*res://assets/static/PlayerManager.tscn"
+GameManager="res://assets/static/GameManager.tscn"
+AnimationManager="res://assets/static/AnimationManager.tscn"
+FloatingCaption="res://assets/static/FloatingCaption.tscn"
+PlayerManager="res://assets/static/PlayerManager.tscn"
 
 [display]
 

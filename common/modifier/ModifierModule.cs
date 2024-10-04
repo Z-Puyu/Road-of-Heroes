@@ -27,10 +27,12 @@ namespace Game.common.modifier {
                     }
                 }
             }
-            multiplier.Item1 = Math.Max(multiplier.Item1, 0);
-            multiplier.Item2 = Math.Max(multiplier.Item2, 0);
-            multiplier.Item3 = Math.Max(multiplier.Item3, 0);
-            return (stat + offset) * multiplier;
+            (double, double, double) factor = (
+                Math.Max(multiplier.Item1, 0) / 100.0, 
+                Math.Max(multiplier.Item2, 0) / 100.0, 
+                Math.Max(multiplier.Item3, 0) / 100.0
+            );
+            return (stat + offset) * factor;
         }
 
         private void Remove(Modifier modifier) {

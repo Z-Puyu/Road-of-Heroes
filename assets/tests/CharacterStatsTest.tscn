@@ -1,0 +1,21 @@
+[gd_scene load_steps=6 format=3 uid="uid://derl53rd1bbyr"]
+
+[ext_resource type="Script" path="res://tests/CharacterStatsTest.cs" id="1_jf6rw"]
+[ext_resource type="Script" path="res://common/game_stats/Stat.cs" id="2_yar25"]
+[ext_resource type="Script" path="res://common/characters/Character.cs" id="3_l2t78"]
+
+[sub_resource type="Resource" id="Resource_al687"]
+script = ExtResource("2_yar25")
+Type = 0
+Value = 75
+MaxValue = 100
+MinValue = 0
+
+[sub_resource type="Resource" id="Resource_8w34i"]
+script = ExtResource("3_l2t78")
+Stats = [SubResource("Resource_al687")]
+Name = "Test Character"
+
+[node name="CharacterStatsTest" type="Node"]
+script = ExtResource("1_jf6rw")
+Character = SubResource("Resource_8w34i")

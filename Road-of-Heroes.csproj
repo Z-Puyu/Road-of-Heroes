@@ -112,5 +112,16 @@
     <Content Include="common\characters\Actor.cs" />
     <Content Include="common\characters\Hero.cs" />
     <Content Include="tests\CharacterStatsTest.cs" />
+    <Content Include="util\interfaces\ILoggable.cs" />
+    <Content Include="common\game_stats\stats\Health.cs" />
+    <Content Include="common\characters\HeroActor.cs" />
+    <Content Include="common\characters\class\Class.cs" />
+    <Content Include="common\game_stats\stats\Effectiveness.cs" />
+    <Content Include="common\effects\AttackEffect.cs" />
+    <Content Include="common\game_stats\stats\MeleeDamageDealt.cs" />
+    <Content Include="common\game_stats\stats\DamageTaken.cs" />
+    <Content Include="common\game_stats\stats\DamageDealt.cs" />
+    <Content Include="common\characters\modules\AttackModule.cs" />
+    <Content Include="common\characters\module\CombatModule.cs" />
   </ItemGroup>
 </Project>

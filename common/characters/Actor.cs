@@ -1,17 +1,17 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using Game.common.characters.module;
 using Game.common.modifier;
 using Game.common.stats;
 using Game.util;
 using Godot;
 
 namespace Game.common.characters {
-    public partial class Actor : Node, IComparable<Actor> {
+    public abstract partial class Actor : Node, IComparable<Actor> {
         private readonly Guid id = Guid.NewGuid();
         private readonly StatModule statModule = new StatModule();
         private readonly ModifierModule modifierModule = new ModifierModule();
+        private readonly CombatModule combatModule = new CombatModule();
         protected Character Data { get; set; }
         protected int SpeedOffset { set; get; } = 0;
 
@@ -21,10 +21,17 @@ namespace Game.common.characters {
 
         public override void _Ready() {
             foreach (Stat s in this.Data.Stats) {
-                this.statModule.TryAdd(s.Type, s);
+                this.statModule.TryAdd(s);
             }
             this.AddChild(this.modifierModule);
             this.AddChild(this.statModule);
+        }
+
+        public static Actor Of(Character data) {
+            if (data is Hero hero) {
+                return new HeroActor(hero);
+            }
+            return new EnemyActor(data);
         }
 
         public Stat Get(StatType t) {
@@ -34,11 +41,24 @@ namespace Game.common.characters {
             return this.modifierModule.Modify(new Stat(t, 0));
         }
 
-        public Stat Update(StatType t, int offset, int maxOffset = 0, int minOffset = 0) {
-            if (this.statModule.TryUpdate(t, out Stat s, offset, maxOffset, minOffset)) {
-                return s;
-            }
-            return null;
+        public abstract Stat Update(StatType t, int offset, int maxOffset = 0, int minOffset = 0);
+
+        public void Attack(StatType dmgType, Actor target, bool crit, int multiplier) {
+            // Send the modified damage to target.
+            target.TakeDamage(this.modifierModule.Modify(this.combatModule.GenerateDamage(
+                dmgType, this.Get(StatType.Strength).Value, crit, multiplier
+            )));
+        }
+
+        public void Attack(Damage minDmg, Damage maxDmg, Actor target, bool crit) {
+            // Send the modified damage to target.
+            target.TakeDamage(this.modifierModule.Modify(this.combatModule.GenerateDamage(
+                minDmg, maxDmg, crit
+            )));
+        }
+
+        public void TakeDamage(Stat dmg) {
+            this.Update(StatType.Health, -this.modifierModule.Modify(dmg).Value);
         }
 
         public void RandomiseSped() {
@@ -60,6 +80,36 @@ namespace Game.common.characters {
                 return (otherValue2.Value + other.SpeedOffset).CompareTo(this.SpeedOffset);
             }
             return other.SpeedOffset.CompareTo(this.SpeedOffset);
+        }
+
+        private partial class HeroActor : Actor {
+            public HeroActor(Hero hero) : base(hero) {}
+
+            public override Stat Update(StatType t, int offset, int maxOffset = 0, int minOffset = 0) {
+                if (this.statModule.TryUpdate(t, out Stat s, offset, maxOffset, minOffset)) {
+                    foreach (Stat stat in this.Data.Stats.Where(s => s.Type == t)) {
+                        this.Data.Stats.Remove(stat);
+                    }
+                    this.Data.Stats.Add(s);
+                    return s;
+                }
+                return null;
+            }
+        }   
+
+        private partial class EnemyActor : Actor {
+            public EnemyActor(Character data) : base(data) {}
+
+            public override Stat Update(StatType t, int offset, int maxOffset = 0, int minOffset = 0) {
+                if (this.statModule.TryUpdate(t, out Stat s, offset, maxOffset, minOffset)) {
+                    foreach (Stat stat in this.Data.Stats.Where(s => s.Type == t)) {
+                        this.Data.Stats.Remove(stat);
+                    }
+                    this.Data.Stats.Add(s);
+                    return s;
+                }
+                return null;
+            }
         }
     }
 }

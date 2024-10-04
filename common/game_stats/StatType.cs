@@ -1,10 +1,6 @@
 namespace Game.common.stats {
     public enum StatType {
         // Base Character Stats
-        Health,
-        Magicka,
-        Sanity,
-        Fatigue,
         Agility,
         Speed,
         Strength,
@@ -15,6 +11,19 @@ namespace Game.common.stats {
         PoisonResist,
         BurnResist,
         BlightResist,
-        StunResist
+        StunResist,
+        // Physical Conditions
+        Health,
+        Magicka,
+        Sanity,
+        Fatigue,
+        // Stats Unrelated to Characters
+        Effectiveness,
+        MeleeDamageDealt,
+        MeleeDamageTaken,
+        RangedDamageDealt,
+        RangedDamageTaken,
+        MagicDamageDealt,
+        MagicDamageTaken
     }
 }

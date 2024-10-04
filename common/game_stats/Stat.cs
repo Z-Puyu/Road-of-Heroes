@@ -1,28 +1,23 @@
 using System;
 using Game.util;
 using Godot;
-using Godot.Collections;
 using MonoCustomResourceRegistry;
 
 namespace Game.common.stats {
     [RegisteredType(nameof(Stat), "", nameof(Resource)), GlobalClass]
     public partial class Stat : Resource {
         [Export] public StatType Type { get; set; }
-        [Export] public int Value { set; get; }
+        [Export] public int Value { set; get; } = 0;
         [Export] public int MaxValue { set; get; } = int.MaxValue;
         [Export] public int MinValue { set; get; } = 0;
 
         public Stat() {}
 
-        public Stat(StatType type, int value, int maxValue = int.MaxValue, int minValue = 0) {
+        public Stat(StatType type, int value = 0, int maxValue = int.MaxValue, int minValue = 0) {
             this.Type = type;
             this.Value = value;
             this.MaxValue = maxValue;
             this.MinValue = minValue;
-        }
-
-        public override string ToString() {
-            return $"{this.Value} {this.Type}, min: {this.MinValue}, max: {this.MaxValue}";
         }
 
         public static Stat Random(StatType type, (int, int) range, int min = 0, int max = int.MaxValue) {
@@ -55,6 +50,10 @@ namespace Game.common.stats {
             int minValue = (int)Math.Round(Math.Max(stat.MinValue / divisor.Item3, 0));
             int value = Math.Clamp((int)Math.Round(stat.Value / divisor.Item1), minValue, maxValue);
             return new Stat(stat.Type, value, maxValue, minValue);
+        }
+
+        public override string ToString() {
+            return $"{this.Value} {this.Type}, min: {this.MinValue}, max: {this.MaxValue}";
         }
     }
 }
