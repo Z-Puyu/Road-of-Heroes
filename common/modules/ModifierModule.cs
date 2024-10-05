@@ -1,14 +1,45 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Game.common.characters;
+using Game.common.modifier;
 using Game.common.stats;
+using Game.util;
+using Game.util.events.battle;
 using Godot;
 
-namespace Game.common.modifier {
+namespace Game.common.modules {
     [GlobalClass]
     public partial class ModifierModule : Node {
         private readonly Dictionary<StatType, HashSet<Modifier>> modifiers = [];      
         private readonly Dictionary<int, Action> onExpire = [];
+        private readonly Dictionary<StatType, HashSet<Modifier>> permanent = [];
         private int time = 0;
+        private Actor Root { set; get; }
+
+        public override async void _Ready() {
+            await this.ToSignal(this.GetParent(), SignalName.Ready);
+            this.Root = this.GetParent<Actor>();
+            this.Subscribe<ReceiveModifierEvent>(this.OnReceiveModifier);
+            this.Subscribe<RemoveModifierEvent>(this.OnRemoveModifier);
+        }
+
+        private void OnRemoveModifier(object sender, EventArgs e) {
+            if (e is RemoveModifierEvent @event && @event.HandledBy(this.Root)) {
+                foreach (Modifier m in @event.Modifiers) {
+                    this.Remove(m);
+                }
+            }
+        }
+
+
+        private void OnReceiveModifier(object sender, EventArgs e) {
+            if (e is ReceiveModifierEvent @event && @event.HandledBy(this.Root)) {
+                foreach (Modifier m in @event.Modifiers) {
+                    this.Collect(m);
+                }
+            }
+        }
 
         public Stat Modify(Stat stat) {
             (int, int, int) offset = (0, 0, 0);
@@ -36,22 +67,37 @@ namespace Game.common.modifier {
         }
 
         private void Remove(Modifier modifier) {
-            if (modifier != null && this.modifiers.TryGetValue(modifier.TargetStat, out HashSet<Modifier> modifiers)) {
-                if (modifiers.Remove(modifier) && modifiers.Count == 0) {
-                    this.modifiers.Remove(modifier.TargetStat);
-                    if (this.modifiers.Count == 0) {
-                        this.time = 0;
+            if (modifier != null) {
+                if (this.modifiers.TryGetValue(modifier.TargetStat, out HashSet<Modifier> modifiers)) {
+                    if (modifiers.Remove(modifier) && modifiers.Count > 0) {
+                        this.modifiers.Remove(modifier.TargetStat);
+                        if (this.modifiers.Count == 0) {
+                            this.time = 0;
+                        }
+                    }
+                } else if (this.permanent.TryGetValue(
+                    modifier.TargetStat, out HashSet<Modifier> permanent
+                )) {
+                    if (permanent.Remove(modifier) && permanent.Count > 0) {
+                        this.modifiers.Remove(modifier.TargetStat);
                     }
                 }
-            } 
+            }
         }
 
-        public void Collect(Modifier modifier) {
-            int expireTime = this.time + modifier.TimeToLast;
-            if (this.onExpire.TryGetValue(expireTime, out Action action)) {
-                action += () => this.Remove(modifier);
-            } else {
-                this.onExpire.Add(expireTime, () => this.Remove(modifier));
+        private void Collect(Modifier modifier) {
+            if (modifier.TimeToLast > 0) {
+                int expireTime = this.time + modifier.TimeToLast;
+                if (this.onExpire.TryGetValue(expireTime, out Action action)) {
+                    action += () => this.Remove(modifier);
+                } else {
+                    this.onExpire.Add(expireTime, () => this.Remove(modifier));
+                }
+                if (this.modifiers.TryGetValue(modifier.TargetStat, out HashSet<Modifier> set)) {
+                    set.Add(modifier);
+                }
+            } else if (this.permanent.TryGetValue(modifier.TargetStat, out HashSet<Modifier> p)) {
+                p.Add(modifier);
             }
         }
 

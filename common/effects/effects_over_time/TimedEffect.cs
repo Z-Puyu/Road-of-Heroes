@@ -16,9 +16,13 @@ namespace Game.common.effects {
 
         public abstract void Collect(EoT effect);
 
-        public void Cure() {
-            this.effects.Clear();
-            this.time = 0;
+        public bool Cure() {
+            if (this.effects.Count > 0) {
+                this.effects.Clear();
+                this.time = 0;
+                return true;
+            }
+            return false;
         }
 
         public virtual async Task Apply(Actor target) {

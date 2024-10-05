@@ -42,7 +42,6 @@
     <Content Include="common\effects\effects_over_time\Token.cs" />
     <Content Include="common\effects\effects_over_time\data\DoT.cs" />
     <Content Include="common\effects\effects_over_time\data\EoT.cs" />
-    <Content Include="common\effects\effects_over_time\DoTToken.cs" />
     <Content Include="common\characters\race\Race.cs" />
     <Content Include="common\characters\PlayerCharacter.cs" />
     <Content Include="common\characters\EnemyCharacter.cs" />
@@ -54,7 +53,6 @@
     <Content Include="common\characters\enemies\EnemyCard.cs" />
     <Content Include="common\player\PlayerCard.cs" />
     <Content Include="common\effects\ModifierEffect.cs" />
-    <Content Include="common\effects\effects_over_time\EoTManager.cs" />
     <Content Include="common\effects\effects_over_time\data\Stun.cs" />
     <Content Include="common\characters\profession\Profession.cs" />
     <Content Include="common\static\PortraitContainer.cs" />
@@ -85,7 +83,6 @@
     <Content Include="common\battle\CharacterManager.cs" />
     <Content Include="common\MainScene.cs" />
     <Content Include="util\events\battle\BattleStartEvent.cs" />
-    <Content Include="common\effects\DisplaceEffect.cs" />
     <Content Include="util\events\battle\DisplaceCharacterEvent.cs" />
     <Content Include="util\events\battle\SkillChangedEvent.cs" />
     <Content Include="common\characters\enemies\Species.cs" />
@@ -103,7 +100,6 @@
     <Content Include="util\events\ConditionalEvent.cs" />
     <Content Include="common\game_stats\Stat.cs" />
     <Content Include="common\game_stats\StatType.cs" />
-    <Content Include="common\characters\modules\StatModule.cs" />
     <Content Include="common\modifier\ModifierModule.cs" />
     <Content Include="common\game_stats\StatModule.cs" />
     <Content Include="common\characters\Actor.cs" />
@@ -117,8 +113,6 @@
     <Content Include="common\game_stats\stats\MeleeDamageDealt.cs" />
     <Content Include="common\game_stats\stats\DamageTaken.cs" />
     <Content Include="common\game_stats\stats\DamageDealt.cs" />
-    <Content Include="common\characters\modules\AttackModule.cs" />
-    <Content Include="common\battle\CombatModule.cs" />
     <Content Include="common\game_stats\stats\Damage.cs" />
     <Content Include="common\game_stats\stats\Heal.cs" />
     <Content Include="common\effects\effects_over_time\DoTManager.cs" />
@@ -128,5 +122,17 @@
     <Content Include="common\effects\effects_over_time\OverTimeEffect.cs" />
     <Content Include="common\effects\effects_over_time\TimedModifier.cs" />
     <Content Include="common\game_stats\stats\DoTSuccessChance.cs" />
+    <Content Include="common\modules\CombatModule.cs" />
+    <Content Include="common\modules\ModifierModule.cs" />
+    <Content Include="common\modules\StatModule.cs" />
+    <Content Include="util\events\battle\AttackEvent.cs" />
+    <Content Include="util\events\battle\HealingEvent.cs" />
+    <Content Include="util\events\battle\AttackedEvent.cs" />
+    <Content Include="util\events\battle\HealedEvent.cs" />
+    <Content Include="util\events\battle\ReceiveDoTEvent.cs" />
+    <Content Include="common\modules\TimedEffectModule.cs" />
+    <Content Include="util\events\battle\CureDoTEvent.cs" />
+    <Content Include="util\events\battle\ReceiveTimedModifierEvent.cs" />
+    <Content Include="util\events\battle\ReceiveModifierEvent.cs" />
   </ItemGroup>
 </Project>

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Game.common.stats;
 using Godot;
 
-namespace Game.common.stats {
+namespace Game.common.modules {
     /// <summary>
     /// Encapsulates a manager of game object stats.
     /// </summary>

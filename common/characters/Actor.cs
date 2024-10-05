@@ -1,10 +1,8 @@
 using System;
 using System.Linq;
-using Game.common.battle;
 using Game.common.effects;
-using Game.common.modifier;
+using Game.common.modules;
 using Game.common.stats;
-using Game.common.tokens;
 using Game.util;
 using Godot;
 
@@ -37,6 +35,15 @@ namespace Game.common.characters {
             return new EnemyActor(data);
         }
 
+        /// <summary>
+        /// Computes a stat entry by applying the character's modifiers to <paramref name="stat"/>.
+        /// </summary>
+        /// <param name="stat">A stat entry containing the base data.</param>
+        /// <returns>A stat entry containing the modified data.</returns>
+        public Stat Filter(Stat stat) {
+            return this.modifierModule.Modify(stat);
+        }
+
         public Stat Get(StatType t) {
             if (this.statModule.TryGet(t, out Stat s)) {
                 return this.modifierModule.Modify(s);
@@ -45,47 +52,6 @@ namespace Game.common.characters {
         }
 
         public abstract Stat Update(StatType t, int offset, int maxOffset = 0, int minOffset = 0);
-
-        public void Attack(StatType dmgType, Actor target, bool crit, int multiplier) {
-            // Send the modified damage to target.
-            int strength = this.Get(StatType.Strength).Value;
-            double min = strength * multiplier / 100.0;
-            target.TakeDamage(this.modifierModule.Modify(this.combatModule.GenerateDamage(
-                dmgType, min, 2 * min, crit
-            )));
-        }
-
-        public void Attack(StatType dmgType, int minDmg, int maxDmg, Actor target, bool crit) {
-            // Send the modified damage to target.
-            target.TakeDamage(this.modifierModule.Modify(this.combatModule.GenerateDamage(
-                dmgType, minDmg, maxDmg, crit
-            )));
-        }
-
-        public void Heal(StatType targetStat, int minHeal, int maxHeal, Actor target, bool crit) {
-            target.HealWith(this.combatModule.GenerateHeal(targetStat, minHeal, maxHeal, crit));
-        }
-
-        public void HealWith(Heal heal)  {
-            this.Update(heal.TargetStat, this.modifierModule.Modify(heal).Value);
-        }
-
-        public void TakeDamage(Stat dmg) {
-            this.Update(StatType.Health, -this.modifierModule.Modify(dmg).Value);
-        }
-
-        public void ApplyEffect(EoT effect, Actor target, int chance) {
-            int netChance = this.modifierModule.Modify(
-                new DoTSuccessChance(effect.EffectType, chance)
-            ).Value;
-            if (Utilities.Randi(1, 100) <= netChance) {
-                target.timedEffectModule.Add(effect);
-            }
-        }
-
-        public void CureEffect(OverTimeEffect effect) {
-            this.timedEffectModule.Remove(effect);
-        }
 
         public void RandomiseSped() {
             this.SpeedOffset = Utilities.Randi(-3, 3);

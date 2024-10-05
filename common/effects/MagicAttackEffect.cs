@@ -1,6 +1,8 @@
 using System.Threading.Tasks;
 using Game.common.characters;
 using Game.common.stats;
+using Game.util;
+using Game.util.events.battle;
 using Godot;
 using MonoCustomResourceRegistry;
 
@@ -10,8 +12,10 @@ namespace Game.common.effects {
         [Export] private int MinDamage { set; get; }
         [Export] private int MaxDamage { set; get;}
 
-        public override async Task Apply(Actor src, Actor target, bool crit = false) {
-            src.Attack(StatType.MagicDamageDealt, this.MinDamage, this.MaxDamage, target, crit);
+        public override void Apply(Actor src, Actor target, bool crit = false) {
+            this.Publish(new AttackEvent(
+                src, target, StatType.MagicDamageDealt, this.MinDamage, this.MaxDamage, crit
+            ));
         }
 
         public override string ToString() {

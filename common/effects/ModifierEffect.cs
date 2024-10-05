@@ -1,51 +1,34 @@
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 using Game.common.characters;
 using Game.common.effects.eot;
-using Game.common.tokens;
 using Game.util;
+using Game.util.events.battle;
 using Godot;
-using Godot.Collections;
 using MonoCustomResourceRegistry;
 
 namespace Game.common.effects {
     [RegisteredType(nameof(ModifierEffect), "", nameof(Resource)), GlobalClass]
-    public partial class ModifierEffect : Effect {
-        [Export] private Array<MoT> Buffs { set; get; } = [];
-        [Export] private Array<MoT> Debuffs { set; get; } = [];
+    public partial class ModifierEffect : Effect<Actor, Actor> {
+        [Export] private MoT Buffs { set; get; }
+        [Export] private MoT Debuffs { set; get; }
         [Export] private int SuccessChance { set; get; } = 100;
 
-        public override async Task Apply(IEffectEmitter src, IEffectReceiver target, bool crit = false) {
-            if (target is not CharacterCard receiver || this.EffectType != Type.Modifier) {
-                return;
-            }
-            int dice = Utilities.Randi(1, 100);
-            foreach (MoT buff in this.Buffs) {
-                if (buff.EffectType == EoT.Effect.Buff) {
-                    if (dice <= this.SuccessChance) {
-                        await FloatingCaption.Node.Display(receiver.GlobalPosition, buff.EffectType);
-                        receiver.GetNode<EoTManager>(receiver.EoTManager).Add(buff);
-                    } else {
-                        await FloatingCaption.Node.Display(receiver.GlobalPosition, buff.EffectType, true);
-                    }
-                }
-            }
-            foreach (MoT debuff in this.Debuffs) {
-                if (debuff.EffectType == EoT.Effect.Debuff) {
-                    if (dice <= this.SuccessChance) {
-                        await FloatingCaption.Node.Display(receiver.GlobalPosition, debuff.EffectType);
-                        receiver.GetNode<EoTManager>(receiver.EoTManager).Add(debuff);
-                    } else {
-                        await FloatingCaption.Node.Display(receiver.GlobalPosition, debuff.EffectType, true);
-                    }
-                }
-            }
+        public override void Apply(Actor src, Actor target, bool crit = false) {
+            this.Publish(new ReceiveEffectEvent(
+                this.Buffs, this.SuccessChance + (crit ? 50 : 0), target
+            ));
+            this.Publish(new ReceiveEffectEvent(
+                this.Debuffs, this.SuccessChance + (crit ? 50 : 0), target
+            ));
         }
+
+        public override string ToDesc(Actor actor) {
+            return this.ToString();
+        }
+
 
         public override string ToString() {
             return $"{this.SuccessChance}% chance:\n" 
-                 + $"{string.Join('\n', this.Buffs.Concat(this.Debuffs).Select(x => x.ToString()))}";
+                 + $"{string.Join('\n', this.Buffs)}";
         }
     }
 }

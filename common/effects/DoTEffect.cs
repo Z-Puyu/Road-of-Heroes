@@ -1,11 +1,9 @@
-using System.Threading.Tasks;
 using Game.common.characters;
 using Game.common.effects.eot;
 using Game.common.stats;
-using Game.common.tokens;
 using Game.util;
+using Game.util.events.battle;
 using Godot;
-using Godot.Collections;
 using MonoCustomResourceRegistry;
 
 namespace Game.common.effects {
@@ -14,7 +12,7 @@ namespace Game.common.effects {
         [Export] private DoT DoT { set; get; }
         [Export] private int SuccessChance { set; get; } = 100;
 
-        public override async Task Apply(Actor src, Actor target, bool crit = false) {
+        public override void Apply(Actor src, Actor target, bool crit = false) {
             if (this.DoT != null) {
                 int resistance = this.DoT.EffectType switch {
                     OverTimeEffect.Bleed => target.Get(StatType.BleedResist).Value,
@@ -24,10 +22,10 @@ namespace Game.common.effects {
                     OverTimeEffect.Stun => target.Get(StatType.StunResist).Value,
                     _ => 0
                 };
-                src.ApplyEffect(
-                    this.DoT, target, 
-                    this.SuccessChance - resistance + (crit ? 50 : 0)
-                );
+                int chance = src.Filter(new DoTSuccessChance(
+                    this.DoT.EffectType, this.SuccessChance - resistance + (crit ? 50 : 0)
+                )).Value;
+                this.Publish(new ReceiveEffectEvent(this.DoT, chance, target));
             }
         }
 
