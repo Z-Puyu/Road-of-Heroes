@@ -32,7 +32,7 @@ namespace Game.common.characters {
                 }
             }
             this.Stats.Add(new Stat(StatType.Sanity, 100, 0, 100));
-            this.Stats.Add(new Stat(StatType.Fatigue, 0, 0, 100));
+            this.Stats.Add(new Stat(StatType.Stamina, 100, 0, 100));
         }
 
         public static Hero Random(int level = 0) {

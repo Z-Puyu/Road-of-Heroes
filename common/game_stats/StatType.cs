@@ -16,7 +16,7 @@ namespace Game.common.stats {
         Health,
         Magicka,
         Sanity,
-        Fatigue,
+        Stamina,
         // Stats Unrelated to Characters
         Effectiveness,
         MeleeDamageDealt,
@@ -24,6 +24,16 @@ namespace Game.common.stats {
         RangedDamageDealt,
         RangedDamageTaken,
         MagicDamageDealt,
-        MagicDamageTaken
+        MagicDamageTaken,
+        HpHeal,
+        MagickaHeal,
+        SanityHeal,
+        StaminaHeal,
+        BleedChance,
+        BlightChance,
+        BurnChance,
+        PoisonChance,
+        FrenzyChance,
+        StunChance
     }
 }

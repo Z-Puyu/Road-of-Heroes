@@ -46,12 +46,9 @@
     <Content Include="common\characters\race\Race.cs" />
     <Content Include="common\characters\PlayerCharacter.cs" />
     <Content Include="common\characters\EnemyCharacter.cs" />
-    <Content Include="common\effects\DrainEffect.cs" />
-    <Content Include="common\effects\GainEffect.cs" />
     <Content Include="common\effects\HealEffect.cs" />
     <Content Include="common\player\Party.cs" />
     <Content Include="common\effects\effects_over_time\data\MoT.cs" />
-    <Content Include="common\effects\effects_over_time\MoTToken.cs" />
     <Content Include="common\characters\CharacterCard.cs" />
     <Content Include="common\characters\enemies\EnemyCharacter.cs" />
     <Content Include="common\characters\enemies\EnemyCard.cs" />
@@ -117,11 +114,19 @@
     <Content Include="common\characters\HeroActor.cs" />
     <Content Include="common\characters\class\Class.cs" />
     <Content Include="common\game_stats\stats\Effectiveness.cs" />
-    <Content Include="common\effects\AttackEffect.cs" />
     <Content Include="common\game_stats\stats\MeleeDamageDealt.cs" />
     <Content Include="common\game_stats\stats\DamageTaken.cs" />
     <Content Include="common\game_stats\stats\DamageDealt.cs" />
     <Content Include="common\characters\modules\AttackModule.cs" />
-    <Content Include="common\characters\module\CombatModule.cs" />
+    <Content Include="common\battle\CombatModule.cs" />
+    <Content Include="common\game_stats\stats\Damage.cs" />
+    <Content Include="common\game_stats\stats\Heal.cs" />
+    <Content Include="common\effects\effects_over_time\DoTManager.cs" />
+    <Content Include="common\effects\effects_over_time\TimedEffect.cs" />
+    <Content Include="common\effects\effects_over_time\TimedEffectModule.cs" />
+    <Content Include="common\effects\effects_over_time\TimedDamage.cs" />
+    <Content Include="common\effects\effects_over_time\OverTimeEffect.cs" />
+    <Content Include="common\effects\effects_over_time\TimedModifier.cs" />
+    <Content Include="common\game_stats\stats\DoTSuccessChance.cs" />
   </ItemGroup>
 </Project>

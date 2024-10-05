@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Game.common.characters;
 using Game.common.effects.eot;
+using Game.common.stats;
 using Game.common.tokens;
 using Game.util;
 using Godot;
@@ -9,35 +10,31 @@ using MonoCustomResourceRegistry;
 
 namespace Game.common.effects {
     [RegisteredType(nameof(DoTEffect), "", nameof(Resource)), GlobalClass]
-    public partial class DoTEffect : Effect {
-        private readonly static Dictionary<EoT.Effect, Stat.Category> resistance =
-                new Dictionary<EoT.Effect, Stat.Category> {
-            {EoT.Effect.Bleed, Stat.Category.BleedResist},
-            {EoT.Effect.Blight, Stat.Category.BlightResist},
-            {EoT.Effect.Burn, Stat.Category.BurnResist},
-            {EoT.Effect.Poison, Stat.Category.PoisonResist},
-            {EoT.Effect.Stun, Stat.Category.StunResist},
-        };
-
+    public partial class DoTEffect : Effect<Actor, Actor> {
         [Export] private DoT DoT { set; get; }
         [Export] private int SuccessChance { set; get; } = 100;
 
-        public override async Task Apply(IEffectEmitter src, IEffectReceiver target, bool crit = false) {
-            if (target is not CharacterCard receiver || this.EffectType != Type.DoT) {
-                return;
-            }
-            if (this.DoT != null && DoTEffect.resistance.TryGetValue(
-                this.DoT.EffectType, out Stat.Category resistance
-            )) {
-                int dice = Utilities.Randi(1, 100);
-                if (dice <= this.SuccessChance - receiver.Character.Get(resistance)) {
-                    await FloatingCaption.Node.Display(receiver.GlobalPosition, this.DoT.EffectType);
-                    receiver.GetNode<EoTManager>(receiver.EoTManager).Add(this.DoT);
-                } else {
-                    await FloatingCaption.Node.Display(receiver.GlobalPosition, this.DoT.EffectType, true);
-                }
+        public override async Task Apply(Actor src, Actor target, bool crit = false) {
+            if (this.DoT != null) {
+                int resistance = this.DoT.EffectType switch {
+                    OverTimeEffect.Bleed => target.Get(StatType.BleedResist).Value,
+                    OverTimeEffect.Blight => target.Get(StatType.BlightResist).Value,
+                    OverTimeEffect.Burn => target.Get(StatType.BurnResist).Value,
+                    OverTimeEffect.Poison => target.Get(StatType.PoisonResist).Value,
+                    OverTimeEffect.Stun => target.Get(StatType.StunResist).Value,
+                    _ => 0
+                };
+                src.ApplyEffect(
+                    this.DoT, target, 
+                    this.SuccessChance - resistance + (crit ? 50 : 0)
+                );
             }
         }
+
+        public override string ToDesc(Actor actor) {
+            return this.ToString();
+        }
+
 
         public override string ToString() {
             return $"{this.SuccessChance}% chance of {this.DoT}";
