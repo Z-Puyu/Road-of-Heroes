@@ -18,6 +18,10 @@ namespace Game.common.stats {
         Sanity,
         Stamina,
         // Stats Unrelated to Characters
+        HpCost,
+        MagickaCost,
+        SanityCost,
+        StaminaCost,
         Effectiveness,
         MeleeDamageDealt,
         MeleeDamageTaken,
@@ -34,6 +38,6 @@ namespace Game.common.stats {
         BurnChance,
         PoisonChance,
         FrenzyChance,
-        StunChance
+        StunChance,
     }
 }

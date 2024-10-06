@@ -9,7 +9,7 @@ using MonoCustomResourceRegistry;
 
 namespace Game.common.effects {
     [RegisteredType(nameof(HealEffect), "", nameof(Resource)), GlobalClass]
-    public partial class HealEffect : Effect<Actor, Actor> {
+    public partial class HealEffect : CombatEffect {
         [Export] private bool IsPercentage { set; get; } = false;
         [Export] private StatType HealTarget { set; get; } = StatType.Health;
         [Export] private int MinHeal { set; get; }
@@ -30,7 +30,7 @@ namespace Game.common.effects {
             }
         }
 
-        public override string ToDesc(Actor actor) {
+        public override string GetDesc(Actor src, Actor target) {
             return this.ToString();
         }
 

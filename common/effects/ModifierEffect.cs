@@ -7,7 +7,7 @@ using MonoCustomResourceRegistry;
 
 namespace Game.common.effects {
     [RegisteredType(nameof(ModifierEffect), "", nameof(Resource)), GlobalClass]
-    public partial class ModifierEffect : Effect<Actor, Actor> {
+    public partial class ModifierEffect : CombatEffect {
         [Export] private MoT Buffs { set; get; }
         [Export] private MoT Debuffs { set; get; }
         [Export] private int SuccessChance { set; get; } = 100;
@@ -21,7 +21,7 @@ namespace Game.common.effects {
             ));
         }
 
-        public override string ToDesc(Actor actor) {
+        public override string GetDesc(Actor src, Actor target) {
             return this.ToString();
         }
 

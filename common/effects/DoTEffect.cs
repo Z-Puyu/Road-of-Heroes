@@ -8,7 +8,7 @@ using MonoCustomResourceRegistry;
 
 namespace Game.common.effects {
     [RegisteredType(nameof(DoTEffect), "", nameof(Resource)), GlobalClass]
-    public partial class DoTEffect : Effect<Actor, Actor> {
+    public partial class DoTEffect : CombatEffect {
         [Export] private DoT DoT { set; get; }
         [Export] private int SuccessChance { set; get; } = 100;
 
@@ -29,7 +29,7 @@ namespace Game.common.effects {
             }
         }
 
-        public override string ToDesc(Actor actor) {
+        public override string GetDesc(Actor src, Actor target) {
             return this.ToString();
         }
 

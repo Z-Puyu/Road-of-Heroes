@@ -9,7 +9,7 @@ using MonoCustomResourceRegistry;
 
 namespace Game.common.effects {
     [RegisteredType(nameof(PhysicalAttackEffect), "", nameof(Resource)), GlobalClass]
-    public partial class PhysicalAttackEffect : Effect<Actor, Actor> {
+    public partial class PhysicalAttackEffect : CombatEffect {
         [Export] private int DamageMultiplier { get; set; } = 100;
         [Export] private bool IsMelee { get; set; } = true;
 
@@ -21,9 +21,9 @@ namespace Game.common.effects {
             ));
         }
 
-        public override string ToDesc(Actor actor) {
+        public override string GetDesc(Actor src, Actor target) {
             string attack = this.IsMelee ? "melee damage" : "ranged damage";
-            int strength = actor.Get(StatType.Strength).Value;
+            int strength = src.Get(StatType.Strength).Value;
             int min = (int)Math.Ceiling(strength * this.DamageMultiplier / 100.0);
             int max = (int)Math.Ceiling(strength * 2 * this.DamageMultiplier / 100.0);
             return $"{(min == max ? $"{min}" : $"{min} to {max}")} {attack}";

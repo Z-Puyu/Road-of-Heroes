@@ -1,11 +1,10 @@
-using System;
 using Game.common.stats;
 using Godot;
 using MonoCustomResourceRegistry;
 
 namespace Game.common.modifier {
     [RegisteredType(nameof(Modifier), "", nameof(Resource)), GlobalClass]
-    public abstract partial class Modifier : Resource {
+    public partial class Modifier : Resource {
         private enum ValueType { Current, Max, Min }
         [Export] public int TimeToLast = 0;
         [Export] public bool UsePercentage { get; set; } = false;
@@ -14,6 +13,10 @@ namespace Game.common.modifier {
         [Export] private ValueType TargetValue { get; set; } = ValueType.Current;
 
         public Modifier() {}
+
+        public Modifier(int timeToLast) {
+            this.TimeToLast = timeToLast;
+        }
 
         public (int, int, int) ToTriplet() {
             return this.TargetValue switch {

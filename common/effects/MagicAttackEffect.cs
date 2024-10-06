@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using Game.common.characters;
 using Game.common.stats;
 using Game.util;
@@ -8,7 +7,7 @@ using MonoCustomResourceRegistry;
 
 namespace Game.common.effects {
     [RegisteredType(nameof(MagicAttackEffect), "", nameof(Resource)), GlobalClass]
-    public partial class MagicAttackEffect : Effect<Actor, Actor> {
+    public partial class MagicAttackEffect : CombatEffect {
         [Export] private int MinDamage { set; get; }
         [Export] private int MaxDamage { set; get;}
 
@@ -24,7 +23,7 @@ namespace Game.common.effects {
                     : $"{this.MinDamage} to {this.MaxDamage} magic damage";
         }
 
-        public override string ToDesc(Actor actor) {
+        public override string GetDesc(Actor src, Actor target) {
             return this.ToString();
         }
     }

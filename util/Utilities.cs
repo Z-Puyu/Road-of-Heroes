@@ -217,5 +217,9 @@ namespace Game.util {
             }
             return false;
         }
+
+        public static int Gcd(int x, int y) {
+            return x == 0 ? y : Utilities.Gcd(y % x, x);
+        }
     }
 }
