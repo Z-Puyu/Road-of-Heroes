@@ -1,11 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://b44f5j6e7vbx"]
+[gd_scene load_steps=7 format=3 uid="uid://b44f5j6e7vbx"]
 
 [ext_resource type="Texture2D" uid="uid://bvryn65t0j6xo" path="res://gfx/ui/background/musk.png" id="1_v8h52"]
 [ext_resource type="Texture2D" uid="uid://b5v1jveap0ujr" path="res://gfx/ui/tilemap/tile_set.png" id="2_ouiit"]
-[ext_resource type="Script" path="res://common/map/GameBoard.cs" id="3_wpa00"]
-[ext_resource type="Script" path="res://common/fsm/StateMachine.cs" id="4_6c5og"]
-[ext_resource type="Script" path="res://common/fsm/states/map/NormalState.cs" id="5_8axyb"]
-[ext_resource type="Script" path="res://common/fsm/states/map/PlayerMovingState.cs" id="6_qposa"]
 [ext_resource type="PackedScene" uid="uid://jlgke8nh5t3v" path="res://assets/interface/PartyUI.tscn" id="7_ougmy"]
 [ext_resource type="PackedScene" uid="uid://w8285w4b7kah" path="res://assets/interface/CharacterInfoSheet.tscn" id="8_edywj"]
 
@@ -102,40 +98,23 @@ terrain_set_0/terrain_0/name = "Terrain 0"
 terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
 sources/0 = SubResource("TileSetAtlasSource_jgqoq")
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_70egb"]
-atlas = ExtResource("2_ouiit")
-region = Rect2(0, 0, 96, 96)
-
 [node name="WorldView" type="Node2D"]
 
 [node name="Musk" type="Sprite2D" parent="."]
 clip_children = 1
 texture = ExtResource("1_v8h52")
 
-[node name="GameBoard" type="TileMap" parent="Musk" node_paths=PackedStringArray("FSM")]
+[node name="Base" type="TileMapLayer" parent="Musk"]
+use_parent_material = true
 tile_set = SubResource("TileSet_6m3ph")
-format = 2
-layer_0/name = "Base"
-layer_1/name = "Locations"
-layer_1/tile_data = PackedInt32Array()
-layer_2/name = "UI"
-layer_2/tile_data = PackedInt32Array()
-script = ExtResource("3_wpa00")
-CellTexture = SubResource("AtlasTexture_70egb")
-FSM = NodePath("GameBoardFSM")
 
-[node name="GameBoardFSM" type="Node" parent="Musk/GameBoard" node_paths=PackedStringArray("InitialState")]
-script = ExtResource("4_6c5og")
-InitialState = NodePath("NormalState")
-root = NodePath("..")
+[node name="Locations" type="TileMapLayer" parent="Musk"]
+use_parent_material = true
+tile_set = SubResource("TileSet_6m3ph")
 
-[node name="NormalState" type="Node" parent="Musk/GameBoard/GameBoardFSM" node_paths=PackedStringArray("FSM")]
-script = ExtResource("5_8axyb")
-FSM = NodePath("..")
-
-[node name="PlayerMovingState" type="Node" parent="Musk/GameBoard/GameBoardFSM" node_paths=PackedStringArray("FSM")]
-script = ExtResource("6_qposa")
-FSM = NodePath("..")
+[node name="UI" type="TileMapLayer" parent="Musk"]
+use_parent_material = true
+tile_set = SubResource("TileSet_6m3ph")
 
 [node name="UI" type="CanvasLayer" parent="."]
 layer = 0
@@ -162,8 +141,10 @@ offset_right = 198.0
 offset_bottom = -82.0
 grow_horizontal = 2
 grow_vertical = 0
+script = null
 
 [node name="CharacterInfoSheet" parent="UI/PlayerStatus" instance=ExtResource("8_edywj")]
 layout_mode = 1
 offset_left = -730.0
 offset_right = -107.0
+script = null

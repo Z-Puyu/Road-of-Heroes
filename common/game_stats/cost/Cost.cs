@@ -14,18 +14,11 @@ namespace Game.common.stats {
         public Cost() {}
 
         public bool IsAffordable(Actor actor) {
-            StatType stat = this.Type switch {
-                CostType.Hp => StatType.Health,
-                CostType.Magicka => StatType.Magicka,
-                CostType.Sanity => StatType.Sanity,
-                CostType.Stamina => StatType.Stamina,
-                _ => StatType.Health
-            };
-            Stat s = actor.Get(stat);
-            return s.Value >= this.Compute(s.MaxValue).Value;
+            Stat s = actor.Get(this.TargetType());
+            return s.Value >= this.ComputeFor(actor).Value;
         }
 
-        public Stat Compute(int maxValue) {
+        public Stat ComputeFor(Actor actor) {
             StatType stat = this.Type switch {
                 CostType.Hp => StatType.HpCost,
                 CostType.Magicka => StatType.MagickaCost,
@@ -34,10 +27,20 @@ namespace Game.common.stats {
                 _ => StatType.HpCost
             };
             if (this.IsPercentage) {
-                int value = (int)Math.Floor(maxValue * this.Value / 100.0);
+                int value = (int)Math.Floor(actor.Get(stat).MaxValue * this.Value / 100.0);
                 return new Stat(stat, value);
             }
             return new Stat(stat, this.Value);
+        }
+
+        public StatType TargetType() {
+            return this.Type switch {
+                CostType.Hp => StatType.Health,
+                CostType.Magicka => StatType.Magicka,
+                CostType.Sanity => StatType.Sanity,
+                CostType.Stamina => StatType.Stamina,
+                _ => StatType.Health
+            };
         }
 
         public override string ToString() {

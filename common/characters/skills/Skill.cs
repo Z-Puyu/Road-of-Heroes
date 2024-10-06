@@ -37,10 +37,8 @@ namespace Game.common.characters.skills {
             }
             foreach (Cost cost in this.Costs) {
                 // Modify the cost and update the currency stat.
-                src.Update(
-                    cost.StatType, 
-                    src.Filter(cost.Compute(src.Get(cost.StatType).MaxValue)).Value
-                );
+                Stat stat = cost.ComputeFor(src);
+                src.Update(cost.TargetType(), src.Filter(stat).Value);
             }
             foreach (Actor target in targets) {
                 int dice;

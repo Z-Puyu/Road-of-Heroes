@@ -1,12 +1,9 @@
-[gd_resource type="Resource" script_class="Race" load_steps=5 format=3 uid="uid://br2aegc41ixe0"]
+[gd_resource type="Resource" script_class="Race" load_steps=2 format=3 uid="uid://br2aegc41ixe0"]
 
 [ext_resource type="Script" path="res://common/characters/race/Race.cs" id="1_axk7i"]
-[ext_resource type="Resource" uid="uid://vjk53arbddfq" path="res://common/characters/skills/racial_skills/elf/ArchaicProwess.tres" id="1_p6ueq"]
-[ext_resource type="Resource" uid="uid://dtf4qqail455f" path="res://common/characters/skills/racial_skills/elf/DivineProtection.tres" id="2_iylvb"]
-[ext_resource type="Resource" uid="uid://3y32kv2wbw2n" path="res://common/characters/skills/racial_skills/elf/LifeResurrection.tres" id="3_03ioe"]
 
 [resource]
 script = ExtResource("1_axk7i")
-RaceName = 1
+Name = 0
 Description = "Elves are a long-living and highly intelligent species. Their distant kinship to the ancient deities have brought to them great gifts in magic. Almost every elf is born as a talented hunter or mage."
-Skills = [ExtResource("1_p6ueq"), ExtResource("2_iylvb"), ExtResource("3_03ioe")]
+RacialVariations = []

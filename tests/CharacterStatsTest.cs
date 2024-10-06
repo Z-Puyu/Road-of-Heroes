@@ -1,4 +1,5 @@
 using System;
+using Game.common.autoload;
 using Game.common.characters;
 using Game.common.stats;
 using Godot;
@@ -8,6 +9,7 @@ namespace Game.tests {
         [Export] Character Character { get; set; }
 
         public override void _Ready() {
+            this.Character = Hero.Random();
             this.Character.Log();
             Actor actor = Actor.Of(this.Character);
             this.AddChild(actor);

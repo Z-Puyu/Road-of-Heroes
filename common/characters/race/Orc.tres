@@ -1,12 +1,9 @@
-[gd_resource type="Resource" script_class="Race" load_steps=5 format=3 uid="uid://coadqk22nuwma"]
+[gd_resource type="Resource" script_class="Race" load_steps=2 format=3 uid="uid://coadqk22nuwma"]
 
-[ext_resource type="Resource" uid="uid://b5w5a5pd84epd" path="res://common/characters/skills/racial_skills/orc/Beastise.tres" id="1_i3nke"]
 [ext_resource type="Script" path="res://common/characters/race/Race.cs" id="1_on0s7"]
-[ext_resource type="Resource" uid="uid://b2i2kmjvhheom" path="res://common/characters/skills/racial_skills/orc/SlaughterInstinct.tres" id="2_88yx6"]
-[ext_resource type="Resource" uid="uid://b000uir6jlxve" path="res://common/characters/skills/racial_skills/orc/UntamedRoar.tres" id="3_tebir"]
 
 [resource]
 script = ExtResource("1_on0s7")
-RaceName = 3
+Name = 0
 Description = "People tend to think that orcs are unintelligent creatures who have yet to complete their evolution. However, the fact that people rarely know is that the orcs have the biggest brain volume among all satient beings. It is just that their emotional system is so sensitive that orcs cannot resist the impulse to act without thinking things through."
-Skills = [ExtResource("1_i3nke"), ExtResource("2_88yx6"), ExtResource("3_tebir")]
+RacialVariations = []

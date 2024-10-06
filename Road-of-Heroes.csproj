@@ -43,13 +43,13 @@
     <Content Include="common\effects\effects_over_time\data\DoT.cs" />
     <Content Include="common\effects\effects_over_time\data\EoT.cs" />
     <Content Include="common\characters\race\Race.cs" />
-    <Content Include="common\characters\PlayerCharacter.cs" />
-    <Content Include="common\characters\EnemyCharacter.cs" />
+    <Content Include="common\characters\Actor.cs" />
+    <Content Include="common\characters\Actor.cs" />
     <Content Include="common\effects\HealEffect.cs" />
     <Content Include="common\player\Party.cs" />
     <Content Include="common\effects\effects_over_time\data\MoT.cs" />
     <Content Include="common\characters\CharacterCard.cs" />
-    <Content Include="common\characters\enemies\EnemyCharacter.cs" />
+    <Content Include="common\characters\enemies\Actor.cs" />
     <Content Include="common\characters\enemies\EnemyCard.cs" />
     <Content Include="common\player\PlayerCard.cs" />
     <Content Include="common\effects\ModifierEffect.cs" />
