@@ -1,7 +1,7 @@
 using Godot;
 using MonoCustomResourceRegistry;
 
-namespace Game.common.characters.@class {
+namespace Game.common.characters.classes {
     [RegisteredType(nameof(Class), "", nameof(Resource)), GlobalClass]
     public partial class Class : Resource {
         public enum Name {

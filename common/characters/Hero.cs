@@ -1,6 +1,6 @@
 using System;
 using Game.common.autoload;
-using Game.common.characters.@class;
+using Game.common.characters.classes;
 using Game.common.characters.race;
 using Game.common.stats;
 using Game.util;

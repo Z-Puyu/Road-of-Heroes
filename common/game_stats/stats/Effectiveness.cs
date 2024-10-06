@@ -6,7 +6,7 @@ namespace Game.common.stats {
     /// Encapsulates the "powerful-ness" of an effect.
     /// </summary>
     [RegisteredType(nameof(Effectiveness), "", nameof(Resource)), GlobalClass]
-    public class Effectiveness : Stat {
+    public partial class Effectiveness : Stat {
         public Effectiveness() : base(StatType.Effectiveness, 100) {}
     }
 }

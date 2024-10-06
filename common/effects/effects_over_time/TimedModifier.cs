@@ -26,7 +26,7 @@ namespace Game.common.effects.eot {
                 } else {
                     this.effects.Add(expireTime, [mot]);
                 }
-                this.Publish(new ReceiveModifierEvent(this.Root, mot.Modifier));
+                this.Publish(new ReceiveModifierEvent(this.Root, mot.Modifier.Cast<Modifier>()));
             }
         }
 

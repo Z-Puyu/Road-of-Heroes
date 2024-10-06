@@ -6,7 +6,7 @@ using Game.util.events.battle;
 using Godot;
 
 namespace Game.common.modules {
-    public class CombatModule : Node {
+    public partial class CombatModule : Node {
         private Actor Root { set; get; }
 
         public override async void _Ready() {

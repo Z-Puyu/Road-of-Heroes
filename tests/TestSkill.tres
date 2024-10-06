@@ -1,0 +1,73 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=18 format=3 uid="uid://b0wvobgibnw5g"]
+
+[ext_resource type="Script" path="res://common/characters/skills/Skill.cs" id="1_w4bsk"]
+[ext_resource type="Script" path="res://common/characters/class/Class.cs" id="1_ysixq"]
+[ext_resource type="Script" path="res://common/characters/skills/ClassWeight.cs" id="2_ia1d6"]
+[ext_resource type="Script" path="res://common/game_stats/cost/HpCost.cs" id="3_35bbx"]
+[ext_resource type="Script" path="res://common/effects/effects_over_time/data/DoT.cs" id="4_00bu7"]
+[ext_resource type="Script" path="res://common/effects/DoTEffect.cs" id="5_r4fuc"]
+[ext_resource type="Script" path="res://common/effects/PhysicalAttackEffect.cs" id="6_mmvud"]
+[ext_resource type="Script" path="res://common/effects/MagicAttackEffect.cs" id="7_3pl3i"]
+[ext_resource type="Script" path="res://common/characters/skills/SkillCondition.cs" id="8_ga712"]
+
+[sub_resource type="Resource" id="Resource_64hx4"]
+script = ExtResource("1_ysixq")
+ClassName = 0
+Description = ""
+
+[sub_resource type="Resource" id="Resource_qj7uc"]
+script = ExtResource("2_ia1d6")
+Class = SubResource("Resource_64hx4")
+Weight = 0
+
+[sub_resource type="Resource" id="Resource_07r5p"]
+script = ExtResource("3_35bbx")
+StatType = 0
+IsPercentage = false
+Type = 0
+Value = 0
+MaxValue = 2147483647
+MinValue = 0
+
+[sub_resource type="Resource" id="Resource_dwgsc"]
+script = ExtResource("4_00bu7")
+Amount = 1
+EffectType = 0
+TimeToLast = 0
+
+[sub_resource type="Resource" id="Resource_dnt0k"]
+script = ExtResource("5_r4fuc")
+DoT = SubResource("Resource_dwgsc")
+SuccessChance = 100
+
+[sub_resource type="Resource" id="Resource_sb5o1"]
+script = ExtResource("6_mmvud")
+DamageMultiplier = 100
+IsMelee = true
+
+[sub_resource type="Resource" id="Resource_oj1iw"]
+script = ExtResource("7_3pl3i")
+MinDamage = 0
+MaxDamage = 0
+
+[sub_resource type="Resource" id="Resource_xxj74"]
+script = ExtResource("8_ga712")
+StatType = 0
+Threshold = 0
+UsePercentage = false
+ComparisonMethod = 0
+
+[resource]
+script = ExtResource("1_w4bsk")
+Name = "TestSkill"
+NeverMiss = false
+Precision = 0
+TargetRange = 0
+ValidPositions = [false, false, false, false]
+ValidTargets = [false, false, false, false]
+SkillConditions = [SubResource("Resource_xxj74")]
+Costs = [SubResource("Resource_07r5p"), null]
+EffectsOnSelf = [SubResource("Resource_dnt0k")]
+EffectsOnTarget = [SubResource("Resource_sb5o1"), SubResource("Resource_oj1iw")]
+UsageLimit = -1
+ClassWeights = [SubResource("Resource_qj7uc")]

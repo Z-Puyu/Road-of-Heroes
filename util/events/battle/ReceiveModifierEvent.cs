@@ -1,15 +1,15 @@
+using System.Collections.Generic;
 using Game.common.characters;
 using Game.common.modifier;
-using Godot.Collections;
 
 namespace Game.util.events.battle {
     public class ReceiveModifierEvent : ConditionalEvent<Actor> {
-        private readonly Array<Modifier> modifiers;
+        private readonly IEnumerable<Modifier> modifiers;
 
-        public ReceiveModifierEvent(Actor target, Array<Modifier> modifiers) : base(null, [target]) {
+        public ReceiveModifierEvent(Actor target, IEnumerable<Modifier> modifiers) : base(null, [target]) {
             this.modifiers = modifiers;
         }
 
-        public Array<Modifier> Modifiers => modifiers;
+        public IEnumerable<Modifier> Modifiers => modifiers;
     }
 }
