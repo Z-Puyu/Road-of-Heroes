@@ -7,7 +7,7 @@ namespace Game.common.modules {
     /// Encapsulates a manager of game object stats.
     /// </summary>
     public partial class StatModule : Node {
-        protected readonly Dictionary<StatType, Stat> stats = [];
+        protected readonly Dictionary<ModifiableValueType, ModifiableValue> stats = [];
 
         /// <summary>
         /// Attempts to retrieve the stat entry of type <paramref name="t"/>. 
@@ -16,7 +16,7 @@ namespace Game.common.modules {
         /// <param name="t">The type of the stat entry.</param>
         /// <param name="s">The stat entry retrieved.</param>
         /// <returns>true if the stat entry of type <paramref name="t"/> exists.</returns>
-        public bool TryGet(StatType t, out Stat s) {
+        public bool TryGet(ModifiableValueType t, out ModifiableValue s) {
             return this.stats.TryGetValue(t, out s);
         }
 
@@ -31,9 +31,9 @@ namespace Game.common.modules {
         /// <param name="maxOffset">The offset in maximum value.</param>
         /// <param name="minOffset">The offset in minimum value.</param>
         /// <returns>true if the stat entry of type <paramref name="t"/> exists.</returns>
-        public bool TryUpdate(StatType t, out Stat s, int offset, int maxOffset = 0, int minOffset = 0) {
+        public bool TryUpdate(ModifiableValueType t, out ModifiableValue s, int offset, int maxOffset = 0, int minOffset = 0) {
             if (this.stats.TryGetValue(t, out s)) {
-                s += (offset, maxOffset, minOffset);
+                s += (offset, maxOffset);
                 this.stats[t] = s;
                 return true;
             }
@@ -45,11 +45,11 @@ namespace Game.common.modules {
         /// </summary>
         /// <param name="s">The stat entry.</param>
         /// <returns>true if there is no stat entry with the same type.</returns>
-        public bool TryAdd(in Stat s) {
+        public bool TryAdd(in ModifiableValue s) {
             return this.stats.TryAdd(s.Type, s);
         }
 
-        public bool Contains(StatType t) {
+        public bool Contains(ModifiableValueType t) {
             return this.stats.ContainsKey(t);
         }
     }

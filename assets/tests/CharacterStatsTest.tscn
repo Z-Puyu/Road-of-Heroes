@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://derl53rd1bbyr"]
 
-[ext_resource type="Script" path="res://tests/CharacterStatsTest.cs" id="1_jf6rw"]
+[ext_resource type="Script" path="res://tests/CharacterModifiableValuesTest.cs" id="1_jf6rw"]
 
-[node name="CharacterStatsTest" type="Node"]
+[node name="CharacterModifiableValuesTest" type="Node"]
 script = ExtResource("1_jf6rw")

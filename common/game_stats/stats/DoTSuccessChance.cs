@@ -4,14 +4,14 @@ using MonoCustomResourceRegistry;
 
 namespace Game.common.stats {
     [RegisteredType(nameof(DoTSuccessChance), "", nameof(Resource)), GlobalClass]
-    public partial class DoTSuccessChance : Stat {
+    public partial class DoTSuccessChance : ModifiableValue {
         public DoTSuccessChance(OverTimeEffect effect, int amount) : base(effect switch {
-            OverTimeEffect.Bleed => StatType.BleedChance,
-            OverTimeEffect.Blight => StatType.BlightChance,
-            OverTimeEffect.Burn => StatType.BurnChance,
-            OverTimeEffect.Frenzy => StatType.FrenzyChance,
-            OverTimeEffect.Stun => StatType.StunChance,
-            _ => StatType.StunChance
+            OverTimeEffect.Bleed => ModifiableValueType.BleedChance,
+            OverTimeEffect.Blight => ModifiableValueType.BlightChance,
+            OverTimeEffect.Burn => ModifiableValueType.BurnChance,
+            OverTimeEffect.Frenzy => ModifiableValueType.FrenzyChance,
+            OverTimeEffect.Stun => ModifiableValueType.StunChance,
+            _ => ModifiableValueType.StunChance
         }, amount) {}
     }
 }

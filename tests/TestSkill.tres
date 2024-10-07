@@ -22,7 +22,7 @@ Weight = 0
 
 [sub_resource type="Resource" id="Resource_07r5p"]
 script = ExtResource("3_35bbx")
-StatType = 0
+ModifiableValueType = 0
 IsPercentage = false
 Type = 0
 Value = 0
@@ -52,7 +52,7 @@ MaxDamage = 0
 
 [sub_resource type="Resource" id="Resource_xxj74"]
 script = ExtResource("8_ga712")
-StatType = 0
+ModifiableValueType = 0
 Threshold = 0
 UsePercentage = false
 ComparisonMethod = 0

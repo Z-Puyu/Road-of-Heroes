@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 
-namespace Game.util {
+namespace Game.util.math {
     public static class MathUtil {
         private readonly static List<Vector2I> DIRECTIONS = [
 			Vector2I.Up, Vector2I.Down, Vector2I.Left, Vector2I.Right

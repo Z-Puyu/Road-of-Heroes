@@ -9,7 +9,7 @@ namespace Game.common.modifier {
         [Export] public int TimeToLast = 0;
         [Export] public bool UsePercentage { get; set; } = false;
         [Export] private int Value { set; get; } = 1;
-        [Export] public StatType TargetStat { get; set; }
+        [Export] public ModifiableValueType TargetModifiableValue { get; set; }
         [Export] private ValueType TargetValue { get; set; } = ValueType.Current;
 
         public Modifier() {}

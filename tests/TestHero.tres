@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="Hero" load_steps=7 format=3 uid="uid://bch83787d8gyn"]
+
+[ext_resource type="Script" path="res://common/game_stats/stats/character/CharacterConsumableStat.cs" id="1_dbr6i"]
+[ext_resource type="Script" path="res://common/characters/Hero.cs" id="1_iycpd"]
+
+[sub_resource type="Resource" id="Resource_aelfg"]
+script = ExtResource("1_dbr6i")
+ValueType = 10
+MaxValue = 100
+Value = 100
+
+[sub_resource type="Resource" id="Resource_w2x3t"]
+script = ExtResource("1_dbr6i")
+ValueType = 11
+MaxValue = 100
+Value = 100
+
+[sub_resource type="Resource" id="Resource_ir6so"]
+script = ExtResource("1_dbr6i")
+ValueType = 12
+MaxValue = 100
+Value = 100
+
+[sub_resource type="Resource" id="Resource_880ea"]
+script = ExtResource("1_dbr6i")
+ValueType = 13
+MaxValue = 100
+Value = 100
+
+[resource]
+script = ExtResource("1_iycpd")
+Proficiency = 0
+CharacterConsumableStats = [SubResource("Resource_aelfg"), SubResource("Resource_w2x3t"), SubResource("Resource_ir6so"), SubResource("Resource_880ea")]
+CharacterAbilityStats = []
+CharacterResistanceStats = []
+Name = ""

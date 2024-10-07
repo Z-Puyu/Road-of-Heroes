@@ -14,7 +14,7 @@ namespace Game.common.effects {
 
         public override void Apply(Actor src, Actor target, bool crit = false) {
             this.Publish(new AttackEvent(
-                src, target, StatType.MagicDamageDealt, this.MinDamage, this.MaxDamage, crit
+                src, target, ModifiableValueType.MagicDamageDealt, this.MinDamage, this.MaxDamage, crit
             ));
         }
 

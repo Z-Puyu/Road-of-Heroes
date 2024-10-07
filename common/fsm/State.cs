@@ -18,13 +18,11 @@ namespace Game.common.fsm {
 
         private readonly Type type;
         [Export] protected StateMachine FSM { set; get; }
-        private EventManager EventManager { get; }
 
         public Type StateType => type;
 
         public State(Type type) {
             this.type = type;
-            this.EventManager = new EventChannel<EventArgs>.EventManager(this);
         }
 
         public override async void _Ready() {

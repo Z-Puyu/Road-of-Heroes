@@ -5,6 +5,7 @@ using Game.common.effects;
 using Game.util;
 using Game.util.events;
 using Game.util.events.battle;
+using Game.util.math;
 using Godot;
 
 namespace Game.common.modules {

@@ -16,11 +16,11 @@ namespace Game.common.effects {
         public override void Apply(Actor src, Actor target, bool crit = false) {
             if (this.DoT != null) {
                 int resistance = this.DoT.EffectType switch {
-                    OverTimeEffect.Bleed => target.Get(StatType.BleedResist).Value,
-                    OverTimeEffect.Blight => target.Get(StatType.BlightResist).Value,
-                    OverTimeEffect.Burn => target.Get(StatType.BurnResist).Value,
-                    OverTimeEffect.Poison => target.Get(StatType.PoisonResist).Value,
-                    OverTimeEffect.Stun => target.Get(StatType.StunResist).Value,
+                    OverTimeEffect.Bleed => target.Get(ModifiableValueType.BleedResist).Value,
+                    OverTimeEffect.Blight => target.Get(ModifiableValueType.BlightResist).Value,
+                    OverTimeEffect.Burn => target.Get(ModifiableValueType.BurnResist).Value,
+                    OverTimeEffect.Poison => target.Get(ModifiableValueType.PoisonResist).Value,
+                    OverTimeEffect.Stun => target.Get(ModifiableValueType.StunResist).Value,
                     _ => 0
                 };
                 int chance = src.Filter(new DoTSuccessChance(

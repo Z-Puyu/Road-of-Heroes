@@ -3,6 +3,7 @@ using System.Linq;
 using Game.common.effects;
 using Game.common.stats;
 using Game.util;
+using Game.util.math;
 using Godot;
 using Godot.Collections;
 using MonoCustomResourceRegistry;
@@ -37,15 +38,15 @@ namespace Game.common.characters.skills {
             }
             foreach (Cost cost in this.Costs) {
                 // Modify the cost and update the currency stat.
-                Stat stat = cost.ComputeFor(src);
+                ModifiableValue stat = cost.ComputeFor(src);
                 src.Update(cost.TargetType(), src.Filter(stat).Value);
             }
             foreach (Actor target in targets) {
                 int dice;
                 if (!this.NeverMiss) {
                     // Hit chance = base precision + skill precision bonus - enemy agility
-                    int hitChance = src.Get(StatType.Precision).Value + 
-                                    this.Precision - target.Get(StatType.Agility).Value;
+                    int hitChance = src.Get(ModifiableValueType.Precision).Value + 
+                                    this.Precision - target.Get(ModifiableValueType.Agility).Value;
                     dice = MathUtil.Randi(1, 100);
                     if (dice > hitChance) {
                         // Dodge!
@@ -53,7 +54,7 @@ namespace Game.common.characters.skills {
                         continue;
                     }
                 }
-                int critChance = src.Get(StatType.Perception).Value;
+                int critChance = src.Get(ModifiableValueType.Perception).Value;
                 dice = MathUtil.Randi(1, 100);
                 foreach (CombatEffect effect in this.EffectsOnTarget) {
                     effect.Apply(src, target, crit: dice <= critChance);

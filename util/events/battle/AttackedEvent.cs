@@ -4,15 +4,15 @@ using Game.common.stats;
 namespace Game.util.events.battle {
     public class AttackedEvent : ConditionalEvent<Actor> {
         private readonly Actor target;
-        private readonly Stat dmg;
+        private readonly ModifiableValue dmg;
         
-        public AttackedEvent(Actor target, Stat dmg) 
+        public AttackedEvent(Actor target, ModifiableValue dmg) 
                 : base(null, [target]) {
             this.target = target;
             this.dmg = dmg;
         }
 
         public Actor Target => target;
-        public Stat Dmg => dmg;
+        public ModifiableValue Dmg => dmg;
     }
 }

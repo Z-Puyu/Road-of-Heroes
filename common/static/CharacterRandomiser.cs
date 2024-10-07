@@ -1,6 +1,7 @@
 using System;
 using Game.common.characters.race;
 using Game.util;
+using Game.util.math;
 using Godot;
 using Godot.Collections;
 

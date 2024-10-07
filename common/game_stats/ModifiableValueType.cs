@@ -1,23 +1,26 @@
 namespace Game.common.stats {
-    public enum StatType {
-        // Base Character Stats
+    /// <summary>
+    /// A collection of all types of stats used in the game.
+    /// </summary>
+    public enum ModifiableValueType {
+        // Base Character ModifiableValues
         Agility,
         Speed,
         Strength,
         Perception,
         Precision,
-        // Resistance Stats
+        // Resistance ModifiableValues
         BleedResist,
         PoisonResist,
         BurnResist,
         BlightResist,
         StunResist,
-        // Physical Conditions
+        // Physical Conditions (Capped)
         Health,
         Magicka,
         Sanity,
         Stamina,
-        // Stats Unrelated to Characters
+        // ModifiableValues Unrelated to Characters
         HpCost,
         MagickaCost,
         SanityCost,

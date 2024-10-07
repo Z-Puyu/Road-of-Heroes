@@ -5,6 +5,7 @@ using Game.common.stats;
 using Game.util;
 using Game.util.events;
 using Game.util.events.battle;
+using Game.util.math;
 using Godot;
 
 namespace Game.common.modules {
@@ -22,9 +23,9 @@ namespace Game.common.modules {
 
         private void OnHealed(HealedEvent e) {
             if (e.HandledBy(this.Root)) {
-                StatType healedStat = e.Heal.TargetStat;
-                Stat heal = this.Root.Filter(e.Heal);
-                this.Root.Update(healedStat, heal.Value);
+                ModifiableValueType healedModifiableValue = e.Heal.TargetModifiableValue;
+                ModifiableValue heal = this.Root.Filter(e.Heal);
+                this.Root.Update(healedModifiableValue, heal.Value);
             }
         }
 
@@ -42,7 +43,7 @@ namespace Game.common.modules {
             if (e.HandledBy(this.Root)) {
                 double min = e.MinDmg * e.DmgMult / 100.0;
                 double max = e.MaxDmg * e.DmgMult / 100.0;
-                Stat dmg = this.Root.Filter(CombatModule.GenerateDamage(
+                ModifiableValue dmg = this.Root.Filter(CombatModule.GenerateDamage(
                     e.DmgType, min, max, e.IsCritical
                 ));
                 this.Publish(new AttackedEvent(e.Target, dmg));
@@ -51,25 +52,25 @@ namespace Game.common.modules {
 
         public void OnAttacked(AttackedEvent e) {
             if (e.HandledBy(this.Root)) {
-                this.Root.Update(StatType.Health, -this.Root.Filter(e.Dmg).Value);
+                this.Root.Update(ModifiableValueType.Health, -this.Root.Filter(e.Dmg).Value);
             }
         }
 
-        private static Damage GenerateDamage(StatType dmgType, double min, double max, bool crit) {
+        private static Damage GenerateDamage(ModifiableValueType dmgType, double min, double max, bool crit) {
             int amount = crit ? (int)Math.Ceiling(max * 1.5) 
                               : MathUtil.Randi((int)Math.Ceiling(min), (int)Math.Ceiling(max));
             return dmgType switch {
-                StatType.MeleeDamageDealt => new Damage(StatType.MeleeDamageTaken, amount),
-                StatType.RangedDamageDealt => new Damage(StatType.RangedDamageTaken, amount),
-                StatType.MagicDamageDealt => new Damage(StatType.MagicDamageTaken, amount),
-                _ => new Damage(StatType.MeleeDamageTaken, amount)
+                ModifiableValueType.MeleeDamageDealt => new Damage(ModifiableValueType.MeleeDamageTaken, amount),
+                ModifiableValueType.RangedDamageDealt => new Damage(ModifiableValueType.RangedDamageTaken, amount),
+                ModifiableValueType.MagicDamageDealt => new Damage(ModifiableValueType.MagicDamageTaken, amount),
+                _ => new Damage(ModifiableValueType.MeleeDamageTaken, amount)
             };
         }
 
-        private static Heal GenerateHeal(StatType targetStat, int min, int max, bool crit) {
+        private static Heal GenerateHeal(ModifiableValueType targetModifiableValue, int min, int max, bool crit) {
             int amount = crit ? (int)Math.Ceiling(max * 1.5)
                               : MathUtil.Randi(min, max);
-            return new Heal(targetStat, amount);
+            return new Heal(targetModifiableValue, amount);
         }
     }
 }

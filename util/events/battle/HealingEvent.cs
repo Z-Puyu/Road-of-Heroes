@@ -4,13 +4,13 @@ using Game.common.stats;
 namespace Game.util.events.battle {
     public class HealingEvent : ConditionalEvent<Actor> {
         private readonly Actor target;
-        private readonly StatType healTarget;
+        private readonly ModifiableValueType healTarget;
         private readonly int minHeal;
         private readonly int maxHeal;   
         private readonly bool isCritical;
 
         public HealingEvent(
-            Actor src, Actor target, StatType healTarget, int minHeal, int maxHeal, bool isCritical
+            Actor src, Actor target, ModifiableValueType healTarget, int minHeal, int maxHeal, bool isCritical
         ) : base(null, [src]) {
             this.target = target;
             this.healTarget = healTarget;
@@ -20,7 +20,7 @@ namespace Game.util.events.battle {
         }
 
         public Actor Target => target;
-        public StatType HealTarget => healTarget;
+        public ModifiableValueType HealTarget => healTarget;
         public int MinHeal => minHeal;
         public int MaxHeal => maxHeal;
         public bool IsCritical => isCritical;

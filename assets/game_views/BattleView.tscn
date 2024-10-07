@@ -4,7 +4,7 @@
 [ext_resource type="Theme" uid="uid://b467chlxnpgy6" path="res://data/ui/BaseTheme.tres" id="2_1midk"]
 [ext_resource type="Script" path="res://common/battle/CharacterManager.cs" id="2_ktvnn"]
 [ext_resource type="Script" path="res://interface/battle/CharacterPanel.cs" id="4_6oa5r"]
-[ext_resource type="Script" path="res://interface/characters/StatLabel.cs" id="4_lmy8h"]
+[ext_resource type="Script" path="res://interface/characters/ModifiableValueLabel.cs" id="4_lmy8h"]
 [ext_resource type="PackedScene" uid="uid://o045245nu8dv" path="res://assets/interface/BattleSkillButton.tscn" id="6_74oho"]
 [ext_resource type="PackedScene" uid="uid://d2i2g0jfn1tbq" path="res://assets/interface/ResistanceLabel.tscn" id="6_ih6il"]
 [ext_resource type="Texture2D" uid="uid://law8g46ldcnb" path="res://gfx/icons/effects/stun.png" id="7_5nlmu"]
@@ -117,7 +117,7 @@ grow_horizontal = 2
 grow_vertical = 0
 alignment = 1
 script = ExtResource("4_6oa5r")
-StatsInfo = NodePath("Left")
+ModifiableValuesInfo = NodePath("Left")
 Resistance = NodePath("Right/Resistances")
 Skills = NodePath("Right/Skills")
 
@@ -128,38 +128,38 @@ size_flags_horizontal = 0
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="StatLabel1" type="Label" parent="TurnManager/UI/CharacterManager/CharacterPanel/Left"]
+[node name="ModifiableValueLabel1" type="Label" parent="TurnManager/UI/CharacterManager/CharacterPanel/Left"]
 layout_mode = 2
 script = ExtResource("4_lmy8h")
-Stat = 5
+ModifiableValue = 5
 DisplayName = "Speed"
 
-[node name="StatLabel2" type="Label" parent="TurnManager/UI/CharacterManager/CharacterPanel/Left"]
+[node name="ModifiableValueLabel2" type="Label" parent="TurnManager/UI/CharacterManager/CharacterPanel/Left"]
 layout_mode = 2
 text = "H"
 script = ExtResource("4_lmy8h")
-Stat = 6
+ModifiableValue = 6
 DisplayName = "Strength"
 
-[node name="StatLabel3" type="Label" parent="TurnManager/UI/CharacterManager/CharacterPanel/Left"]
+[node name="ModifiableValueLabel3" type="Label" parent="TurnManager/UI/CharacterManager/CharacterPanel/Left"]
 layout_mode = 2
 text = "H"
 script = ExtResource("4_lmy8h")
-Stat = 4
+ModifiableValue = 4
 DisplayName = "Agility"
 
-[node name="StatLabel4" type="Label" parent="TurnManager/UI/CharacterManager/CharacterPanel/Left"]
+[node name="ModifiableValueLabel4" type="Label" parent="TurnManager/UI/CharacterManager/CharacterPanel/Left"]
 layout_mode = 2
 text = "H"
 script = ExtResource("4_lmy8h")
-Stat = 7
+ModifiableValue = 7
 DisplayName = "Perception"
 
-[node name="StatLabel5" type="Label" parent="TurnManager/UI/CharacterManager/CharacterPanel/Left"]
+[node name="ModifiableValueLabel5" type="Label" parent="TurnManager/UI/CharacterManager/CharacterPanel/Left"]
 layout_mode = 2
 text = "H"
 script = ExtResource("4_lmy8h")
-Stat = 8
+ModifiableValue = 8
 DisplayName = "Precision"
 
 [node name="Right" type="VBoxContainer" parent="TurnManager/UI/CharacterManager/CharacterPanel"]

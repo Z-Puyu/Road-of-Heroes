@@ -4,6 +4,7 @@ using Game.common.characters.classes;
 using Game.common.characters.race;
 using Game.common.stats;
 using Game.util;
+using Game.util.math;
 using Godot;
 using MonoCustomResourceRegistry;
 
@@ -23,16 +24,6 @@ namespace Game.common.characters {
         private Hero(string name, Level proficiency, Race race) : base(name, null) {
             this.Proficiency = proficiency;
             this.Race = race;
-            foreach (Stat s in race.RacialVariations) {
-                int val = MathUtil.Randi(s.MinValue, s.MaxValue);
-                if (s.Type == StatType.Health || s.Type == StatType.Magicka) {
-                    this.Stats.Add(new Stat(s.Type, val, 0, val));
-                } else {
-                    this.Stats.Add(new Stat(s.Type, val));
-                }
-            }
-            this.Stats.Add(new Stat(StatType.Sanity, 100, 0, 100));
-            this.Stats.Add(new Stat(StatType.Stamina, 100, 0, 100));
         }
 
         public static Hero Random(int level = 0) {
