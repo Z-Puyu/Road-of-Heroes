@@ -4,6 +4,7 @@ using Game.common.characters;
 using Game.common.modifier;
 using Game.common.stats;
 using Game.util;
+using Game.util.events;
 using Game.util.events.battle;
 using Godot;
 
@@ -23,18 +24,18 @@ namespace Game.common.modules {
             this.Subscribe<RemoveModifierEvent>(this.OnRemoveModifier);
         }
 
-        private void OnRemoveModifier(object sender, EventArgs e) {
-            if (e is RemoveModifierEvent @event && @event.HandledBy(this.Root)) {
-                foreach (Modifier m in @event.Modifiers) {
+        private void OnRemoveModifier(RemoveModifierEvent e) {
+            if (e.HandledBy(this.Root)) {
+                foreach (Modifier m in e.Modifiers) {
                     this.Remove(m);
                 }
             }
         }
 
 
-        private void OnReceiveModifier(object sender, EventArgs e) {
-            if (e is ReceiveModifierEvent @event && @event.HandledBy(this.Root)) {
-                foreach (Modifier m in @event.Modifiers) {
+        private void OnReceiveModifier(ReceiveModifierEvent e) {
+            if (e.HandledBy(this.Root)) {
+                foreach (Modifier m in e.Modifiers) {
                     this.Collect(m);
                 }
             }

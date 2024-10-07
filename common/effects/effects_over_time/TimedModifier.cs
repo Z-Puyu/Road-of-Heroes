@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Game.common.characters;
 using Game.common.modifier;
 using Game.util;
+using Game.util.events;
 using Game.util.events.battle;
 using Godot;
 using Godot.Collections;

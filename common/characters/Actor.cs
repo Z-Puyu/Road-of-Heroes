@@ -54,7 +54,7 @@ namespace Game.common.characters {
         public abstract Stat Update(StatType t, int offset, int maxOffset = 0, int minOffset = 0);
 
         public void RandomiseSped() {
-            this.SpeedOffset = Utilities.Randi(-3, 3);
+            this.SpeedOffset = MathUtil.Randi(-3, 3);
         }
 
         public void ResetSpeed() {

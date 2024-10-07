@@ -18,7 +18,7 @@ namespace Game.common.fsm.states {
 			}
         }
 
-        public override void Handle(object sender, EventArgs @event) {
+        public override void Handle(EventArgs @event) {
             if (@event is PlayerReachedDestinationEvent) {
 				this.FSM.TransitionTo(State.Type.GameBoardNormal);
 			}

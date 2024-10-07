@@ -4,14 +4,14 @@ using System.Linq;
 using Godot;
 
 namespace Game.util {
-    public static class Utilities {
+    public static class MathUtil {
         private readonly static List<Vector2I> DIRECTIONS = [
 			Vector2I.Up, Vector2I.Down, Vector2I.Left, Vector2I.Right
 		];
         private readonly static RandomNumberGenerator rng = new RandomNumberGenerator();
 
         public static Vector2I RandomDirection() {
-            return Utilities.DIRECTIONS[Utilities.rng.RandiRange(0, Utilities.DIRECTIONS.Count - 1)];
+            return MathUtil.DIRECTIONS[MathUtil.rng.RandiRange(0, MathUtil.DIRECTIONS.Count - 1)];
         }
 
         /// <summary>
@@ -49,11 +49,11 @@ namespace Game.util {
         /// <returns>A non-negative integer pair <c>(x, y)</c> which is mapped to <paramref name="n"/> under the Cantor Pairing.</returns>
         public static (ulong, ulong) InvCantor(ulong n) {
             ulong k = 0;
-            while (Utilities.TriangularNumber(k) <= n) {
+            while (MathUtil.TriangularNumber(k) <= n) {
                 k += 1;
             }
             k -= 1;
-            ulong t = Utilities.TriangularNumber(k);
+            ulong t = MathUtil.TriangularNumber(k);
             ulong x = n - t;
             ulong y = k - x;
             return (x, y);
@@ -66,7 +66,7 @@ namespace Game.util {
         /// <returns>A unique integer image of <paramref name="pair"/>.</returns>
 		public static ulong UniqueId(this Vector2I pair) {
 			static ulong q(long z) => (ulong)(z >= 0 ? 2 * z : -2 * z - 1); // Z -> N
-			return Utilities.CantorPairing(q(pair.X), q(pair.Y));
+			return MathUtil.CantorPairing(q(pair.X), q(pair.Y));
 		}
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace Game.util {
         /// <returns>A unique integer image of <paramref name="pair"/>.</returns>
 		public static ulong UniqueId(this (long, long) pair) {
 			static ulong q(long z) => (ulong)(z >= 0 ? 2 * z : -2 * z - 1); // Z -> N
-			return Utilities.CantorPairing(q(pair.Item1), q(pair.Item2));
+			return MathUtil.CantorPairing(q(pair.Item1), q(pair.Item2));
 		}
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace Game.util {
         /// <returns>A unique integer image of (<paramref name="x"/>, <paramref name="y"/>).</returns>
 		public static ulong UniqueId(long x, long y) {
 			static ulong q(long z) => (ulong)(z >= 0 ? 2 * z : -2 * z - 1); // Z -> N
-			return Utilities.CantorPairing(q(x), q(y));
+			return MathUtil.CantorPairing(q(x), q(y));
 		}
 
         /// <summary>
@@ -95,7 +95,7 @@ namespace Game.util {
         /// </summary>
         /// <returns>A random non-negative integer between <c>0</c> and <c>4294967295</c> inclusive.</returns>
         public static uint Randi() {
-            return Utilities.rng.Randi();
+            return MathUtil.rng.Randi();
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace Game.util {
         /// <param name="sup">The greatest possible integer to be generated.</param>
         /// <returns>A random integer between <paramref name="inf"/> and <paramref name="sup"/> inclusive.</returns>
         public static int Randi(int inf, int sup) {
-            return Utilities.rng.RandiRange(inf, sup);
+            return MathUtil.rng.RandiRange(inf, sup);
         }
 
         /// <summary>
@@ -114,7 +114,7 @@ namespace Game.util {
         /// <param name="range">A closed interval of possible integers to be generated.</param>
         /// <returns>A random integer in <paramref name="range"/>.</returns>
         public static int Randi((int, int) range) {
-            return Utilities.rng.RandiRange(range.Item1, range.Item2);
+            return MathUtil.rng.RandiRange(range.Item1, range.Item2);
         }
 
         /// <summary>
@@ -122,7 +122,7 @@ namespace Game.util {
         /// </summary>
         /// <returns>A random real number between <c>0</c> and <c>1</c> inclusive.</returns>
         public static double Rand() {
-            return Utilities.rng.Randf();
+            return MathUtil.rng.Randf();
         }
 
         /// <summary>
@@ -132,7 +132,7 @@ namespace Game.util {
         /// <param name="sup">The greatest possible real number to be generated.</param>
         /// <returns>A random real number between <paramref name="inf"/> and <paramref name="sup"/> inclusive.</returns>
         public static double Rand(double inf, double sup) {
-            return Utilities.rng.RandfRange((float)inf, (float)sup);
+            return MathUtil.rng.RandfRange((float)inf, (float)sup);
         }
 
         /// <summary>
@@ -140,7 +140,7 @@ namespace Game.util {
         /// </summary>
         /// <returns>A random boolean value.</returns>
         public static bool FairCoin() {
-            return Utilities.rng.RandiRange(0, 1) == 1;
+            return MathUtil.rng.RandiRange(0, 1) == 1;
         }
 
         /// <summary>
@@ -152,7 +152,7 @@ namespace Game.util {
         public static IList<T> Permute<T>(this IList<T> list) {
             IList<T> @out = [.. list];
             for (int i = list.Count - 1; i > 0; i -= 1) {
-                int k = Utilities.Randi(0, i);
+                int k = MathUtil.Randi(0, i);
                 (@out[i], @out[k]) = (@out[k], @out[i]);
             }
             return @out;
@@ -165,7 +165,7 @@ namespace Game.util {
         /// <typeparam name="T">The type of objects in <paramref name="list"/>.</typeparam>
         /// <returns>A random item from <paramref name="list"/>.</returns>
         public static T RandomSelect<T>(this IList<T> list) {
-            return list[Utilities.Randi(0, list.Count - 1)];
+            return list[MathUtil.Randi(0, list.Count - 1)];
         }
 
         /// <summary>
@@ -219,7 +219,7 @@ namespace Game.util {
         }
 
         public static int Gcd(int x, int y) {
-            return x == 0 ? y : Utilities.Gcd(y % x, x);
+            return x == 0 ? y : MathUtil.Gcd(y % x, x);
         }
     }
 }

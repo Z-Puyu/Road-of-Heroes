@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Game.common.characters;
 using Game.common.stats;
 using Game.util;
+using Game.util.events;
 using Game.util.events.battle;
 using Godot;
 using MonoCustomResourceRegistry;

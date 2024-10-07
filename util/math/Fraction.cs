@@ -15,7 +15,7 @@ namespace Game.util.math {
                 numerator = -Math.Abs(numerator);
             }
             denominator = Math.Abs(denominator);
-            int gcd = Utilities.Gcd(Math.Abs(numerator), denominator);
+            int gcd = MathUtil.Gcd(Math.Abs(numerator), denominator);
             this.numerator = numerator / gcd;
             this.denominator = denominator / gcd;
         }
@@ -92,7 +92,7 @@ namespace Game.util.math {
         }
 
         public override int GetHashCode() {
-            return Utilities.UniqueId(this.numerator, this.denominator).GetHashCode();
+            return MathUtil.UniqueId(this.numerator, this.denominator).GetHashCode();
         }
     }
 }

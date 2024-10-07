@@ -1,9 +1,9 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Game.common.characters;
 using Game.common.effects;
 using Game.util;
+using Game.util.events;
 using Game.util.events.battle;
 using Godot;
 
@@ -24,18 +24,18 @@ namespace Game.common.modules {
             this.Subscribe<CureDoTEvent>(this.OnCure);
         }
 
-        private void OnCure(object sender, EventArgs e) {
-            if (e is CureDoTEvent @event && @event.HandledBy(this.Root)) {
-                if (this.Remove(@event.Effect)) {
+        private void OnCure(CureDoTEvent e) {
+            if (e.HandledBy(this.Root)) {
+                if (this.Remove(e.Effect)) {
                     // Play animation
                 }
             }
         }
 
-        private void OnReceiveEffect(object sender, EventArgs e) {
-            if (e is ReceiveEffectEvent @event && @event.HandledBy(this.Root)) {
-                if (Utilities.Randi(1, 100) <= @event.Chance) {
-                    this.Add(@event.Effect);
+        private void OnReceiveEffect(ReceiveEffectEvent e) {
+            if (e.HandledBy(this.Root)) {
+                if (MathUtil.Randi(1, 100) <= e.Chance) {
+                    this.Add(e.Effect);
                 }
             }
         }
