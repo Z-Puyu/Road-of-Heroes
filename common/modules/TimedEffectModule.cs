@@ -34,7 +34,7 @@ namespace Game.common.modules {
 
         private void OnReceiveEffect(object sender, EventArgs e) {
             if (e is ReceiveEffectEvent @event && @event.HandledBy(this.Root)) {
-                if (Utilities.Randi(1, 100) <= @event.Chance) {
+                if (Util.Randi(1, 100) <= @event.Chance) {
                     this.Add(@event.Effect);
                 }
             }

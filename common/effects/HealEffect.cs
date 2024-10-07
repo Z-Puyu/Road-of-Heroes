@@ -17,7 +17,7 @@ namespace Game.common.effects {
         [Export] private int CriticalChance { set; get; } = 5;
 
         public override void Apply(Actor src, Actor target, bool crit = false) {
-            crit = Utilities.Randi(1, 100) <= this.CriticalChance;
+            crit = Util.Randi(1, 100) <= this.CriticalChance;
             if (this.IsPercentage) {
                 Stat stat = target.Get(this.HealTarget);
                 int min = (int)Math.Ceiling(stat.MaxValue * this.MinHeal / 100.0);

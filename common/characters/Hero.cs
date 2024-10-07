@@ -24,7 +24,7 @@ namespace Game.common.characters {
             this.Proficiency = proficiency;
             this.Race = race;
             foreach (Stat s in race.RacialVariations) {
-                int val = Utilities.Randi(s.MinValue, s.MaxValue);
+                int val = Util.Randi(s.MinValue, s.MaxValue);
                 if (s.Type == StatType.Health || s.Type == StatType.Magicka) {
                     this.Stats.Add(new Stat(s.Type, val, 0, val));
                 } else {

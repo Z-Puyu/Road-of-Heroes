@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using Game.util.events;
+using Game.util.events.system;
 using Godot;
 
 namespace Game.util {
@@ -19,8 +21,7 @@ namespace Game.util {
             Stack<Node> offsprings = node.GetSubTree();
             while (offsprings.Count > 0) {
                 Node curr = offsprings.Pop();
-                curr.UnsubscribeAllEvents();
-                curr.QueueFree();
+                EventChannel<RecycleObjectEvent>.Publish(new RecycleObjectEvent(curr));
             }
         }
 
@@ -41,9 +42,9 @@ namespace Game.util {
         public static void ConnectNeighbours(this AStar2D aStar2D, Vector2I src, 
                 IEnumerable<Vector2I> possibleDirections) {
             foreach (Vector2I dir in possibleDirections) {
-				long neighbourId = (long)Utilities.UniqueId(src + dir);
+				long neighbourId = (long)Util.UniqueId(src + dir);
 				if (aStar2D.HasPoint(neighbourId)) {
-					aStar2D.ConnectPoints(neighbourId, (long)Utilities.UniqueId(src));
+					aStar2D.ConnectPoints(neighbourId, (long)Util.UniqueId(src));
 				}
 			}
         }
@@ -54,20 +55,20 @@ namespace Game.util {
             bool bidirectional = false
         ) {
             foreach (Vector2I dir in possibleDirections) {
-				long neighbourId = (long)Utilities.UniqueId(src + dir);
+				long neighbourId = (long)Util.UniqueId(src + dir);
 				if (aStar2D.HasPoint(neighbourId)) {
-					aStar2D.DisconnectPoints(neighbourId, (long)Utilities.UniqueId(src), bidirectional);
+					aStar2D.DisconnectPoints(neighbourId, (long)Util.UniqueId(src), bidirectional);
 				}
 			}
         }
 
         public static bool HasPoint(this AStar2D aStar2D, Vector2I pos) {
-            return aStar2D.HasPoint((long)Utilities.UniqueId(pos));
+            return aStar2D.HasPoint((long)Util.UniqueId(pos));
         }
 
         public static Vector2[] GetPointPath(this AStar2D aStar2D, Vector2I from, Vector2I to) {
-            long fromId = (long)Utilities.UniqueId(from);
-            long toId = (long)Utilities.UniqueId(to);
+            long fromId = (long)Util.UniqueId(from);
+            long toId = (long)Util.UniqueId(to);
             return aStar2D.GetPointPath(fromId, toId);
         }
     }

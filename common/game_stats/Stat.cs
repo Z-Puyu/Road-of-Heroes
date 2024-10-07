@@ -21,7 +21,7 @@ namespace Game.common.stats {
         }
 
         public static Stat Random(StatType type, (int, int) range, int min = 0, int max = int.MaxValue) {
-            return new Stat(type, Utilities.Randi(range), min, max);
+            return new Stat(type, Util.Randi(range), min, max);
         } 
 
         public static Stat operator+(Stat stat, (int, int, int) offset) {

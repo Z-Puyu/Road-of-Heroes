@@ -55,7 +55,7 @@ namespace Game.common.modules {
 
         private static Damage GenerateDamage(StatType dmgType, double min, double max, bool crit) {
             int amount = crit ? (int)Math.Ceiling(max * 1.5) 
-                              : Utilities.Randi((int)Math.Ceiling(min), (int)Math.Ceiling(max));
+                              : Util.Randi((int)Math.Ceiling(min), (int)Math.Ceiling(max));
             return dmgType switch {
                 StatType.MeleeDamageDealt => new Damage(StatType.MeleeDamageTaken, amount),
                 StatType.RangedDamageDealt => new Damage(StatType.RangedDamageTaken, amount),
@@ -66,7 +66,7 @@ namespace Game.common.modules {
 
         private static Heal GenerateHeal(StatType targetStat, int min, int max, bool crit) {
             int amount = crit ? (int)Math.Ceiling(max * 1.5)
-                              : Utilities.Randi(min, max);
+                              : Util.Randi(min, max);
             return new Heal(targetStat, amount);
         }
     }

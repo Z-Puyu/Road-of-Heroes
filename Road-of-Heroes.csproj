@@ -10,8 +10,7 @@
   <ItemGroup>
     <Content Include="common\static\GameManager.cs" />
     <Content Include="common\map\GameBoard.cs" />
-    <Content Include="util\EventBus.cs" />
-    <Content Include="util\Utilities.cs" />
+    <Content Include="util\Util.cs" />
     <Content Include="util\GodotExtensions.cs" />
     <Content Include="common\static\FloatingCaption.cs" />
     <Content Include="common\fsm\State.cs" />
@@ -39,7 +38,6 @@
     <Content Include="common\effects\effects_over_time\data\EffectOverTime.cs" />
     <Content Include="common\effects\effects_over_time\data\DamageOverTime.cs" />
     <Content Include="common\effects\effects_over_time\EoT.cs" />
-    <Content Include="common\effects\effects_over_time\Token.cs" />
     <Content Include="common\effects\effects_over_time\data\DoT.cs" />
     <Content Include="common\effects\effects_over_time\data\EoT.cs" />
     <Content Include="common\characters\race\Race.cs" />
@@ -135,5 +133,8 @@
     <Content Include="common\game_stats\cost\Cost.cs" />
     <Content Include="common\effects\IEffect.cs" />
     <Content Include="common\effects\CombatEffect.cs" />
+    <Content Include="util\Utilities.cs" />
+    <Content Include="util\events\system\RecycleNodeEvent.cs" />
+    <Content Include="util\events\EventChannel.cs" />
   </ItemGroup>
 </Project>

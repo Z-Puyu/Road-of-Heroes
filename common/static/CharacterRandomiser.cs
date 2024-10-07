@@ -63,15 +63,15 @@ namespace Game.common.autoload {
         }
 
         public Texture2D RandomPortrait(bool female = false) {
-			return female ? this.Females[Utilities.Randi(0, this.Females.Count - 1)] 
-						  : this.Males[Utilities.Randi(0, this.Males.Count - 1)];
+			return female ? this.Females[Util.Randi(0, this.Females.Count - 1)] 
+						  : this.Males[Util.Randi(0, this.Males.Count - 1)];
 		}
 
 		public string RandomName(bool female = false) {
-			string name = female ? this.femaleNames[Utilities.Randi(0, this.femaleNames.Count - 1)]
-								 : this.maleNames[Utilities.Randi(0, this.maleNames.Count - 1)];
+			string name = female ? this.femaleNames[Util.Randi(0, this.femaleNames.Count - 1)]
+								 : this.maleNames[Util.Randi(0, this.maleNames.Count - 1)];
 			return this.surnames.Count > 0 
-					? name + " " + this.surnames[Utilities.Randi(0, this.surnames.Count - 1)] 
+					? name + " " + this.surnames[Util.Randi(0, this.surnames.Count - 1)] 
 					: name;
 		}
 	}

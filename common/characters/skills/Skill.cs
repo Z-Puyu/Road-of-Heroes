@@ -46,7 +46,7 @@ namespace Game.common.characters.skills {
                     // Hit chance = base precision + skill precision bonus - enemy agility
                     int hitChance = src.Get(StatType.Precision).Value + 
                                     this.Precision - target.Get(StatType.Agility).Value;
-                    dice = Utilities.Randi(1, 100);
+                    dice = Util.Randi(1, 100);
                     if (dice > hitChance) {
                         // Dodge!
                         // await FloatingCaption.Node.Display(miss: true);
@@ -54,7 +54,7 @@ namespace Game.common.characters.skills {
                     }
                 }
                 int critChance = src.Get(StatType.Perception).Value;
-                dice = Utilities.Randi(1, 100);
+                dice = Util.Randi(1, 100);
                 foreach (CombatEffect effect in this.EffectsOnTarget) {
                     effect.Apply(src, target, crit: dice <= critChance);
                 }
