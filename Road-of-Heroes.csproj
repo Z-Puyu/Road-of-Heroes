@@ -39,7 +39,6 @@
     <Content Include="common\effects\effects_over_time\data\EffectOverTime.cs" />
     <Content Include="common\effects\effects_over_time\data\DamageOverTime.cs" />
     <Content Include="common\effects\effects_over_time\EoT.cs" />
-    <Content Include="common\effects\effects_over_time\Token.cs" />
     <Content Include="common\effects\effects_over_time\data\DoT.cs" />
     <Content Include="common\effects\effects_over_time\data\EoT.cs" />
     <Content Include="common\characters\race\Race.cs" />
