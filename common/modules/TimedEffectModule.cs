@@ -25,7 +25,7 @@ namespace Game.common.modules {
             //this.Subscribe<CureDoTEvent>(this.OnCure);
         }
 
-        private void OnCure(CureDoTEvent e) {
+        /* private void OnCure(CureDoTEvent e) {
             if (e.HandledBy(this.Root)) {
                 if (this.Remove(e.Effect)) {
                     // Play animation
@@ -39,7 +39,7 @@ namespace Game.common.modules {
                     this.Add(e.Effect);
                 }
             }
-        }
+        } */
 
         public void Add(EoT eot) {
             this.eots[eot.EffectType].Collect(eot); 

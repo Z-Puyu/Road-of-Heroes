@@ -21,7 +21,7 @@ namespace Game.common.modules {
             this.Subscribe<HealedEvent>(this.OnHealed); */
         }
 
-        private void OnHealed(HealedEvent e) {
+        /* private void OnHealed(HealedEvent e) {
             if (e.HandledBy(this.Root)) {
                 StatType healedStat = e.Heal.TargetStat;
                 Stat heal = this.Root.Filter(e.Heal);
@@ -54,7 +54,7 @@ namespace Game.common.modules {
             if (e.HandledBy(this.Root)) {
                 this.Root.Update(StatType.Health, -this.Root.Filter(e.Dmg).Value);
             }
-        }
+        } */
 
         private static Damage GenerateDamage(StatType dmgType, double min, double max, bool crit) {
             int amount = crit ? (int)Math.Ceiling(max * 1.5) 

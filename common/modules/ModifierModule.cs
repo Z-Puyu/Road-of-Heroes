@@ -27,20 +27,20 @@ namespace Game.common.modules {
         }
 
         private void OnRemoveModifier(RemoveModifierEvent e) {
-            if (e.HandledBy(this.Root)) {
+            /* if (e.HandledBy(this.Root)) {
                 foreach (Modifier m in e.Modifiers) {
                     this.Remove(m);
                 }
-            }
+            } */
         }
 
 
         private void OnReceiveModifier(ReceiveModifierEvent e) {
-            if (e.HandledBy(this.Root)) {
+            /* if (e.HandledBy(this.Root)) {
                 foreach (Modifier m in e.Modifiers) {
                     this.Collect(m);
                 }
-            }
+            } */
         }
 
         public Stat Modify(Stat stat) {
