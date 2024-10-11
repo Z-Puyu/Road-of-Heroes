@@ -29,6 +29,9 @@ namespace Game.common.effects {
                 //this.Publish(new HealingEvent(
                 //    src, target, this.HealTarget, this.MinHeal, this.MaxHeal, crit
                 //));
+                //this.Publish(new HealingEvent(
+                //    src, target, this.HealTarget, this.MinHeal, this.MaxHeal, crit
+                //));
             }
         }
 

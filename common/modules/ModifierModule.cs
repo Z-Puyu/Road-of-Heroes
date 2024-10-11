@@ -22,6 +22,8 @@ namespace Game.common.modules {
             this.Root = this.GetParent<Actor>();
             //this.Subscribe<ReceiveModifierEvent>(this.OnReceiveModifier);
             //this.Subscribe<RemoveModifierEvent>(this.OnRemoveModifier);
+            //this.Subscribe<ReceiveModifierEvent>(this.OnReceiveModifier);
+            //this.Subscribe<RemoveModifierEvent>(this.OnRemoveModifier);
         }
 
         private void OnRemoveModifier(RemoveModifierEvent e) {
@@ -47,6 +49,7 @@ namespace Game.common.modules {
             if (this.modifiers.TryGetValue(stat.Type, out HashSet<Modifier> modifiers)) {
                 foreach (Modifier modifier in modifiers) {
                     /* (int, int, int) triplet = modifier.ToTriplet();
+                    /* (int, int, int) triplet = modifier.ToTriplet();
                     if (modifier.UsePercentage) {
                         multiplier.Item1 += triplet.Item1;
                         multiplier.Item2 += triplet.Item2;
@@ -63,6 +66,7 @@ namespace Game.common.modules {
                 Math.Max(multiplier.Item2, 0) / 100.0, 
                 Math.Max(multiplier.Item3, 0) / 100.0
             );
+            return stat;
             return stat;
         }
 
@@ -86,19 +90,7 @@ namespace Game.common.modules {
         }
 
         private void Collect(Modifier modifier) {
-            /* if (modifier.TimeToLast > 0) {
-                int expireTime = this.time + modifier.TimeToLast;
-                if (this.onExpire.TryGetValue(expireTime, out Action action)) {
-                    action += () => this.Remove(modifier);
-                } else {
-                    this.onExpire.Add(expireTime, () => this.Remove(modifier));
-                }
-                if (this.modifiers.TryGetValue(modifier.TargetStat, out HashSet<Modifier> set)) {
-                    set.Add(modifier);
-                }
-            } else if (this.permanent.TryGetValue(modifier.TargetStat, out HashSet<Modifier> p)) {
-                p.Add(modifier);
-            } */
+            
         }
 
         public void Clear() {
@@ -113,6 +105,7 @@ namespace Game.common.modules {
                 (int, int, int) offset = (0, 0, 0);
                 (int, int, int) multiplier = (0, 0, 0);
                 foreach (Modifier modifier in pair.Value) {
+                    /* (int, int, int) triplet = modifier.ToTriplet();
                     /* (int, int, int) triplet = modifier.ToTriplet();
                     if (modifier.UsePercentage) {
                         multiplier.Item1 += triplet.Item1;

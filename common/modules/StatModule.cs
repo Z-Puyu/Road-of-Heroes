@@ -22,6 +22,7 @@ namespace Game.common.modules {
 
         /// <summary>
         /// Attempts to update the stat entry of type <paramref name="t"/> by the <paramref name="offset"/> value. 
+        /// Attempts to update the stat entry of type <paramref name="t"/> by the <paramref name="offset"/> value. 
         /// The variable <paramref name="s"/> will contain the updated stat if it exists.
         /// </summary>
         /// <param name="t">The type of the stat entry.</param>

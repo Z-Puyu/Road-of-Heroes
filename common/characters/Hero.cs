@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Game.common.autoload;
 using Game.common.characters.classes;
 using Game.common.characters.race;
 using Game.common.stats;
-using Game.util;
 using Game.util.math;
 using Godot;
 using Godot.Collections;
@@ -50,7 +48,6 @@ namespace Game.common.characters {
             });
             return new Hero(name, proficiency, race, isFemale, stats, attributes);
         }
-
         public override string ToString() {
             return $"{this.Name}: {this.Proficiency} {this.Race.ToAdj()} {(this.Class == null ? "" : $"{this.Class}")}";
         }
