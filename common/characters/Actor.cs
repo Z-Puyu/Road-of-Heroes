@@ -49,7 +49,7 @@ namespace Game.common.characters {
             if (this.statModule.TryGet(t, out ModifiableValue s)) {
                 return this.modifierModule.Modify(s);
             }
-            return this.modifierModule.Modify(new ModifiableValue(t, 0));
+            return null; 
         }
 
         public abstract ModifiableValue Update(ModifiableValueType t, int offset, int maxOffset = 0, int minOffset = 0);
@@ -78,7 +78,14 @@ namespace Game.common.characters {
         private partial class HeroActor : Actor {
             public HeroActor(Hero hero) : base(hero) {}
 
-            public override ModifiableValue Update(ModifiableValueType t, int offset, int maxOffset = 0, int minOffset = 0) {
+            public override Stat Update(StatType t, int offset, int maxOffset = 0, int minOffset = 0) {
+                if (this.statModule.TryUpdate(t, out Stat s, offset)) {
+                    /* foreach (Stat stat in this.Data.Stats.Where(s => s.Type == t)) {
+                        this.Data.Stats.Remove(stat);
+                    }
+                    this.Data.Stats.Add(s); */
+                    return s;
+                }
                 return null;
             }
         }   
@@ -86,7 +93,14 @@ namespace Game.common.characters {
         private partial class EnemyActor : Actor {
             public EnemyActor(Character data) : base(data) {}
 
-            public override ModifiableValue Update(ModifiableValueType t, int offset, int maxOffset = 0, int minOffset = 0) {
+            public override Stat Update(StatType t, int offset, int maxOffset = 0, int minOffset = 0) {
+                if (this.statModule.TryUpdate(t, out Stat s, offset)) {
+                    /* foreach (Stat stat in this.Data.Stats.Where(s => s.Type == t)) {
+                        this.Data.Stats.Remove(stat);
+                    }
+                    this.Data.Stats.Add(s); */
+                    return s;
+                }
                 return null;
             }
         }

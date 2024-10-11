@@ -20,8 +20,8 @@ namespace Game.common.modules {
         public override async void _Ready() {
             await this.ToSignal(this.GetParent(), SignalName.Ready);
             this.Root = this.GetParent<Actor>();
-            this.Subscribe<ReceiveModifierEvent>(this.OnReceiveModifier);
-            this.Subscribe<RemoveModifierEvent>(this.OnRemoveModifier);
+            //this.Subscribe<ReceiveModifierEvent>(this.OnReceiveModifier);
+            //this.Subscribe<RemoveModifierEvent>(this.OnRemoveModifier);
         }
 
         private void OnRemoveModifier(RemoveModifierEvent e) {
@@ -46,21 +46,26 @@ namespace Game.common.modules {
             (int, int) multiplier = (100, 100);
             if (this.modifiers.TryGetValue(stat.Type, out HashSet<Modifier> modifiers)) {
                 foreach (Modifier modifier in modifiers) {
-                    (int, int, int) triplet = modifier.ToTriplet();
+                    /* (int, int, int) triplet = modifier.ToTriplet();
                     if (modifier.UsePercentage) {
                         multiplier.Item1 += triplet.Item1;
                         multiplier.Item2 += triplet.Item2;
                     } else {
                         offset.Item1 += triplet.Item1;
                         offset.Item2 += triplet.Item2;
+<<<<<<< HEAD
                     }
+=======
+                        offset.Item3 += triplet.Item3;
+                    } */
+>>>>>>> e50a7f5edd12946b0af396b056629f5c7b368333
                 }
             }
             (double, double) factor = (
                 Math.Max(multiplier.Item1, 0) / 100.0, 
                 Math.Max(multiplier.Item2, 0) / 100.0
             );
-            return (stat + offset) * factor;
+            return stat;
         }
 
         private void Remove(Modifier modifier) {
@@ -83,7 +88,7 @@ namespace Game.common.modules {
         }
 
         private void Collect(Modifier modifier) {
-            if (modifier.TimeToLast > 0) {
+            /* if (modifier.TimeToLast > 0) {
                 int expireTime = this.time + modifier.TimeToLast;
                 if (this.onExpire.TryGetValue(expireTime, out Action action)) {
                     action += () => this.Remove(modifier);
@@ -95,7 +100,7 @@ namespace Game.common.modules {
                 }
             } else if (this.permanent.TryGetValue(modifier.TargetModifiableValue, out HashSet<Modifier> p)) {
                 p.Add(modifier);
-            }
+            } */
         }
 
         public void Clear() {
@@ -110,7 +115,7 @@ namespace Game.common.modules {
                 (int, int, int) offset = (0, 0, 0);
                 (int, int, int) multiplier = (0, 0, 0);
                 foreach (Modifier modifier in pair.Value) {
-                    (int, int, int) triplet = modifier.ToTriplet();
+                    /* (int, int, int) triplet = modifier.ToTriplet();
                     if (modifier.UsePercentage) {
                         multiplier.Item1 += triplet.Item1;
                         multiplier.Item2 += triplet.Item2;
@@ -119,7 +124,7 @@ namespace Game.common.modules {
                         offset.Item1 += triplet.Item1;
                         offset.Item2 += triplet.Item2;
                         offset.Item3 += triplet.Item3;
-                    }
+                    } */
                 }
                 if (offset.Item1 != 0) {
                     lines.Add($"{pair.Key} {(offset.Item1 > 0 ? "+" : "")}{offset.Item1}");

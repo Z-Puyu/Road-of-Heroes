@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [gd_resource type="Resource" script_class="Hero" load_steps=7 format=3 uid="uid://bch83787d8gyn"]
 
 [ext_resource type="Script" path="res://common/game_stats/stats/character/CharacterConsumableStat.cs" id="1_dbr6i"]
@@ -33,4 +34,89 @@ Proficiency = 0
 CharacterConsumableStats = [SubResource("Resource_aelfg"), SubResource("Resource_w2x3t"), SubResource("Resource_ir6so"), SubResource("Resource_880ea")]
 CharacterAbilityStats = []
 CharacterResistanceStats = []
+=======
+[gd_resource type="Resource" script_class="Hero" load_steps=18 format=3 uid="uid://b8selc0e5aiyk"]
+
+[ext_resource type="Script" path="res://common/game_stats/stats/character/CharacterAttribute.cs" id="1_75x14"]
+[ext_resource type="Script" path="res://common/characters/Hero.cs" id="1_s14nc"]
+[ext_resource type="Script" path="res://common/game_stats/stats/character/CharacterStat.cs" id="2_sc7gq"]
+
+[sub_resource type="Resource" id="Resource_pshql"]
+script = ExtResource("1_75x14")
+BaseType = 0
+Value = null
+
+[sub_resource type="Resource" id="Resource_pl871"]
+script = ExtResource("1_75x14")
+BaseType = 1
+Value = null
+
+[sub_resource type="Resource" id="Resource_7k07d"]
+script = ExtResource("1_75x14")
+BaseType = 2
+Value = null
+
+[sub_resource type="Resource" id="Resource_hj12n"]
+script = ExtResource("1_75x14")
+BaseType = 3
+Value = null
+
+[sub_resource type="Resource" id="Resource_nri0s"]
+script = ExtResource("1_75x14")
+BaseType = 4
+Value = null
+
+[sub_resource type="Resource" id="Resource_dmp3h"]
+script = ExtResource("1_75x14")
+BaseType = 5
+Value = null
+
+[sub_resource type="Resource" id="Resource_f70fv"]
+script = ExtResource("1_75x14")
+BaseType = 6
+Value = null
+
+[sub_resource type="Resource" id="Resource_1hw2a"]
+script = ExtResource("1_75x14")
+BaseType = 7
+Value = null
+
+[sub_resource type="Resource" id="Resource_gstm2"]
+script = ExtResource("1_75x14")
+BaseType = 8
+Value = null
+
+[sub_resource type="Resource" id="Resource_erptx"]
+script = ExtResource("1_75x14")
+BaseType = 9
+Value = null
+
+[sub_resource type="Resource" id="Resource_6dxqq"]
+script = ExtResource("1_75x14")
+BaseType = 14
+Value = null
+
+[sub_resource type="Resource" id="Resource_bao5f"]
+script = ExtResource("2_sc7gq")
+BaseType = 10
+MaxValue = SubResource("Resource_6dxqq")
+Value = null
+
+[sub_resource type="Resource" id="Resource_gc60b"]
+script = ExtResource("1_75x14")
+BaseType = 15
+Value = null
+
+[sub_resource type="Resource" id="Resource_mx17e"]
+script = ExtResource("2_sc7gq")
+BaseType = 11
+MaxValue = SubResource("Resource_gc60b")
+Value = null
+
+[resource]
+script = ExtResource("1_s14nc")
+Proficiency = 0
+Attributes = [SubResource("Resource_pshql"), SubResource("Resource_pl871"), SubResource("Resource_7k07d"), SubResource("Resource_hj12n"), SubResource("Resource_nri0s"), SubResource("Resource_dmp3h"), SubResource("Resource_f70fv"), SubResource("Resource_1hw2a"), SubResource("Resource_gstm2"), SubResource("Resource_erptx")]
+Stats = [SubResource("Resource_bao5f"), SubResource("Resource_mx17e")]
+>>>>>>> e50a7f5edd12946b0af396b056629f5c7b368333
 Name = ""

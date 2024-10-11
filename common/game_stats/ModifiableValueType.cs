@@ -20,12 +20,15 @@ namespace Game.common.stats {
         Magicka,
         Sanity,
         Stamina,
-        // ModifiableValues Unrelated to Characters
+        MaxHP,
+        MaxMagicka,
+        MaxSanity,
+        MaxStamina,
+        // Stats Unrelated to Characters
         HpCost,
         MagickaCost,
         SanityCost,
         StaminaCost,
-        Effectiveness,
         MeleeDamageDealt,
         MeleeDamageTaken,
         RangedDamageDealt,

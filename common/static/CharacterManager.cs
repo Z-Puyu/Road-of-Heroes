@@ -1,13 +1,16 @@
-using System;
 using Game.common.characters.race;
+<<<<<<< HEAD:common/static/CharacterRandomiser.cs
 using Game.util;
+=======
+using Game.util.errors;
+>>>>>>> e50a7f5edd12946b0af396b056629f5c7b368333:common/static/CharacterManager.cs
 using Game.util.math;
 using Godot;
 using Godot.Collections;
 
 namespace Game.common.autoload {
 	[GlobalClass]
-	public partial class CharacterRandomiser : Node {
+	public partial class CharacterManager : Node {
 		[Export] public Race.Species Race { set; get; }
 		[Export] private Array<Texture2D> Males { set; get; } = [];
 		[Export] private Array<Texture2D> Females { set; get; } = [];
@@ -19,8 +22,11 @@ namespace Game.common.autoload {
 		private readonly System.Collections.Generic.Dictionary<int, string> maleNames = [];
 
         public override void _Ready() {
-			foreach (string name in FileAccess.Open(this.MaleNamePath, FileAccess.ModeFlags.Read)
-			                                  .GetAsText(true).Split('\n')) {
+			// Load male names.
+			string[] allMaleNames = FileAccess.Open(
+				this.MaleNamePath, FileAccess.ModeFlags.Read
+			).GetAsText(true).Split('\n');
+			foreach (string name in allMaleNames) {
 				string[] tokens = name.Split(' ');
 				if (tokens.Length == 2) {
 					if (!this.surnames.ContainsValue(tokens[1])) {
@@ -31,8 +37,11 @@ namespace Game.common.autoload {
 					this.maleNames.Add(this.maleNames.Count, tokens[0]);
 				}
 			}
-			foreach (string name in FileAccess.Open(this.FemaleNamePath, FileAccess.ModeFlags.Read)
-			                                  .GetAsText(true).Split('\n')) {
+			// Load female names.
+			string[] allFemaleNames = FileAccess.Open(
+				this.FemaleNamePath, FileAccess.ModeFlags.Read
+			).GetAsText(true).Split('\n');
+			foreach (string name in allFemaleNames) {
 				string[] tokens = name.Split(' ');
 				if (tokens.Length == 2) {
 					if (!this.surnames.ContainsValue(tokens[1])) {
@@ -43,10 +52,12 @@ namespace Game.common.autoload {
 					this.femaleNames.Add(this.femaleNames.Count, tokens[0]);
 				}
 			}
+			// Load neutral names.
 			if (this.NeutralNamePath.Length > 0) {
-				foreach (string name in FileAccess.Open(
+				string[] allNeutralNames = FileAccess.Open(
 					this.NeutralNamePath, FileAccess.ModeFlags.Read
-				).GetAsText(true).Split('\n')) {
+				).GetAsText(true).Split('\n');
+				foreach (string name in allNeutralNames) {
 					string[] tokens = name.Split(' ');
 					if (tokens.Length == 2) {
 						if (!this.surnames.ContainsValue(tokens[1])) {
@@ -68,7 +79,7 @@ namespace Game.common.autoload {
 						  : this.Males[MathUtil.Randi(0, this.Males.Count - 1)];
 		}
 
-		public string RandomName(bool female = false) {
+		public string RandomName(bool female) {
 			string name = female ? this.femaleNames[MathUtil.Randi(0, this.femaleNames.Count - 1)]
 								 : this.maleNames[MathUtil.Randi(0, this.maleNames.Count - 1)];
 			return this.surnames.Count > 0 

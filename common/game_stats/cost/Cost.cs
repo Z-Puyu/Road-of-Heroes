@@ -26,11 +26,20 @@ namespace Game.common.stats {
                 CostType.Stamina => ModifiableValueType.StaminaCost,
                 _ => ModifiableValueType.HpCost
             };
+<<<<<<< HEAD
             if (this.IsPercentage) {
                 int value = (int)Math.Floor(actor.Get(stat).MaxValue * this.Value / 100.0);
                 return new ModifiableValue(stat, value);
             }
             return new ModifiableValue(stat, this.Value);
+=======
+            return null;
+            /* if (this.IsPercentage) {
+                int value = (int)Math.Floor(actor.Get(stat).Value * this.Value / 100.0);
+                return new Stat(stat, value);
+            }
+            return new Stat(stat, this.Value); */
+>>>>>>> e50a7f5edd12946b0af396b056629f5c7b368333
         }
 
         public ModifiableValueType TargetType() {

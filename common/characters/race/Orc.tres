@@ -1,9 +1,74 @@
-[gd_resource type="Resource" script_class="Race" load_steps=2 format=3 uid="uid://coadqk22nuwma"]
+[gd_resource type="Resource" script_class="Race" load_steps=13 format=3 uid="uid://coadqk22nuwma"]
 
+[ext_resource type="Script" path="res://common/characters/race/StatRange.cs" id="1_0ae6s"]
 [ext_resource type="Script" path="res://common/characters/race/Race.cs" id="1_on0s7"]
+
+[sub_resource type="Resource" id="Resource_4ebmc"]
+script = ExtResource("1_0ae6s")
+Type = 0
+Max = 0
+Min = 0
+
+[sub_resource type="Resource" id="Resource_igjrm"]
+script = ExtResource("1_0ae6s")
+Type = 1
+Max = 0
+Min = 0
+
+[sub_resource type="Resource" id="Resource_jo1oa"]
+script = ExtResource("1_0ae6s")
+Type = 2
+Max = 0
+Min = 0
+
+[sub_resource type="Resource" id="Resource_8m264"]
+script = ExtResource("1_0ae6s")
+Type = 3
+Max = 0
+Min = 0
+
+[sub_resource type="Resource" id="Resource_03u7k"]
+script = ExtResource("1_0ae6s")
+Type = 4
+Max = 0
+Min = 0
+
+[sub_resource type="Resource" id="Resource_o2tuh"]
+script = ExtResource("1_0ae6s")
+Type = 5
+Max = 0
+Min = 0
+
+[sub_resource type="Resource" id="Resource_e40pk"]
+script = ExtResource("1_0ae6s")
+Type = 6
+Max = 0
+Min = 0
+
+[sub_resource type="Resource" id="Resource_v3hva"]
+script = ExtResource("1_0ae6s")
+Type = 7
+Max = 0
+Min = 0
+
+[sub_resource type="Resource" id="Resource_5pdpj"]
+script = ExtResource("1_0ae6s")
+Type = 8
+Max = 0
+Min = 0
+
+[sub_resource type="Resource" id="Resource_w1k6h"]
+script = ExtResource("1_0ae6s")
+Type = 9
+Max = 0
+Min = 0
 
 [resource]
 script = ExtResource("1_on0s7")
 Name = 0
 Description = "People tend to think that orcs are unintelligent creatures who have yet to complete their evolution. However, the fact that people rarely know is that the orcs have the biggest brain volume among all satient beings. It is just that their emotional system is so sensitive that orcs cannot resist the impulse to act without thinking things through."
-RacialVariations = []
+MinHP = 15
+MaxHP = 25
+MinMagicka = 10
+MaxMagicka = 25
+BaseStatsRanges = [SubResource("Resource_4ebmc"), SubResource("Resource_igjrm"), SubResource("Resource_jo1oa"), SubResource("Resource_8m264"), SubResource("Resource_03u7k"), SubResource("Resource_o2tuh"), SubResource("Resource_e40pk"), SubResource("Resource_v3hva"), SubResource("Resource_5pdpj"), SubResource("Resource_w1k6h")]

@@ -21,14 +21,21 @@ namespace Game.common.effects {
         public override void Apply(Actor src, Actor target, bool crit = false) {
             crit = MathUtil.Randi(1, 100) <= this.CriticalChance;
             if (this.IsPercentage) {
+<<<<<<< HEAD
                 ModifiableValue stat = target.Get(this.HealTarget);
                 int min = (int)Math.Ceiling(stat.MaxValue * this.MinHeal / 100.0);
                 int max = (int)Math.Ceiling(stat.MaxValue * this.MaxHeal / 100.0);
                 this.Publish(new HealingEvent(src, target, this.HealTarget, min, max, crit));
+=======
+                Stat stat = target.Get(this.HealTarget);
+                int min = (int)Math.Ceiling(stat.Value * this.MinHeal / 100.0);
+                int max = (int)Math.Ceiling(stat.Value * this.MaxHeal / 100.0);
+                // this.Publish(new HealingEvent(src, target, this.HealTarget, min, max, crit));
+>>>>>>> e50a7f5edd12946b0af396b056629f5c7b368333
             } else {
-                this.Publish(new HealingEvent(
-                    src, target, this.HealTarget, this.MinHeal, this.MaxHeal, crit
-                ));
+                //this.Publish(new HealingEvent(
+                //    src, target, this.HealTarget, this.MinHeal, this.MaxHeal, crit
+                //));
             }
         }
 

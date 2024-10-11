@@ -15,11 +15,19 @@ namespace Game.common.effects {
         [Export] private bool IsMelee { get; set; } = true;
 
         public override void Apply(Actor src, Actor target, bool crit = false) {
+<<<<<<< HEAD
             int strength = src.Get(ModifiableValueType.Strength).Value;
             this.Publish(new AttackEvent(
                 src, target, this.IsMelee ? ModifiableValueType.MeleeDamageDealt 
                 : ModifiableValueType.RangedDamageDealt, strength, strength * 2, crit, this.DamageMultiplier
             ));
+=======
+            int strength = src.Get(StatType.Strength).Value;
+            //this.Publish(new AttackEvent(
+            //    src, target, this.IsMelee ? StatType.MeleeDamageDealt 
+            //    : StatType.RangedDamageDealt, strength, strength * 2, crit, this.DamageMultiplier
+            //));
+>>>>>>> e50a7f5edd12946b0af396b056629f5c7b368333
         }
 
         public override string GetDesc(Actor src, Actor target) {

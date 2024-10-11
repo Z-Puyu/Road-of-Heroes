@@ -27,7 +27,7 @@ namespace Game.common.player.modules {
                 this.Root, "position", next, 0.1, Tween.EaseType.InOut
             );
             if (this.path.Count == 0) {
-                this.Publish(new PlayerReachedDestinationEvent());
+                //this.Publish(new PlayerReachedDestinationEvent());
             }
         }
 

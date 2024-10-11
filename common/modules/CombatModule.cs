@@ -15,10 +15,10 @@ namespace Game.common.modules {
         public override async void _Ready() {
             await this.ToSignal(this.GetParent(), SignalName.Ready);
             this.Root = this.GetParent<Actor>();
-            this.Subscribe<AttackEvent>(this.OnAttack);
+            /* this.Subscribe<AttackEvent>(this.OnAttack);
             this.Subscribe<AttackedEvent>(this.OnAttacked);
             this.Subscribe<HealingEvent>(this.OnHeal);
-            this.Subscribe<HealedEvent>(this.OnHealed);
+            this.Subscribe<HealedEvent>(this.OnHealed); */
         }
 
         private void OnHealed(HealedEvent e) {
@@ -32,9 +32,9 @@ namespace Game.common.modules {
 
         private void OnHeal(HealingEvent e) {
             if (e.HandledBy(this.Root)) {
-                this.Publish(new HealedEvent(e.Target, CombatModule.GenerateHeal(
-                    e.HealTarget, e.MinHeal, e.MaxHeal, e.IsCritical
-                )));
+                //this.Publish(new HealedEvent(e.Target, CombatModule.GenerateHeal(
+                //    e.HealTarget, e.MinHeal, e.MaxHeal, e.IsCritical
+                //)));
             }
         }
 
@@ -46,7 +46,7 @@ namespace Game.common.modules {
                 ModifiableValue dmg = this.Root.Filter(CombatModule.GenerateDamage(
                     e.DmgType, min, max, e.IsCritical
                 ));
-                this.Publish(new AttackedEvent(e.Target, dmg));
+                //this.Publish(new AttackedEvent(e.Target, dmg));
             }
         }
 
