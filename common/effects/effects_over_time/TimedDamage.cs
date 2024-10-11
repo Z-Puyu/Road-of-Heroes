@@ -31,13 +31,13 @@ namespace Game.common.effects.eot {
             if (dmg > 0) {
                 switch (this.Effect) {
                     case OverTimeEffect.Blight:
-                        target.Update(ModifiableValueType.Magicka, -dmg);
+                        target.Update(StatType.Magicka, -dmg);
                         break;
                     case OverTimeEffect.Frenzy:
-                        target.Update(ModifiableValueType.Sanity, -dmg);
+                        target.Update(StatType.Sanity, -dmg);
                         break;
                     default:
-                        target.Update(ModifiableValueType.Health, -dmg);
+                        target.Update(StatType.Health, -dmg);
                         break;
                 }   
             }

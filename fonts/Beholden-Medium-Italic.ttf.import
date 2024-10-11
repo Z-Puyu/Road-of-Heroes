@@ -15,6 +15,7 @@ dest_files=["res://.godot/imported/Beholden-Medium-Italic.ttf-1ad8618270d267ec74
 Rendering=null
 antialiasing=1
 generate_mipmaps=false
+disable_embedded_bitmaps=true
 multichannel_signed_distance_field=false
 msdf_pixel_range=8
 msdf_size=48

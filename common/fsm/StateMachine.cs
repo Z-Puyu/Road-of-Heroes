@@ -49,7 +49,7 @@ namespace Game.common.fsm {
 		}
 
 		public void Listen<T>() where T : EventArgs {
-			this.Subscribe<T>(this.Handle);
+			//this.Subscribe<T>(this.Handle);
 		}
 
 		private void Handle(EventArgs e) {

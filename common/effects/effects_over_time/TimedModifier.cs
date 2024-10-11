@@ -27,7 +27,7 @@ namespace Game.common.effects.eot {
                 } else {
                     this.effects.Add(expireTime, [mot]);
                 }
-                this.Publish(new ReceiveModifierEvent(this.Root, mot.Modifier.Cast<Modifier>()));
+                // this.Publish(new ReceiveModifierEvent(this.Root, mot.Modifier.Cast<Modifier>()));
             }
         }
 
@@ -41,7 +41,7 @@ namespace Game.common.effects.eot {
                 foreach (MoT mot in list.Cast<MoT>()) {
                     modifiers = modifiers.Concat(mot.Modifier);
                 }
-                this.Publish(new RemoveModifierEvent(target, modifiers));
+                // this.Publish(new RemoveModifierEvent(target, modifiers));
             }
             return Task.CompletedTask;
         }

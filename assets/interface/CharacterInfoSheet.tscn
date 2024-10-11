@@ -5,9 +5,9 @@
 [ext_resource type="Script" path="res://interface/characters/CharacterInfoSheet.cs" id="3_qs8tm"]
 [ext_resource type="Texture2D" uid="uid://b870yrovgwlx0" path="res://gfx/ui/atlases/book_ui.png" id="4_tr8ce"]
 [ext_resource type="Texture2D" uid="uid://dekb770ysmiuf" path="res://gfx/ui/player/avatar_mask.png" id="5_55c2p"]
-[ext_resource type="Script" path="res://interface/characters/ModifiableValueLabel.cs" id="6_f4jha"]
+[ext_resource type="Script" path="res://interface/characters/StatLabel.cs" id="6_f4jha"]
 [ext_resource type="PackedScene" uid="uid://c2ygwihx3hinl" path="res://assets/interface/HealthBar.tscn" id="7_lr7ob"]
-[ext_resource type="Script" path="res://interface/characters/ModifiableValueBar.cs" id="7_stto1"]
+[ext_resource type="Script" path="res://interface/characters/StatBar.cs" id="7_stto1"]
 [ext_resource type="PackedScene" uid="uid://cgn52rfhbx1bs" path="res://assets/interface/MagickaBar.tscn" id="8_1kr35"]
 [ext_resource type="PackedScene" uid="uid://gi1fxnr3wywg" path="res://assets/interface/SanityBar.tscn" id="9_wy71o"]
 [ext_resource type="PackedScene" uid="uid://d2ef3bs1wgqhs" path="res://assets/interface/FatigueBar.tscn" id="10_3x41f"]
@@ -58,9 +58,9 @@ grow_vertical = 2
 theme = ExtResource("1_efcon")
 theme_override_styles/panel = SubResource("StyleBoxTexture_jocky")
 script = ExtResource("3_qs8tm")
-Bars = NodePath("MarginContainer/VBoxContainer/CharacterModifiableValues/Right/Bars")
-Left = NodePath("MarginContainer/VBoxContainer/CharacterModifiableValues/Left")
-Resistance = NodePath("MarginContainer/VBoxContainer/CharacterModifiableValues/Right/Resistances")
+Bars = NodePath("MarginContainer/VBoxContainer/CharacterStats/Right/Bars")
+Left = NodePath("MarginContainer/VBoxContainer/CharacterStats/Left")
+Resistance = NodePath("MarginContainer/VBoxContainer/CharacterStats/Right/Resistances")
 Portrait = NodePath("MarginContainer/VBoxContainer/Header/Avatar/Mask/Portrait")
 Label = NodePath("MarginContainer/VBoxContainer/Header/Name")
 CloseButton = NodePath("CloseButton")
@@ -118,154 +118,154 @@ layout_mode = 2
 size_flags_horizontal = 3
 vertical_alignment = 1
 
-[node name="CharacterModifiableValues" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="CharacterStats" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 11
 
-[node name="Left" type="VBoxContainer" parent="MarginContainer/VBoxContainer/CharacterModifiableValues"]
+[node name="Left" type="VBoxContainer" parent="MarginContainer/VBoxContainer/CharacterStats"]
 custom_minimum_size = Vector2(192, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_constants/separation = 12
 
-[node name="ModifiableValueLabel1" type="Label" parent="MarginContainer/VBoxContainer/CharacterModifiableValues/Left"]
+[node name="StatLabel1" type="Label" parent="MarginContainer/VBoxContainer/CharacterStats/Left"]
 layout_mode = 2
 script = ExtResource("6_f4jha")
-ModifiableValue = 5
+Stat = 5
 DisplayName = "Speed"
 
-[node name="ModifiableValueLabel2" type="Label" parent="MarginContainer/VBoxContainer/CharacterModifiableValues/Left"]
+[node name="StatLabel2" type="Label" parent="MarginContainer/VBoxContainer/CharacterStats/Left"]
 layout_mode = 2
 script = ExtResource("6_f4jha")
-ModifiableValue = 6
+Stat = 6
 DisplayName = "Strength"
 
-[node name="ModifiableValueLabel3" type="Label" parent="MarginContainer/VBoxContainer/CharacterModifiableValues/Left"]
+[node name="StatLabel3" type="Label" parent="MarginContainer/VBoxContainer/CharacterStats/Left"]
 layout_mode = 2
 script = ExtResource("6_f4jha")
-ModifiableValue = 4
+Stat = 4
 DisplayName = "Agility"
 
-[node name="ModifiableValueLabel4" type="Label" parent="MarginContainer/VBoxContainer/CharacterModifiableValues/Left"]
+[node name="StatLabel4" type="Label" parent="MarginContainer/VBoxContainer/CharacterStats/Left"]
 layout_mode = 2
 script = ExtResource("6_f4jha")
-ModifiableValue = 7
+Stat = 7
 DisplayName = "Perception"
 
-[node name="ModifiableValueLabel5" type="Label" parent="MarginContainer/VBoxContainer/CharacterModifiableValues/Left"]
+[node name="StatLabel5" type="Label" parent="MarginContainer/VBoxContainer/CharacterStats/Left"]
 layout_mode = 2
 script = ExtResource("6_f4jha")
-ModifiableValue = 8
+Stat = 8
 DisplayName = "Precision"
 
-[node name="Right" type="VBoxContainer" parent="MarginContainer/VBoxContainer/CharacterModifiableValues"]
+[node name="Right" type="VBoxContainer" parent="MarginContainer/VBoxContainer/CharacterStats"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Bars" type="VBoxContainer" parent="MarginContainer/VBoxContainer/CharacterModifiableValues/Right"]
+[node name="Bars" type="VBoxContainer" parent="MarginContainer/VBoxContainer/CharacterStats/Right"]
 layout_mode = 2
 
-[node name="Health" type="HBoxContainer" parent="MarginContainer/VBoxContainer/CharacterModifiableValues/Right/Bars"]
+[node name="Health" type="HBoxContainer" parent="MarginContainer/VBoxContainer/CharacterStats/Right/Bars"]
 layout_mode = 2
 script = ExtResource("7_stto1")
 Bar = NodePath("HealthBar")
 ValueLabel = NodePath("Value")
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/CharacterModifiableValues/Right/Bars/Health"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/CharacterStats/Right/Bars/Health"]
 custom_minimum_size = Vector2(35, 0)
 layout_mode = 2
 text = "HP"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Value" type="Label" parent="MarginContainer/VBoxContainer/CharacterModifiableValues/Right/Bars/Health"]
+[node name="Value" type="Label" parent="MarginContainer/VBoxContainer/CharacterStats/Right/Bars/Health"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "100/100"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HealthBar" parent="MarginContainer/VBoxContainer/CharacterModifiableValues/Right/Bars/Health" instance=ExtResource("7_lr7ob")]
+[node name="HealthBar" parent="MarginContainer/VBoxContainer/CharacterStats/Right/Bars/Health" instance=ExtResource("7_lr7ob")]
 custom_minimum_size = Vector2(200, 15)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Magicka" type="HBoxContainer" parent="MarginContainer/VBoxContainer/CharacterModifiableValues/Right/Bars"]
+[node name="Magicka" type="HBoxContainer" parent="MarginContainer/VBoxContainer/CharacterStats/Right/Bars"]
 layout_mode = 2
 script = ExtResource("7_stto1")
 Bar = NodePath("MagickaBar")
 ValueLabel = NodePath("Value")
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/CharacterModifiableValues/Right/Bars/Magicka"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/CharacterStats/Right/Bars/Magicka"]
 custom_minimum_size = Vector2(35, 0)
 layout_mode = 2
 text = "MG"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Value" type="Label" parent="MarginContainer/VBoxContainer/CharacterModifiableValues/Right/Bars/Magicka"]
+[node name="Value" type="Label" parent="MarginContainer/VBoxContainer/CharacterStats/Right/Bars/Magicka"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "100/100"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MagickaBar" parent="MarginContainer/VBoxContainer/CharacterModifiableValues/Right/Bars/Magicka" instance=ExtResource("8_1kr35")]
+[node name="MagickaBar" parent="MarginContainer/VBoxContainer/CharacterStats/Right/Bars/Magicka" instance=ExtResource("8_1kr35")]
 custom_minimum_size = Vector2(200, 15)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Sanity" type="HBoxContainer" parent="MarginContainer/VBoxContainer/CharacterModifiableValues/Right/Bars"]
+[node name="Sanity" type="HBoxContainer" parent="MarginContainer/VBoxContainer/CharacterStats/Right/Bars"]
 layout_mode = 2
 script = ExtResource("7_stto1")
 Bar = NodePath("SanityBar")
 ValueLabel = NodePath("Value")
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/CharacterModifiableValues/Right/Bars/Sanity"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/CharacterStats/Right/Bars/Sanity"]
 custom_minimum_size = Vector2(35, 0)
 layout_mode = 2
 text = "SAN"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Value" type="Label" parent="MarginContainer/VBoxContainer/CharacterModifiableValues/Right/Bars/Sanity"]
+[node name="Value" type="Label" parent="MarginContainer/VBoxContainer/CharacterStats/Right/Bars/Sanity"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "100/100"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SanityBar" parent="MarginContainer/VBoxContainer/CharacterModifiableValues/Right/Bars/Sanity" instance=ExtResource("9_wy71o")]
+[node name="SanityBar" parent="MarginContainer/VBoxContainer/CharacterStats/Right/Bars/Sanity" instance=ExtResource("9_wy71o")]
 custom_minimum_size = Vector2(200, 15)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Fatigue" type="HBoxContainer" parent="MarginContainer/VBoxContainer/CharacterModifiableValues/Right/Bars"]
+[node name="Fatigue" type="HBoxContainer" parent="MarginContainer/VBoxContainer/CharacterStats/Right/Bars"]
 layout_mode = 2
 script = ExtResource("7_stto1")
 Bar = NodePath("FatigueBar")
 ValueLabel = NodePath("Value")
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/CharacterModifiableValues/Right/Bars/Fatigue"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/CharacterStats/Right/Bars/Fatigue"]
 custom_minimum_size = Vector2(35, 0)
 layout_mode = 2
 text = "FG"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Value" type="Label" parent="MarginContainer/VBoxContainer/CharacterModifiableValues/Right/Bars/Fatigue"]
+[node name="Value" type="Label" parent="MarginContainer/VBoxContainer/CharacterStats/Right/Bars/Fatigue"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "100/100"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="FatigueBar" parent="MarginContainer/VBoxContainer/CharacterModifiableValues/Right/Bars/Fatigue" instance=ExtResource("10_3x41f")]
+[node name="FatigueBar" parent="MarginContainer/VBoxContainer/CharacterStats/Right/Bars/Fatigue" instance=ExtResource("10_3x41f")]
 custom_minimum_size = Vector2(200, 15)
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="Resistances" type="HBoxContainer" parent="MarginContainer/VBoxContainer/CharacterModifiableValues/Right"]
+[node name="Resistances" type="HBoxContainer" parent="MarginContainer/VBoxContainer/CharacterStats/Right"]
 custom_minimum_size = Vector2(310, 0)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -273,26 +273,26 @@ size_flags_vertical = 3
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="ResistanceLabel1" parent="MarginContainer/VBoxContainer/CharacterModifiableValues/Right/Resistances" instance=ExtResource("11_ik5he")]
+[node name="ResistanceLabel1" parent="MarginContainer/VBoxContainer/CharacterStats/Right/Resistances" instance=ExtResource("11_ik5he")]
 layout_mode = 2
 Texture = ExtResource("12_e0cr4")
 
-[node name="ResistanceLabel2" parent="MarginContainer/VBoxContainer/CharacterModifiableValues/Right/Resistances" instance=ExtResource("11_ik5he")]
+[node name="ResistanceLabel2" parent="MarginContainer/VBoxContainer/CharacterStats/Right/Resistances" instance=ExtResource("11_ik5he")]
 layout_mode = 2
 Effect = 9
 Texture = ExtResource("13_osv7f")
 
-[node name="ResistanceLabel3" parent="MarginContainer/VBoxContainer/CharacterModifiableValues/Right/Resistances" instance=ExtResource("11_ik5he")]
+[node name="ResistanceLabel3" parent="MarginContainer/VBoxContainer/CharacterStats/Right/Resistances" instance=ExtResource("11_ik5he")]
 layout_mode = 2
 Effect = 10
 Texture = ExtResource("14_movck")
 
-[node name="ResistanceLabel4" parent="MarginContainer/VBoxContainer/CharacterModifiableValues/Right/Resistances" instance=ExtResource("11_ik5he")]
+[node name="ResistanceLabel4" parent="MarginContainer/VBoxContainer/CharacterStats/Right/Resistances" instance=ExtResource("11_ik5he")]
 layout_mode = 2
 Effect = 11
 Texture = ExtResource("15_cuy83")
 
-[node name="ResistanceLabel5" parent="MarginContainer/VBoxContainer/CharacterModifiableValues/Right/Resistances" instance=ExtResource("11_ik5he")]
+[node name="ResistanceLabel5" parent="MarginContainer/VBoxContainer/CharacterStats/Right/Resistances" instance=ExtResource("11_ik5he")]
 layout_mode = 2
 Effect = 12
 Texture = ExtResource("16_melhg")

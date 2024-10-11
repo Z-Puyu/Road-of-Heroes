@@ -17,7 +17,7 @@ ResourceScriptDirectories=["res://"]
 [application]
 
 config/name="Road of Heroes"
-run/main_scene="res://assets/tests/CharacterModifiableValuesTest.tscn"
+run/main_scene="res://tests/CharacterStatsTest.tscn"
 config/features=PackedStringArray("4.3", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 

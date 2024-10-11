@@ -13,9 +13,9 @@ namespace Game.common.effects {
         [Export] private int MaxDamage { set; get;}
 
         public override void Apply(Actor src, Actor target, bool crit = false) {
-            this.Publish(new AttackEvent(
-                src, target, ModifiableValueType.MagicDamageDealt, this.MinDamage, this.MaxDamage, crit
-            ));
+            //this.Publish(new AttackEvent(
+            //    src, target, StatType.MagicDamageDealt, this.MinDamage, this.MaxDamage, crit
+            //));
         }
 
         public override string ToString() {

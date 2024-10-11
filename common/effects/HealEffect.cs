@@ -13,7 +13,7 @@ namespace Game.common.effects {
     [RegisteredType(nameof(HealEffect), "", nameof(Resource)), GlobalClass]
     public partial class HealEffect : CombatEffect {
         [Export] private bool IsPercentage { set; get; } = false;
-        [Export] private ModifiableValueType HealTarget { set; get; } = ModifiableValueType.Health;
+        [Export] private StatType HealTarget { set; get; } = StatType.Health;
         [Export] private int MinHeal { set; get; }
         [Export] private int MaxHeal { set; get; }
         [Export] private int CriticalChance { set; get; } = 5;
@@ -21,14 +21,14 @@ namespace Game.common.effects {
         public override void Apply(Actor src, Actor target, bool crit = false) {
             crit = MathUtil.Randi(1, 100) <= this.CriticalChance;
             if (this.IsPercentage) {
-                ModifiableValue stat = target.Get(this.HealTarget);
-                int min = (int)Math.Ceiling(stat.MaxValue * this.MinHeal / 100.0);
-                int max = (int)Math.Ceiling(stat.MaxValue * this.MaxHeal / 100.0);
-                this.Publish(new HealingEvent(src, target, this.HealTarget, min, max, crit));
+                Stat stat = target.Get(this.HealTarget);
+                int min = (int)Math.Ceiling(stat.Value * this.MinHeal / 100.0);
+                int max = (int)Math.Ceiling(stat.Value * this.MaxHeal / 100.0);
+                // this.Publish(new HealingEvent(src, target, this.HealTarget, min, max, crit));
             } else {
-                this.Publish(new HealingEvent(
-                    src, target, this.HealTarget, this.MinHeal, this.MaxHeal, crit
-                ));
+                //this.Publish(new HealingEvent(
+                //    src, target, this.HealTarget, this.MinHeal, this.MaxHeal, crit
+                //));
             }
         }
 

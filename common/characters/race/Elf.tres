@@ -1,9 +1,74 @@
-[gd_resource type="Resource" script_class="Race" load_steps=2 format=3 uid="uid://br2aegc41ixe0"]
+[gd_resource type="Resource" script_class="Race" load_steps=13 format=3 uid="uid://br2aegc41ixe0"]
 
+[ext_resource type="Script" path="res://common/characters/race/StatRange.cs" id="1_7rlgv"]
 [ext_resource type="Script" path="res://common/characters/race/Race.cs" id="1_axk7i"]
+
+[sub_resource type="Resource" id="Resource_4ebmc"]
+script = ExtResource("1_7rlgv")
+Type = 0
+Max = 0
+Min = 0
+
+[sub_resource type="Resource" id="Resource_igjrm"]
+script = ExtResource("1_7rlgv")
+Type = 1
+Max = 0
+Min = 0
+
+[sub_resource type="Resource" id="Resource_jo1oa"]
+script = ExtResource("1_7rlgv")
+Type = 2
+Max = 0
+Min = 0
+
+[sub_resource type="Resource" id="Resource_8m264"]
+script = ExtResource("1_7rlgv")
+Type = 3
+Max = 0
+Min = 0
+
+[sub_resource type="Resource" id="Resource_03u7k"]
+script = ExtResource("1_7rlgv")
+Type = 4
+Max = 0
+Min = 0
+
+[sub_resource type="Resource" id="Resource_o2tuh"]
+script = ExtResource("1_7rlgv")
+Type = 5
+Max = 0
+Min = 0
+
+[sub_resource type="Resource" id="Resource_e40pk"]
+script = ExtResource("1_7rlgv")
+Type = 6
+Max = 0
+Min = 0
+
+[sub_resource type="Resource" id="Resource_v3hva"]
+script = ExtResource("1_7rlgv")
+Type = 7
+Max = 0
+Min = 0
+
+[sub_resource type="Resource" id="Resource_5pdpj"]
+script = ExtResource("1_7rlgv")
+Type = 8
+Max = 0
+Min = 0
+
+[sub_resource type="Resource" id="Resource_w1k6h"]
+script = ExtResource("1_7rlgv")
+Type = 9
+Max = 0
+Min = 0
 
 [resource]
 script = ExtResource("1_axk7i")
 Name = 0
 Description = "Elves are a long-living and highly intelligent species. Their distant kinship to the ancient deities have brought to them great gifts in magic. Almost every elf is born as a talented hunter or mage."
-RacialVariations = []
+MinHP = 15
+MaxHP = 25
+MinMagicka = 10
+MaxMagicka = 25
+BaseStatsRanges = [SubResource("Resource_4ebmc"), SubResource("Resource_igjrm"), SubResource("Resource_jo1oa"), SubResource("Resource_8m264"), SubResource("Resource_03u7k"), SubResource("Resource_o2tuh"), SubResource("Resource_e40pk"), SubResource("Resource_v3hva"), SubResource("Resource_5pdpj"), SubResource("Resource_w1k6h")]

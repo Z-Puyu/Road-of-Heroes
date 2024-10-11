@@ -10,16 +10,16 @@ namespace Game.common.characters.skills {
             Equality, Greater, Less, GreaterOrEqual, LessOrEqual,
         }
 
-        [Export] private ModifiableValueType ModifiableValueType { set; get; }
+        [Export] private StatType StatType { set; get; }
         [Export] private int Threshold { set; get; } = 0;
         [Export] private bool UsePercentage { set; get; } = false;
         [Export] private Comparator ComparisonMethod { set; get; }
 
         public bool Test(Actor actor) {
-            ModifiableValue stat = actor.Get(this.ModifiableValueType);
+            Stat stat = actor.Get(this.StatType);
             if (this.UsePercentage) {
                 Fraction threshold = new Fraction(this.Threshold, 100);
-                Fraction ratio = new Fraction(stat.Value, stat.MaxValue);
+                Fraction ratio = new Fraction(stat.Value, stat.Value);
                 return this.ComparisonMethod switch {
                     Comparator.Equality => ratio == threshold,
                     Comparator.Greater => ratio > threshold,
@@ -41,11 +41,11 @@ namespace Game.common.characters.skills {
         }
 
         public override string ToString() {
-            string stat = this.ModifiableValueType switch {
-                ModifiableValueType.Health => "HP",
-                ModifiableValueType.Magicka => "Magicka",
-                ModifiableValueType.Sanity => "Sanity",
-                ModifiableValueType.Stamina => "Stamina",
+            string stat = this.StatType switch {
+                StatType.Health => "HP",
+                StatType.Magicka => "Magicka",
+                StatType.Sanity => "Sanity",
+                StatType.Stamina => "Stamina",
                 _ => ""
             };
             string comparator = this.ComparisonMethod switch {

@@ -1,21 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://c88w2hog2hct4"]
+[gd_scene load_steps=2 format=3 uid="uid://c88w2hog2hct4"]
 
-[ext_resource type="Script" path="res://tests/CharacterModifiableValuesTest.cs" id="1_y4u56"]
-[ext_resource type="Script" path="res://common/game_stats/ModifiableValue.cs" id="2_05ovx"]
-[ext_resource type="Script" path="res://common/characters/Character.cs" id="3_5j7ha"]
+[ext_resource type="Script" path="res://tests/CharacterStatsTest.cs" id="1_y4u56"]
 
-[sub_resource type="Resource" id="Resource_al687"]
-script = ExtResource("2_05ovx")
-Type = 0
-Value = 75
-MaxValue = 100
-MinValue = 0
-
-[sub_resource type="Resource" id="Resource_8w34i"]
-script = ExtResource("3_5j7ha")
-ModifiableValues = [SubResource("Resource_al687")]
-Name = "Test Character"
-
-[node name="CharacterModifiableValuesTest" type="Node"]
+[node name="CharacterStatsTest" type="Node"]
 script = ExtResource("1_y4u56")
-Character = SubResource("Resource_8w34i")

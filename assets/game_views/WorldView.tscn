@@ -119,7 +119,7 @@ tile_set = SubResource("TileSet_6m3ph")
 [node name="UI" type="CanvasLayer" parent="."]
 layer = 0
 
-[node name="PlayerModifiableValueus" type="Control" parent="UI"]
+[node name="PlayerStatus" type="Control" parent="UI"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -128,7 +128,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="PartyUI" parent="UI/PlayerModifiableValueus" instance=ExtResource("7_ougmy")]
+[node name="PartyUI" parent="UI/PlayerStatus" instance=ExtResource("7_ougmy")]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -143,7 +143,7 @@ grow_horizontal = 2
 grow_vertical = 0
 script = null
 
-[node name="CharacterInfoSheet" parent="UI/PlayerModifiableValueus" instance=ExtResource("8_edywj")]
+[node name="CharacterInfoSheet" parent="UI/PlayerStatus" instance=ExtResource("8_edywj")]
 layout_mode = 1
 offset_left = -730.0
 offset_right = -107.0

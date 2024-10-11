@@ -21,8 +21,8 @@ namespace Game.common.modules {
             }
             await this.ToSignal(this.GetParent(), SignalName.Ready);
             this.Root = this.GetParent<Actor>();
-            this.Subscribe<ReceiveEffectEvent>(this.OnReceiveEffect);
-            this.Subscribe<CureDoTEvent>(this.OnCure);
+            //this.Subscribe<ReceiveEffectEvent>(this.OnReceiveEffect);
+            //this.Subscribe<CureDoTEvent>(this.OnCure);
         }
 
         private void OnCure(CureDoTEvent e) {

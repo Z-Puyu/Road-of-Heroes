@@ -14,32 +14,33 @@ namespace Game.common.stats {
         public Cost() {}
 
         public bool IsAffordable(Actor actor) {
-            ModifiableValue s = actor.Get(this.TargetType());
+            Stat s = actor.Get(this.TargetType());
             return s.Value >= this.ComputeFor(actor).Value;
         }
 
-        public ModifiableValue ComputeFor(Actor actor) {
-            ModifiableValueType stat = this.Type switch {
-                CostType.Hp => ModifiableValueType.HpCost,
-                CostType.Magicka => ModifiableValueType.MagickaCost,
-                CostType.Sanity => ModifiableValueType.SanityCost,
-                CostType.Stamina => ModifiableValueType.StaminaCost,
-                _ => ModifiableValueType.HpCost
+        public Stat ComputeFor(Actor actor) {
+            StatType stat = this.Type switch {
+                CostType.Hp => StatType.HpCost,
+                CostType.Magicka => StatType.MagickaCost,
+                CostType.Sanity => StatType.SanityCost,
+                CostType.Stamina => StatType.StaminaCost,
+                _ => StatType.HpCost
             };
-            if (this.IsPercentage) {
-                int value = (int)Math.Floor(actor.Get(stat).MaxValue * this.Value / 100.0);
-                return new ModifiableValue(stat, value);
+            return null;
+            /* if (this.IsPercentage) {
+                int value = (int)Math.Floor(actor.Get(stat).Value * this.Value / 100.0);
+                return new Stat(stat, value);
             }
-            return new ModifiableValue(stat, this.Value);
+            return new Stat(stat, this.Value); */
         }
 
-        public ModifiableValueType TargetType() {
+        public StatType TargetType() {
             return this.Type switch {
-                CostType.Hp => ModifiableValueType.Health,
-                CostType.Magicka => ModifiableValueType.Magicka,
-                CostType.Sanity => ModifiableValueType.Sanity,
-                CostType.Stamina => ModifiableValueType.Stamina,
-                _ => ModifiableValueType.Health
+                CostType.Hp => StatType.Health,
+                CostType.Magicka => StatType.Magicka,
+                CostType.Sanity => StatType.Sanity,
+                CostType.Stamina => StatType.Stamina,
+                _ => StatType.Health
             };
         }
 

@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="CharacterAttribute" load_steps=2 format=3 uid="uid://cc6jcthbhf4el"]
+
+[ext_resource type="Script" path="res://common/game_stats/stats/character/CharacterAttribute.cs" id="1_pmciw"]
+
+[resource]
+script = ExtResource("1_pmciw")
+type = 0
+Value = 100

@@ -4,14 +4,14 @@ using Game.common.stats;
 namespace Game.util.events.battle {
     public class AttackEvent : ConditionalEvent<Actor> {
         private readonly Actor target;
-        private readonly ModifiableValueType dmgType;
+        private readonly StatType dmgType;
         private readonly int minDmg;
         private readonly int maxDmg;
         private readonly int dmgMult;
         private readonly bool isCritical;
         
         public AttackEvent(
-            Actor src, Actor target, ModifiableValueType dmgType, int minDmg, int maxDmg, bool isCritical, 
+            Actor src, Actor target, StatType dmgType, int minDmg, int maxDmg, bool isCritical, 
             int dmgMult = 100
         ) : base(null, [src]) {
             this.target = target;
@@ -23,7 +23,7 @@ namespace Game.util.events.battle {
         }
 
         public Actor Target => target;
-        public ModifiableValueType DmgType => dmgType;
+        public StatType DmgType => dmgType;
         public int DmgMult => dmgMult;
         public bool IsCritical => isCritical;
         public int MinDmg => minDmg;
