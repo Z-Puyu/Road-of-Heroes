@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 
-namespace Game.util {
+namespace Game.util.math {
+    public delegate bool Predicate<S, T>(S s, T t);
     public static class MathUtil {
+        public readonly static Predicate<object, object> BINARY_TAUTOLOGY = (_, _) => true;
+
         private readonly static List<Vector2I> DIRECTIONS = [
 			Vector2I.Up, Vector2I.Down, Vector2I.Left, Vector2I.Right
 		];
@@ -105,7 +108,8 @@ namespace Game.util {
         /// <param name="sup">The greatest possible integer to be generated.</param>
         /// <returns>A random integer between <paramref name="inf"/> and <paramref name="sup"/> inclusive.</returns>
         public static int Randi(int inf, int sup) {
-            return MathUtil.rng.RandiRange(inf, sup);
+            return inf <= sup ? MathUtil.rng.RandiRange(inf, sup) 
+                              : MathUtil.rng.RandiRange(sup, inf);
         }
 
         /// <summary>
@@ -114,7 +118,7 @@ namespace Game.util {
         /// <param name="range">A closed interval of possible integers to be generated.</param>
         /// <returns>A random integer in <paramref name="range"/>.</returns>
         public static int Randi((int, int) range) {
-            return MathUtil.rng.RandiRange(range.Item1, range.Item2);
+            return MathUtil.Randi(range.Item1, range.Item2);
         }
 
         /// <summary>
@@ -132,7 +136,8 @@ namespace Game.util {
         /// <param name="sup">The greatest possible real number to be generated.</param>
         /// <returns>A random real number between <paramref name="inf"/> and <paramref name="sup"/> inclusive.</returns>
         public static double Rand(double inf, double sup) {
-            return MathUtil.rng.RandfRange((float)inf, (float)sup);
+            return inf <= sup ? MathUtil.rng.RandfRange((float)inf, (float)sup)
+                              : MathUtil.rng.RandfRange((float)sup, (float)inf);
         }
 
         /// <summary>
@@ -220,6 +225,10 @@ namespace Game.util {
 
         public static int Gcd(int x, int y) {
             return x == 0 ? y : MathUtil.Gcd(y % x, x);
+        }
+
+        public static string ToSigned(this int n) {
+            return n >= 0 ? $"+{n}" : n.ToString();
         }
     }
 }

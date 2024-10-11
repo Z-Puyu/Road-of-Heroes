@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project Sdk="Godot.NET.Sdk/4.2.1">
+<Project Sdk="Godot.NET.Sdk/4.3.0">
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net7.0</TargetFramework>
@@ -39,7 +39,6 @@
     <Content Include="common\effects\effects_over_time\data\EffectOverTime.cs" />
     <Content Include="common\effects\effects_over_time\data\DamageOverTime.cs" />
     <Content Include="common\effects\effects_over_time\EoT.cs" />
-    <Content Include="common\effects\effects_over_time\Token.cs" />
     <Content Include="common\effects\effects_over_time\data\DoT.cs" />
     <Content Include="common\effects\effects_over_time\data\EoT.cs" />
     <Content Include="common\characters\race\Race.cs" />
@@ -133,11 +132,19 @@
     <Content Include="util\math\Fraction.cs" />
     <Content Include="common\characters\skills\SkillCondition.cs" />
     <Content Include="common\game_stats\cost\Cost.cs" />
-    <Content Include="common\game_stats\cost\HpCost.cs" />
-    <Content Include="common\game_stats\cost\SanityCost.cs" />
-    <Content Include="common\game_stats\cost\MagickaCost.cs" />
-    <Content Include="common\game_stats\cost\StaminaCost.cs" />
     <Content Include="common\effects\IEffect.cs" />
     <Content Include="common\effects\CombatEffect.cs" />
+    <Content Include="util\events\EventChannel.cs" />
+    <Content Include="util\events\EventBus.cs" />
+    <Content Include="util\errors\SingletonException.cs" />
+    <Content Include="util\math\MathUtil.cs" />
+    <Content Include="util\events\IEvent.cs" />
+    <Content Include="util\events\Event.cs" />
+    <Content Include="util\events\GameEvent.cs" />
+    <Content Include="util\errors\EventTypeMismatchException.cs" />
+    <Content Include="common\game_stats\CappedStat.cs" />
+    <Content Include="common\game_stats\stats\character\CharacterAttribute.cs" />
+    <Content Include="util\enums\EnumUtil.cs" />
+    <Content Include="common\game_stats\stats\character\CharacterStat.cs" />
   </ItemGroup>
 </Project>

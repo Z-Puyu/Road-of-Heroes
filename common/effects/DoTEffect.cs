@@ -26,7 +26,7 @@ namespace Game.common.effects {
                 int chance = src.Filter(new DoTSuccessChance(
                     this.DoT.EffectType, this.SuccessChance - resistance + (crit ? 50 : 0)
                 )).Value;
-                this.Publish(new ReceiveEffectEvent(this.DoT, chance, target));
+                // this.Publish(new ReceiveEffectEvent(this.DoT, chance, target));
             }
         }
 

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project Sdk="Godot.NET.Sdk/4.3.0">
+<Project Sdk="Godot.NET.Sdk/4.2.1">
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net7.0</TargetFramework>
@@ -103,7 +103,6 @@
     <Content Include="common\game_stats\stats\Health.cs" />
     <Content Include="common\characters\HeroActor.cs" />
     <Content Include="common\characters\class\Class.cs" />
-    <Content Include="common\game_stats\stats\Effectiveness.cs" />
     <Content Include="common\game_stats\stats\MeleeDamageDealt.cs" />
     <Content Include="common\game_stats\stats\DamageTaken.cs" />
     <Content Include="common\game_stats\stats\DamageDealt.cs" />
@@ -137,6 +136,17 @@
     <Content Include="util\events\EventChannel.cs" />
     <Content Include="util\events\EventBus.cs" />
     <Content Include="util\errors\SingletonException.cs" />
-    <Content Include="util\events\system\RecycleObjectEvent.cs" />
+    <Content Include="util\math\MathUtil.cs" />
+    <Content Include="util\events\IEvent.cs" />
+    <Content Include="util\events\Event.cs" />
+    <Content Include="util\errors\EventTypeMismatchException.cs" />
+    <Content Include="common\game_stats\CappedStat.cs" />
+    <Content Include="common\game_stats\stats\character\CharacterAttribute.cs" />
+    <Content Include="util\enums\EnumUtil.cs" />
+    <Content Include="common\game_stats\stats\character\CharacterStat.cs" />
+    <Content Include="util\errors\PartialOrderException.cs" />
+    <Content Include="util\events\test\TestEvent.cs" />
+    <Content Include="common\static\CharacterManager.cs" />
+    <Content Include="common\characters\race\StatRange.cs" />
   </ItemGroup>
 </Project>

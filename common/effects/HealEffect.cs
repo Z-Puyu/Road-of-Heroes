@@ -5,6 +5,7 @@ using Game.common.stats;
 using Game.util;
 using Game.util.events;
 using Game.util.events.battle;
+using Game.util.math;
 using Godot;
 using MonoCustomResourceRegistry;
 
@@ -21,13 +22,13 @@ namespace Game.common.effects {
             crit = MathUtil.Randi(1, 100) <= this.CriticalChance;
             if (this.IsPercentage) {
                 Stat stat = target.Get(this.HealTarget);
-                int min = (int)Math.Ceiling(stat.MaxValue * this.MinHeal / 100.0);
-                int max = (int)Math.Ceiling(stat.MaxValue * this.MaxHeal / 100.0);
-                this.Publish(new HealingEvent(src, target, this.HealTarget, min, max, crit));
+                int min = (int)Math.Ceiling(stat.Value * this.MinHeal / 100.0);
+                int max = (int)Math.Ceiling(stat.Value * this.MaxHeal / 100.0);
+                // this.Publish(new HealingEvent(src, target, this.HealTarget, min, max, crit));
             } else {
-                this.Publish(new HealingEvent(
-                    src, target, this.HealTarget, this.MinHeal, this.MaxHeal, crit
-                ));
+                //this.Publish(new HealingEvent(
+                //    src, target, this.HealTarget, this.MinHeal, this.MaxHeal, crit
+                //));
             }
         }
 

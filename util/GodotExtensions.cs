@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Game.util.events;
-using Game.util.events.system;
+using Game.util.math;
 using Godot;
 
 namespace Game.util {

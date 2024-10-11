@@ -3,6 +3,7 @@ using System.Linq;
 using Game.common.effects;
 using Game.common.stats;
 using Game.util;
+using Game.util.math;
 using Godot;
 using Godot.Collections;
 using MonoCustomResourceRegistry;

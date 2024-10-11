@@ -11,7 +11,7 @@ namespace Game.common.effects {
         [Export] private OverTimeEffect TargetEffect { set; get; }
 
         public override void Apply(Actor src, Actor target, bool crit = false) {
-            this.Publish(new CureDoTEvent(this.TargetEffect, target));
+            // this.Publish(new CureDoTEvent(this.TargetEffect, target));
         }
 
         public override string GetDesc(Actor src, Actor target) {

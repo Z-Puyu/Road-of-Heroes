@@ -4,6 +4,7 @@ using Game.common.effects;
 using Game.common.modules;
 using Game.common.stats;
 using Game.util;
+using Game.util.math;
 using Godot;
 
 namespace Game.common.characters {
@@ -48,7 +49,7 @@ namespace Game.common.characters {
             if (this.statModule.TryGet(t, out Stat s)) {
                 return this.modifierModule.Modify(s);
             }
-            return this.modifierModule.Modify(new Stat(t, 0));
+            return null; 
         }
 
         public abstract Stat Update(StatType t, int offset, int maxOffset = 0, int minOffset = 0);
@@ -78,11 +79,11 @@ namespace Game.common.characters {
             public HeroActor(Hero hero) : base(hero) {}
 
             public override Stat Update(StatType t, int offset, int maxOffset = 0, int minOffset = 0) {
-                if (this.statModule.TryUpdate(t, out Stat s, offset, maxOffset, minOffset)) {
-                    foreach (Stat stat in this.Data.Stats.Where(s => s.Type == t)) {
+                if (this.statModule.TryUpdate(t, out Stat s, offset)) {
+                    /* foreach (Stat stat in this.Data.Stats.Where(s => s.Type == t)) {
                         this.Data.Stats.Remove(stat);
                     }
-                    this.Data.Stats.Add(s);
+                    this.Data.Stats.Add(s); */
                     return s;
                 }
                 return null;
@@ -93,11 +94,11 @@ namespace Game.common.characters {
             public EnemyActor(Character data) : base(data) {}
 
             public override Stat Update(StatType t, int offset, int maxOffset = 0, int minOffset = 0) {
-                if (this.statModule.TryUpdate(t, out Stat s, offset, maxOffset, minOffset)) {
-                    foreach (Stat stat in this.Data.Stats.Where(s => s.Type == t)) {
+                if (this.statModule.TryUpdate(t, out Stat s, offset)) {
+                    /* foreach (Stat stat in this.Data.Stats.Where(s => s.Type == t)) {
                         this.Data.Stats.Remove(stat);
                     }
-                    this.Data.Stats.Add(s);
+                    this.Data.Stats.Add(s); */
                     return s;
                 }
                 return null;

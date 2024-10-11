@@ -1,59 +1,102 @@
 using System;
-using Game.util;
+using Game.common.modifier;
+using Game.util.enums;
+using Game.util.errors;
 using Godot;
-using MonoCustomResourceRegistry;
 
 namespace Game.common.stats {
-    [RegisteredType(nameof(Stat), "", nameof(Resource)), GlobalClass]
+    [GlobalClass]
     public partial class Stat : Resource {
-        [Export] public StatType Type { get; set; }
-        [Export] public int Value { set; get; } = 0;
-        [Export] public int MaxValue { set; get; } = int.MaxValue;
-        [Export] public int MinValue { set; get; } = 0;
+        public StatType Type { set; get; } = StatType.Agility;
+        protected int value = 0;
+        protected Modifier Modifier { set; get; }
 
-        public Stat() {}
+        [Export(PropertyHint.Range, "0,100")] 
+        public int Value {
+            get => this.Modifier.Modify(value);
+            protected set => this.value = value;
+        }
 
-        public Stat(StatType type, int value = 0, int maxValue = int.MaxValue, int minValue = 0) {
+        public Stat() {
+            this.Modifier = Modifier.IdentityOf(this.Type);
+        }
+
+        public Stat(StatType type, int value = 0) {
             this.Type = type;
             this.Value = value;
-            this.MaxValue = maxValue;
-            this.MinValue = minValue;
-        }
-
-        public static Stat Random(StatType type, (int, int) range, int min = 0, int max = int.MaxValue) {
-            return new Stat(type, MathUtil.Randi(range), min, max);
-        } 
-
-        public static Stat operator+(Stat stat, (int, int, int) offset) {
-            int maxValue = Math.Max(stat.MaxValue + offset.Item2, 0);
-            int minValue = Math.Max(stat.MinValue + offset.Item3, 0);
-            int value = Math.Clamp(stat.Value + offset.Item1, minValue, maxValue);
-            return new Stat(stat.Type, value, maxValue, minValue);
-        }
-
-        public static Stat operator-(Stat stat, (int, int, int) offset) {
-            int maxValue = Math.Max(stat.MaxValue - offset.Item2, 0);
-            int minValue = Math.Max(stat.MinValue + offset.Item3, 0);
-            int value = Math.Clamp(stat.Value + offset.Item1, minValue, maxValue);
-            return new Stat(stat.Type, value, maxValue);
-        }
-
-        public static Stat operator*(Stat stat, (double, double, double) factor) {
-            int maxValue = (int)Math.Round(Math.Max(stat.MaxValue * factor.Item2, 0));
-            int minValue = (int)Math.Round(Math.Max(stat.MinValue * factor.Item3, 0));
-            int value = Math.Clamp((int)Math.Round(stat.Value * factor.Item1), minValue, maxValue);
-            return new Stat(stat.Type, value, maxValue, minValue);
-        }
-
-        public static Stat operator/(Stat stat, (double, double, double) divisor) {
-            int maxValue = (int)Math.Round(Math.Max(stat.MaxValue / divisor.Item2, 0));
-            int minValue = (int)Math.Round(Math.Max(stat.MinValue / divisor.Item3, 0));
-            int value = Math.Clamp((int)Math.Round(stat.Value / divisor.Item1), minValue, maxValue);
-            return new Stat(stat.Type, value, maxValue, minValue);
+            this.Modifier = Modifier.IdentityOf(type);
         }
 
         public override string ToString() {
-            return $"{this.Value} {this.Type}, min: {this.MinValue}, max: {this.MaxValue}";
+            return $"{this.Value} {this.Type.ToText()}";
+        }
+
+        public static Stat operator+(Stat stat) {
+            return stat;
+        }
+
+        public static Stat operator-(Stat stat) {
+            return new Stat(stat.Type, -stat.value);
+        }
+
+        public static Stat operator+(Stat stat, int offset) {
+            return new Stat(stat.Type, stat.value + offset);
+        }
+
+        public static Stat operator-(Stat stat, int offset) {
+            return new Stat(stat.Type, stat.value - offset);
+        }
+
+        public static Stat operator*(Stat stat, double factor) {
+            return new Stat(stat.Type, (int)Math.Round(stat.value * factor));
+        }
+
+        public static Stat operator/(Stat stat, double divisor) {
+            return new Stat(stat.Type, (int)Math.Round(stat.value / divisor));
+        }
+
+        public static bool operator==(Stat s1, Stat s2) {
+            return s1.Type == s2.Type && s1.Value == s2.Value;
+        }
+
+        public static bool operator!=(Stat s1, Stat s2) {
+            return s1.Type != s2.Type || s1.Value != s2.Value;
+        }
+
+        public static bool operator>(Stat s1, Stat s2) {
+            if (s1.Type != s2.Type) {
+                throw new PartialOrderException<Stat, Stat>(s1, s2);
+            }
+            return s1.Value > s2.Value;
+        }
+
+        public static bool operator<(Stat s1, Stat s2) {
+            if (s1.Type != s2.Type) {
+                throw new PartialOrderException<Stat, Stat>(s1, s2);
+            }
+            return s1.Value < s2.Value;
+        }
+
+        public static bool operator>=(Stat s1, Stat s2) {
+            return s1 == s2 || s1 > s2;
+        }
+
+        public static bool operator<=(Stat s1, Stat s2) {
+            return s1 == s2 || s1 < s2;
+        }
+
+        public override bool Equals(object obj) {
+            if (ReferenceEquals(this, obj)) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            return obj is Stat s && this == s;
+        }
+
+        public override int GetHashCode() {
+            return base.GetHashCode();
         }
     }
 }

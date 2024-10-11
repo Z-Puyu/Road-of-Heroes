@@ -26,11 +26,12 @@ namespace Game.common.stats {
                 CostType.Stamina => StatType.StaminaCost,
                 _ => StatType.HpCost
             };
-            if (this.IsPercentage) {
-                int value = (int)Math.Floor(actor.Get(stat).MaxValue * this.Value / 100.0);
+            return null;
+            /* if (this.IsPercentage) {
+                int value = (int)Math.Floor(actor.Get(stat).Value * this.Value / 100.0);
                 return new Stat(stat, value);
             }
-            return new Stat(stat, this.Value);
+            return new Stat(stat, this.Value); */
         }
 
         public StatType TargetType() {

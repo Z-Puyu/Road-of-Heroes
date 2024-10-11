@@ -19,7 +19,7 @@ namespace Game.common.characters.skills {
             Stat stat = actor.Get(this.StatType);
             if (this.UsePercentage) {
                 Fraction threshold = new Fraction(this.Threshold, 100);
-                Fraction ratio = new Fraction(stat.Value, stat.MaxValue);
+                Fraction ratio = new Fraction(stat.Value, stat.Value);
                 return this.ComparisonMethod switch {
                     Comparator.Equality => ratio == threshold,
                     Comparator.Greater => ratio > threshold,

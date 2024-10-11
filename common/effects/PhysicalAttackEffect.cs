@@ -16,10 +16,10 @@ namespace Game.common.effects {
 
         public override void Apply(Actor src, Actor target, bool crit = false) {
             int strength = src.Get(StatType.Strength).Value;
-            this.Publish(new AttackEvent(
-                src, target, this.IsMelee ? StatType.MeleeDamageDealt 
-                : StatType.RangedDamageDealt, strength, strength * 2, crit, this.DamageMultiplier
-            ));
+            //this.Publish(new AttackEvent(
+            //    src, target, this.IsMelee ? StatType.MeleeDamageDealt 
+            //    : StatType.RangedDamageDealt, strength, strength * 2, crit, this.DamageMultiplier
+            //));
         }
 
         public override string GetDesc(Actor src, Actor target) {
