@@ -1,19 +1,22 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using Game.common.effects;
 using Game.common.modules;
 using Game.common.stats;
 using Game.util;
+using Game.util.events;
+using Game.util.events.characters;
 using Game.util.math;
 using Godot;
 
 namespace Game.common.characters {
     public abstract partial class Actor : Node, IComparable<Actor> {
-        private readonly Guid id = Guid.NewGuid();
-        private readonly StatModule statModule = new StatModule();
-        private readonly ModifierModule modifierModule = new ModifierModule();
-        private readonly CombatModule combatModule = new CombatModule();
-        private readonly TimedEffectModule timedEffectModule= new TimedEffectModule();
+        public Guid Id { get; private init; } = Guid.NewGuid();
+        private StatModule StatModule { get; init; } = new StatModule();
+        private CombatModule combatModule { get; init; } = new CombatModule();
+        private TimedEffectModule TimedEffectModule { get; init; } = new TimedEffectModule();
         protected Character Data { get; set; }
         protected int SpeedOffset { set; get; } = 0;
 
@@ -23,11 +26,17 @@ namespace Game.common.characters {
 
         public override void _Ready() {
             foreach (Stat s in this.Data.Stats) {
-                this.statModule.TryAdd(s);
+                this.StatModule.TryAdd(s);
             }
-            this.AddChild(this.modifierModule);
-            this.AddChild(this.statModule);
+            this.Subscribe<UpdateStatsEvent>(this.OnUpdateStats);
         }
+
+        private void OnUpdateStats(UpdateStatsEvent @event) {
+            foreach (KeyValuePair<StatType, int> pair in @event.Changes) {
+                this.Update(pair.Key, pair.Value);
+            }
+        }
+
 
         public static Actor Of(Character data) {
             if (data is Hero hero) {
@@ -42,17 +51,17 @@ namespace Game.common.characters {
         /// <param name="stat">A stat entry containing the base data.</param>
         /// <returns>A stat entry containing the modified data.</returns>
         public Stat Filter(Stat stat) {
-            return this.modifierModule.Modify(stat);
+            return this.TimedEffectModule.Filter(stat);
         }
 
-        public Stat Get(StatType t) {
-            if (this.statModule.TryGet(t, out Stat s)) {
-                return this.modifierModule.Modify(s);
+        public int Get(StatType t) {
+            if (this.StatModule.TryGet(t, out int value)) {
+                return value;
             }
-            return null; 
+            return 0; 
         }
 
-        public abstract Stat Update(StatType t, int offset, int maxOffset = 0, int minOffset = 0);
+        public abstract int Update(StatType t, int offset);
 
         public void RandomiseSped() {
             this.SpeedOffset = MathUtil.Randi(-3, 3);
@@ -63,14 +72,14 @@ namespace Game.common.characters {
         }
 
         public int CompareTo(Actor other) {
-            if (this.statModule.TryGet(StatType.Speed, out Stat value)) {
-                if (other.statModule.TryGet(StatType.Speed, out Stat otherValue1)) {
-                    return (otherValue1.Value + other.SpeedOffset).CompareTo(value.Value + this.SpeedOffset);
+            if (this.StatModule.TryGet(StatType.Speed, out int value)) {
+                if (other.StatModule.TryGet(StatType.Speed, out int otherValue1)) {
+                    return (otherValue1 + other.SpeedOffset).CompareTo(value + this.SpeedOffset);
                 }
-                return other.SpeedOffset.CompareTo(value.Value + this.SpeedOffset);
+                return other.SpeedOffset.CompareTo(value + this.SpeedOffset);
             }
-            if (other.statModule.TryGet(StatType.Speed, out Stat otherValue2)) {
-                return (otherValue2.Value + other.SpeedOffset).CompareTo(this.SpeedOffset);
+            if (other.StatModule.TryGet(StatType.Speed, out int otherValue2)) {
+                return (otherValue2 + other.SpeedOffset).CompareTo(this.SpeedOffset);
             }
             return other.SpeedOffset.CompareTo(this.SpeedOffset);
         }
@@ -78,30 +87,27 @@ namespace Game.common.characters {
         private partial class HeroActor : Actor {
             public HeroActor(Hero hero) : base(hero) {}
 
-            public override Stat Update(StatType t, int offset, int maxOffset = 0, int minOffset = 0) {
-                if (this.statModule.TryUpdate(t, out Stat s, offset)) {
-                    /* foreach (Stat stat in this.Data.Stats.Where(s => s.Type == t)) {
+            public override int Update(StatType t, int offset) {
+                if (this.StatModule.TryUpdate(t, offset, out int value)) {
+                    foreach (CharacterStat stat in this.Data.Stats.Where(s => s.Type == t)) {
                         this.Data.Stats.Remove(stat);
+                        this.Data.Stats.Add(stat + offset);
                     }
-                    this.Data.Stats.Add(s); */
-                    return s;
+                    foreach (CharacterAttribute stat in this.Data.Attributes.Where(s => s.Type == t)) {
+                        this.Data.Attributes.Remove(stat);
+                        this.Data.Attributes.Add(stat + offset);
+                    }
+                    return value;
                 }
-                return null;
+                return 0;
             }
         }   
 
         private partial class EnemyActor : Actor {
             public EnemyActor(Character data) : base(data) {}
 
-            public override Stat Update(StatType t, int offset, int maxOffset = 0, int minOffset = 0) {
-                if (this.statModule.TryUpdate(t, out Stat s, offset)) {
-                    /* foreach (Stat stat in this.Data.Stats.Where(s => s.Type == t)) {
-                        this.Data.Stats.Remove(stat);
-                    }
-                    this.Data.Stats.Add(s); */
-                    return s;
-                }
-                return null;
+            public override int Update(StatType t, int offset) {
+                return 0;
             }
         }
     }

@@ -1,58 +1,78 @@
+using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using Game.common.characters;
-using Game.common.effects;
-using Game.util;
+using System.Linq;
+using System.Text;
+using Game.common.actions;
+using Game.common.stats;
 using Game.util.events;
-using Game.util.events.battle;
-using Game.util.math;
+using Game.util.events.system;
 using Godot;
 
 namespace Game.common.modules {
-	public partial class TimedEffectModule : Node {
-        private Actor Root { set; get; }
-		private readonly Dictionary<OverTimeEffect, TimedEffect> eots = [];
+    [GlobalClass]
+    public partial class TimedEffectModule : Module {
+        private Dictionary<TimedEffect.Type, HashSet<TimedEffect>> TimedEffects { init; get; } = [];
+        private Dictionary<int, Action> OnExpire { init; get; } = [];
+        private int time = 0;
 
-        public override async void _Ready() {
-            foreach (Node child in this.GetChildren()) {
-                if (child is TimedEffect e) {
-                    this.eots.Add(e.Effect, e);
+        public Stat Filter(Stat stat) {
+            if (this.TimedEffects.TryGetValue(
+                TimedEffect.Type.Buff, out HashSet<TimedEffect> buffs
+            )) {
+                foreach (Buff buff in buffs.Cast<Buff>()) {
+                    stat = buff.Transform(stat);
                 }
             }
-            await this.ToSignal(this.GetParent(), SignalName.Ready);
-            this.Root = this.GetParent<Actor>();
-            //this.Subscribe<ReceiveEffectEvent>(this.OnReceiveEffect);
-            //this.Subscribe<CureDoTEvent>(this.OnCure);
-        }
-
-        /* private void OnCure(CureDoTEvent e) {
-            if (e.HandledBy(this.Root)) {
-                if (this.Remove(e.Effect)) {
-                    // Play animation
+            if (this.TimedEffects.TryGetValue(
+                TimedEffect.Type.Debuff, out HashSet<TimedEffect> debuffs
+            )) {
+                foreach (Buff debuff in debuffs.Cast<Buff>()) {
+                    stat = debuff.Transform(stat);
                 }
             }
+            return stat;
         }
 
-        private void OnReceiveEffect(ReceiveEffectEvent e) {
-            if (e.HandledBy(this.Root)) {
-                if (MathUtil.Randi(1, 100) <= e.Chance) {
-                    this.Add(e.Effect);
+        private void AddTimedEffect(TimedEffect effect) {
+            int endTime = this.time + effect.Duration;
+            if (this.TimedEffects.TryGetValue(
+                effect.EffectType, out HashSet<TimedEffect> effects
+            )) {
+                effects.Add(effect);
+            } else {
+                effects = [effect];
+                this.TimedEffects[effect.EffectType] = effects;
+            }
+            if (!this.OnExpire.ContainsKey(endTime)) {
+                this.OnExpire[endTime] = () => effects.Remove(effect);
+            } else {
+                this.OnExpire[endTime] += () => effects.Remove(effect);
+            }
+        }
+
+        protected override void ConnectEvents() {
+            this.Subscribe<GameTickEvent>(this.OnGameTick);
+        }
+
+        private void OnGameTick(GameTickEvent @event) {
+            this.time += 1;
+            if (this.OnExpire.Remove(this.time, out Action onExpire)) {
+                onExpire();
+            }
+            if (this.OnExpire.Count == 0) {
+                this.time = 0;
+            }
+        }
+
+        public override string ToString() {
+            StringBuilder sb = new StringBuilder();
+            foreach (TimedEffect.Type type in this.TimedEffects.Keys) {
+                sb.AppendLine($"{type}: ");
+                foreach (TimedEffect effect in this.TimedEffects[type]) {
+                    sb.AppendLine(effect.ToString());
                 }
             }
-        } */
-
-        public void Add(EoT eot) {
-            this.eots[eot.EffectType].Collect(eot); 
-        }
-
-        public bool Remove(OverTimeEffect effect) {
-            return this.eots[effect].Cure();
-        }
-
-        public async Task Apply() {
-            foreach (TimedEffect e in this.eots.Values) {
-                await e.Apply((Actor)this.GetParent());
-            }
+            return sb.ToString();
         }
     }
 }

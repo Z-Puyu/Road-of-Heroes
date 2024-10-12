@@ -1,59 +1,69 @@
 using System;
+using System.Collections.Generic;
 using Game.common.characters;
+using Game.util.events;
+using Game.util.events.characters;
 using Godot;
 using MonoCustomResourceRegistry;
 
 namespace Game.common.stats {
     [RegisteredType(nameof(Cost), "", nameof(Resource)), GlobalClass]
-    public partial class Cost : Resource {
-        private enum CostType { Hp, Magicka, Sanity, Stamina }
-        [Export] private CostType Type { set; get; }
-        [Export] private int Value { set; get; } = 0;
+    public partial class Cost : Stat {
+        private enum Category { 
+            Hp = StatType.HpCost, 
+            Magicka = StatType.MagickaCost, 
+            Sanity = StatType.SanityCost, 
+            Stamina = StatType.StaminaCost 
+        }
+
+        private static Dictionary<StatType, StatType> BaseStats { get; } = new Dictionary<StatType, StatType> {
+            {StatType.HpCost, StatType.Health},
+            {StatType.MagickaCost, StatType.Magicka},
+            {StatType.SanityCost, StatType.Sanity},
+            {StatType.StaminaCost, StatType.Stamina}
+        };
+
+        private Category costType;
+
+        [Export] private Category CostType { 
+            get => costType; 
+            set {
+                costType = value;
+                Type = (StatType)value;
+            } 
+        }
         [Export] private bool IsPercentage { set; get; } = false;
 
         public Cost() {}
 
+        public Cost(StatType type, int value, bool isPercentage) : base(type, value) {
+            this.IsPercentage = isPercentage;
+            this.CostType = (Category)type;
+        }
+
         public bool IsAffordable(Actor actor) {
-            Stat s = actor.Get(this.TargetType());
-            return s.Value >= this.ComputeFor(actor).Value;
+            return actor.Get(Cost.BaseStats[this.Type]) >= this.ValueOf(actor).Value;
         }
 
-        public Stat ComputeFor(Actor actor) {
-            StatType stat = this.Type switch {
-                CostType.Hp => StatType.HpCost,
-                CostType.Magicka => StatType.MagickaCost,
-                CostType.Sanity => StatType.SanityCost,
-                CostType.Stamina => StatType.StaminaCost,
-                _ => StatType.HpCost
-            };
-            return null;
-            /* if (this.IsPercentage) {
-                int value = (int)Math.Floor(actor.Get(stat).Value * this.Value / 100.0);
-                return new Stat(stat, value);
-            }
-            return new Stat(stat, this.Value); */
+        private Stat ValueOf(Actor actor) {
+            int value = this.IsPercentage ? (int)Math.Floor(
+                actor.Get(Cost.BaseStats[this.Type]) * this.Value / 100.0
+            ) : this.Value;
+            return new Stat(this.Type, -value);
         }
 
-        public StatType TargetType() {
-            return this.Type switch {
-                CostType.Hp => StatType.Health,
-                CostType.Magicka => StatType.Magicka,
-                CostType.Sanity => StatType.Sanity,
-                CostType.Stamina => StatType.Stamina,
-                _ => StatType.Health
-            };
+        public void ConsumeBy(Actor actor) {
+            Stat change = this.ValueOf(actor);
+            this.Publish<UpdateStatsEvent, UpdateStatsEvent>(
+                new UpdateStatsEvent(new Dictionary<StatType, int> {
+                    {this.Type, change.Value}
+                })
+            );
         }
 
         public override string ToString() {
-            string stat = this.Type switch {
-                CostType.Hp => "HP",
-                CostType.Magicka => "Magicka",
-                CostType.Sanity => "Sanity",
-                CostType.Stamina => "Stamina",
-                _ => ""
-            };
             string value = this.IsPercentage ? $"{this.Value}% of maximum" : $"{this.Value}";
-            return $"{value} {stat}";
+            return $"{value} {this.Type}";
         }
     }
 }

@@ -1,8 +1,9 @@
-using System;
 using System.Linq;
-using Game.common.effects;
+using Game.common.actions;
+using Game.common.actions.combat;
 using Game.common.stats;
-using Game.util;
+using Game.util.events;
+using Game.util.events.characters;
 using Game.util.math;
 using Godot;
 using Godot.Collections;
@@ -22,8 +23,8 @@ namespace Game.common.characters.skills {
         [Export] public Array<bool> ValidTargets { set; get; } = [false, false, false, false];
         [Export] private Array<SkillCondition> SkillConditions { set; get; } = [];
         [Export] private Array<Cost> Costs { set; get; } = [];
-        [Export] private Array<CombatEffect> EffectsOnSelf { set; get; } = [];
-        [Export] private Array<CombatEffect> EffectsOnTarget { set; get; } = [];
+        [Export] private Array<CombatAction> EffectsOnSelf { set; get; } = [];
+        [Export] private Array<CombatAction> EffectsOnTarget { set; get; } = [];
         [Export] private int UsageLimit { set; get; } = -1;
         [Export] public Array<ClassWeight> ClassWeights { set; get; } = [];
 
@@ -37,31 +38,27 @@ namespace Game.common.characters.skills {
                 return;
             }
             foreach (Cost cost in this.Costs) {
-                // Modify the cost and update the currency stat.
-                Stat stat = cost.ComputeFor(src);
-                src.Update(cost.TargetType(), src.Filter(stat).Value);
+                cost.ConsumeBy(src);
             }
             foreach (Actor target in targets) {
-                int dice;
+                ActionFlag flag = ActionFlag.None;
                 if (!this.NeverMiss) {
-                    // Hit chance = base precision + skill precision bonus - enemy agility
-                    int hitChance = src.Get(StatType.Precision).Value + 
-                                    this.Precision - target.Get(StatType.Agility).Value;
-                    dice = MathUtil.Randi(1, 100);
-                    if (dice > hitChance) {
-                        // Dodge!
-                        // await FloatingCaption.Node.Display(miss: true);
-                        continue;
+                    // Hit chance = base precision + actor precision bonus - enemy agility
+                    int hitChance = src.Get(StatType.Precision) + 
+                                    this.Precision - target.Get(StatType.Agility);
+                    if (MathUtil.Randi(1, 100) <= hitChance) {
+                        flag |= ActionFlag.Hit;
                     }
                 }
-                int critChance = src.Get(StatType.Perception).Value;
-                dice = MathUtil.Randi(1, 100);
-                foreach (CombatEffect effect in this.EffectsOnTarget) {
-                    effect.Apply(src, target, crit: dice <= critChance);
+                if (MathUtil.Randi(1, 100) <= src.Get(StatType.Perception)) {
+                    flag |= ActionFlag.Critical;
+                }
+                foreach (CombatAction action in this.EffectsOnTarget) {
+                    action.Apply(src, target, flag);
                 }
             }
-            foreach (CombatEffect effect in this.EffectsOnSelf) {
-                effect.Apply(src, src);
+            foreach (CombatAction action in this.EffectsOnSelf) {
+                action.Apply(src, src);
             }
         }
 

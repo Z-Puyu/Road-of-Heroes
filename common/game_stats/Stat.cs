@@ -27,6 +27,12 @@ namespace Game.common.stats {
             this.Modifier = Modifier.IdentityOf(type);
         }
 
+        public void AddModifier(Modifier modifier) {
+            if (modifier.TargetStat == this.Type) {
+                this.Modifier += modifier;
+            }
+        }
+
         public override string ToString() {
             return $"{this.Value} {this.Type.ToText()}";
         }

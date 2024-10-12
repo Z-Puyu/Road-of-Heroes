@@ -1,10 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System;
-using System.Collections.Generic;
 using Game.common.stats;
-using Game.util.enums;
-using Game.util.math;
 using Game.util.enums;
 using Game.util.math;
 using Godot;
@@ -35,6 +31,10 @@ namespace Game.common.modifier {
             Modifier mod = new Modifier(t);
             Modifier.IDENTITY_MODIFIERS[t] = mod;
             return mod;
+        }
+
+        public bool IsIdentity() { 
+            return this.Offset == 0 && this.Multiplier == 0;
         }
 
         public int Modify(int @base) {

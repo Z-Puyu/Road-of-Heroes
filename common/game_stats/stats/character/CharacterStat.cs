@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using Godot.Collections;
 using MonoCustomResourceRegistry;
@@ -51,6 +52,30 @@ namespace Game.common.stats {
         }, value)) {
             this.Type = type;
             this.BaseType = (Category)type;
+        }
+
+        public static CharacterStat operator+(CharacterStat stat) {
+            return stat;
+        }
+
+        public static CharacterStat operator-(CharacterStat stat) {
+            return new CharacterStat(stat.Type, -stat.value);
+        }
+
+        public static CharacterStat operator+(CharacterStat stat, int offset) {
+            return new CharacterStat(stat.Type, stat.value + offset);
+        }
+
+        public static CharacterStat operator-(CharacterStat stat, int offset) {
+            return new CharacterStat(stat.Type, stat.value - offset);
+        }
+
+        public static CharacterStat operator*(CharacterStat stat, double factor) {
+            return new CharacterStat(stat.Type, (int)Math.Round(stat.value * factor));
+        }
+
+        public static CharacterStat operator/(CharacterStat stat, double divisor) {
+            return new CharacterStat(stat.Type, (int)Math.Round(stat.value / divisor));
         }
     }
 }
