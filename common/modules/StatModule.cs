@@ -67,7 +67,7 @@ namespace Game.common.modules {
         /// </summary>
         /// <param name="modifier">The modifier to add.</param>
         /// <returns>true if the target stat of the modifier exists.</returns>
-        /// <remarks>Internally, the method removes the modifier by adding its inverse.</remarks>
+        /// <remarks>publicly, the method removes the modifier by adding its inverse.</remarks>
         public bool TryRemoveModifier(ref Modifier modifier) {
             modifier ??= Modifier.IdentityOf(StatType.MaxHP);
             if (modifier.IsIdentity()) {

@@ -7,28 +7,24 @@ using Godot;
 using MonoCustomResourceRegistry;
 
 namespace Game.common.actions.combat {
-    [RegisteredType(nameof(PhysicalAttackAction), "", nameof(Resource)), GlobalClass]
-    public partial class PhysicalAttackAction : CombatAction {
-        [Export] private uint DamageMultiplier { get; set; } = 100;
-        [Export] private bool IsMelee { get; set; } = true;
+    [RegisteredType(nameof(MagicAttackAction), "", nameof(Resource)), GlobalClass]
+    public partial class MagicAttackAction : CombatAction {
+        [Export] private uint MinDamage { get; set; } = 0;
+        [Export] private uint MaxDamage { get; set; } = 0;
 
         public override Task Apply(Actor src, Actor target, ActionFlag flag = ActionFlag.None) {
             // Compute the base damage.
-            int strength = src.Get(StatType.Strength);
             int dmg = (int)Math.Round(
                 flag.HasFlag(ActionFlag.Critical) 
-                    ? 2 * strength * 1.5
-                    : MathUtil.Randi(strength, strength * 2) * this.DamageMultiplier / 100.0
+                    ? this.MaxDamage * 1.5
+                    : MathUtil.Randi(this.MinDamage, this.MaxDamage)
             );
             // Modify the damage dealt based on attacker's modifiers.
-            int dmgDealt = src.Filter(new Stat(
-                this.IsMelee ? StatType.MeleeDamageDealt : StatType.RangedDamageDealt, dmg
-            )).Value;
+            int dmgDealt = src.Filter(new Stat(StatType.MagicDamageDealt, dmg)).Value;
             // Modify the damage taken based on target's modifiers.
             int dmgReceived = target.Filter(new Stat(
-                this.IsMelee ? StatType.MeleeDamageTaken : StatType.RangedDamageTaken, 
-                dmgDealt
-            )).Value;
+                StatType.MagicDamageTaken, dmgDealt)
+            ).Value;
             // Update HP.
             target.Update(StatType.Health, -dmgReceived);
             return Task.CompletedTask;

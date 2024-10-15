@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Game.common.stats;
 using Game.util.math;
 using Godot;
@@ -6,8 +7,15 @@ using MonoCustomResourceRegistry;
 namespace Game.common.characters.skills {
     [RegisteredType(nameof(SkillCondition), "", nameof(Resource)), GlobalClass]
     public partial class SkillCondition : Resource {
+        private readonly static Dictionary<StatType, StatType> CAPPED_STATS = new Dictionary<StatType, StatType>{
+            {StatType.Health, StatType.MaxHP},
+            {StatType.Magicka, StatType.MaxMagicka},
+            {StatType.Sanity, StatType.MaxSanity},
+            {StatType.Stamina, StatType.Stamina}
+        };
+
         private enum Comparator {
-            Equality, Greater, Less, GreaterOrEqual, LessOrEqual,
+            Equality, Greater, Less, GreaterOrEqual, LessOrEqual
         }
 
         [Export] private StatType StatType { set; get; }
@@ -16,10 +24,11 @@ namespace Game.common.characters.skills {
         [Export] private Comparator ComparisonMethod { set; get; }
 
         public bool Test(Actor actor) {
-            Stat stat = actor.Get(this.StatType);
-            if (this.UsePercentage) {
+            bool isCapped = CAPPED_STATS.ContainsKey(this.StatType);
+            int stat = actor.Get(this.StatType);
+            if (this.UsePercentage && isCapped) {
                 Fraction threshold = new Fraction(this.Threshold, 100);
-                Fraction ratio = new Fraction(stat.Value, stat.Value);
+                Fraction ratio = new Fraction(stat, actor.Get(CAPPED_STATS[this.StatType]));
                 return this.ComparisonMethod switch {
                     Comparator.Equality => ratio == threshold,
                     Comparator.Greater => ratio > threshold,
@@ -30,11 +39,11 @@ namespace Game.common.characters.skills {
                 };
             } else {
                 return this.ComparisonMethod switch {
-                    Comparator.Equality => stat.Value == this.Threshold,
-                    Comparator.Greater => stat.Value > this.Threshold,
-                    Comparator.Less => stat.Value < this.Threshold,
-                    Comparator.GreaterOrEqual => stat.Value >= this.Threshold,
-                    Comparator.LessOrEqual => stat.Value <= this.Threshold,
+                    Comparator.Equality => stat == this.Threshold,
+                    Comparator.Greater => stat > this.Threshold,
+                    Comparator.Less => stat < this.Threshold,
+                    Comparator.GreaterOrEqual => stat >= this.Threshold,
+                    Comparator.LessOrEqual => stat <= this.Threshold,
                     _ => false
                 };
             }

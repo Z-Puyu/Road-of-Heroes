@@ -113,6 +113,16 @@ namespace Game.util.math {
         }
 
         /// <summary>
+        /// Produce a random 32-bit integer between <paramref name="inf"/> and <paramref name="sup"/> inclusive.
+        /// </summary>
+        /// <param name="inf">The smallest possible integer to be generated.</param>
+        /// <param name="sup">The greatest possible integer to be generated.</param>
+        /// <returns>A random integer between <paramref name="inf"/> and <paramref name="sup"/> inclusive.</returns>
+        public static int Randi(uint inf, uint sup) {
+            return MathUtil.Randi((int)inf, (int)sup);
+        }
+
+        /// <summary>
         /// Produce a random 32-bit integer in a closed interval <paramref name="range"/>.
         /// </summary>
         /// <param name="range">A closed interval of possible integers to be generated.</param>

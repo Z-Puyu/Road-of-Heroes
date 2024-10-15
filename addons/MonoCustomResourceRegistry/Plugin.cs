@@ -8,7 +8,7 @@ using System.Text;
 // Originally written by wmigor
 // Edited by Atlinx to recursively search for files.
 // Edited by bls220 to update for Godot 4.0
-// wmigor's Public Repo: https://github.com/wmigor/godot-mono-custom-resource-register
+// wmigor's public Repo: https://github.com/wmigor/godot-mono-custom-resource-register
 namespace MonoCustomResourceRegistry
 {
 #if TOOLS

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using Game.common.actions;
 using Game.common.effects;
 using Game.common.modules;
 using Game.common.stats;
@@ -15,8 +16,7 @@ namespace Game.common.characters {
     public abstract partial class Actor : Node, IComparable<Actor> {
         public Guid Id { get; private init; } = Guid.NewGuid();
         private StatModule StatModule { get; init; } = new StatModule();
-        private CombatModule combatModule { get; init; } = new CombatModule();
-        private TimedEffectModule TimedEffectModule { get; init; } = new TimedEffectModule();
+        private CombatEffectModule CombatEffectModule { get; init; } = new CombatEffectModule();
         protected Character Data { get; set; }
         protected int SpeedOffset { set; get; } = 0;
 
@@ -37,7 +37,6 @@ namespace Game.common.characters {
             }
         }
 
-
         public static Actor Of(Character data) {
             if (data is Hero hero) {
                 return new HeroActor(hero);
@@ -45,13 +44,21 @@ namespace Game.common.characters {
             return new EnemyActor(data);
         }
 
+        public void AddEffect(CombatEffect effect) {
+            this.CombatEffectModule.Add(effect);
+        }
+
+        public void Cure(CombatEffect.Type effect) {
+            this.CombatEffectModule.Cure(effect);
+        }
+
         /// <summary>
-        /// Computes a stat entry by applying the character's modifiers to <paramref name="stat"/>.
+        /// Computes a stat entry by applying the character's buffs to <paramref name="stat"/>.
         /// </summary>
         /// <param name="stat">A stat entry containing the base data.</param>
         /// <returns>A stat entry containing the modified data.</returns>
         public Stat Filter(Stat stat) {
-            return this.TimedEffectModule.Filter(stat);
+            return this.CombatEffectModule.Filter(stat);
         }
 
         public int Get(StatType t) {
