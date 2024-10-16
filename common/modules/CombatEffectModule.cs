@@ -179,8 +179,10 @@ namespace Game.common.modules {
             }
 
             public Stat Transform(Stat stat) {
+                Modifier modifier;
                 foreach (Modifier m in this.Modifiers.Values) {
-                    stat.AddModifier(m);
+                    modifier = m;
+                    stat.AddModifier(ref modifier);
                 }
                 return stat;
             }
