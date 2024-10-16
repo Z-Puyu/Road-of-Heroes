@@ -1,18 +1,39 @@
-[gd_scene load_steps=8 format=3 uid="uid://c32bhy47nmifb"]
+[gd_scene load_steps=7 format=3 uid="uid://c32bhy47nmifb"]
 
 [ext_resource type="Script" path="res://common/static/GameManager.cs" id="1_23pge"]
 [ext_resource type="Resource" uid="uid://cu54tt52fw05" path="res://common/characters/race/Human.tres" id="2_tks7c"]
 [ext_resource type="Resource" uid="uid://br2aegc41ixe0" path="res://common/characters/race/Elf.tres" id="3_jxomn"]
 [ext_resource type="Resource" uid="uid://buyxyelqh02u6" path="res://common/characters/race/Dwarf.tres" id="4_miiyg"]
 [ext_resource type="Resource" uid="uid://coadqk22nuwma" path="res://common/characters/race/Orc.tres" id="5_vblr3"]
-[ext_resource type="Resource" uid="uid://jt4phk301w5x" path="res://common/characters/enemies/OrcThug.tres" id="6_wt032"]
-[ext_resource type="Resource" uid="uid://cbm2r8rqkmbjb" path="res://common/characters/enemies/OrcBandit.tres" id="7_iimdy"]
+[ext_resource type="Script" path="res://common/static/CharacterManager.cs" id="6_j0cx1"]
 
-[node name="GameManager" type="Node" node_paths=PackedStringArray("TempLayer")]
+[node name="GameManager" type="Node"]
 script = ExtResource("1_23pge")
 Races = [ExtResource("2_tks7c"), ExtResource("3_jxomn"), ExtResource("4_miiyg"), ExtResource("5_vblr3")]
-EnemyParties = [[ExtResource("6_wt032"), ExtResource("6_wt032"), ExtResource("7_iimdy"), ExtResource("7_iimdy")]]
-TempLayer = NodePath("")
 
 [node name="TempLayer" type="CanvasLayer" parent="."]
 layer = 99
+
+[node name="HumanCharacterManager" type="Node" parent="."]
+script = ExtResource("6_j0cx1")
+MaleNamePath = "res://data/names/human/male.txt"
+FemaleNamePath = "res://data/names/human/female.txt"
+
+[node name="ElvenCharacterManager" type="Node" parent="."]
+script = ExtResource("6_j0cx1")
+Race = 1
+MaleNamePath = "res://data/names/elf/male.txt"
+FemaleNamePath = "res://data/names/elf/female.txt"
+NeutralNamePath = "res://data/names/elf/neutral.txt"
+
+[node name="DwarvenCharacterManager" type="Node" parent="."]
+script = ExtResource("6_j0cx1")
+Race = 2
+MaleNamePath = "res://data/names/dwarf/male.txt"
+FemaleNamePath = "res://data/names/dwarf/female.txt"
+
+[node name="OrcishCharacterManager" type="Node" parent="."]
+script = ExtResource("6_j0cx1")
+Race = 3
+MaleNamePath = "res://data/names/orc/male.txt"
+FemaleNamePath = "res://data/names/orc/female.txt"

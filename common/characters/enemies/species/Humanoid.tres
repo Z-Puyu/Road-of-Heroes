@@ -1,8 +1,0 @@
-[gd_resource type="Resource" script_class="Species" load_steps=2 format=3 uid="uid://i1c8x2p27u1o"]
-
-[ext_resource type="Script" path="res://common/characters/enemies/Species.cs" id="1_hrhff"]
-
-[resource]
-script = ExtResource("1_hrhff")
-Name = 0
-Abilities = []

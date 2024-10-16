@@ -1,5 +1,6 @@
 using System;
 using Game.util;
+using Game.util.events;
 
 using Godot;
 
@@ -32,12 +33,14 @@ namespace Game.common.fsm {
             return sm == this.FSM;
         }
 
-        public virtual void Enter() {}
+        public virtual void Enter() {
+            this.ReconnectAll();
+        }
         public virtual void Exit() {
-            this.UnsubscribeAllEvents();
+            this.MuteAll();
         }  
 
         public virtual void OnInput(InputEvent @event) {}
-        public virtual void Handle(object sender, EventArgs @event) {}
+        public virtual void Handle(EventArgs @event) {}
     }
 }

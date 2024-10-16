@@ -1,12 +1,74 @@
-[gd_resource type="Resource" script_class="Race" load_steps=5 format=3 uid="uid://cu54tt52fw05"]
+[gd_resource type="Resource" script_class="Race" load_steps=13 format=3 uid="uid://cu54tt52fw05"]
 
-[ext_resource type="Resource" uid="uid://brkha5gy5wf7r" path="res://common/characters/skills/racial_skills/human/AdrenalinBurst.tres" id="1_n684h"]
+[ext_resource type="Script" path="res://common/characters/race/StatRange.cs" id="1_angko"]
 [ext_resource type="Script" path="res://common/characters/race/Race.cs" id="1_yhfl0"]
-[ext_resource type="Resource" uid="uid://dew1imgutqvxb" path="res://common/characters/skills/racial_skills/human/BlessingOfTheAncestors.tres" id="2_2edp2"]
-[ext_resource type="Resource" uid="uid://b3iq8qrd6mrvy" path="res://common/characters/skills/racial_skills/human/SurvivalInstinct.tres" id="3_44qd3"]
+
+[sub_resource type="Resource" id="Resource_4ebmc"]
+script = ExtResource("1_angko")
+Type = 0
+Max = 0
+Min = 0
+
+[sub_resource type="Resource" id="Resource_igjrm"]
+script = ExtResource("1_angko")
+Type = 1
+Max = 0
+Min = 0
+
+[sub_resource type="Resource" id="Resource_jo1oa"]
+script = ExtResource("1_angko")
+Type = 2
+Max = 0
+Min = 0
+
+[sub_resource type="Resource" id="Resource_8m264"]
+script = ExtResource("1_angko")
+Type = 3
+Max = 0
+Min = 0
+
+[sub_resource type="Resource" id="Resource_03u7k"]
+script = ExtResource("1_angko")
+Type = 4
+Max = 0
+Min = 0
+
+[sub_resource type="Resource" id="Resource_o2tuh"]
+script = ExtResource("1_angko")
+Type = 5
+Max = 0
+Min = 0
+
+[sub_resource type="Resource" id="Resource_e40pk"]
+script = ExtResource("1_angko")
+Type = 6
+Max = 0
+Min = 0
+
+[sub_resource type="Resource" id="Resource_v3hva"]
+script = ExtResource("1_angko")
+Type = 7
+Max = 0
+Min = 0
+
+[sub_resource type="Resource" id="Resource_5pdpj"]
+script = ExtResource("1_angko")
+Type = 8
+Max = 0
+Min = 0
+
+[sub_resource type="Resource" id="Resource_w1k6h"]
+script = ExtResource("1_angko")
+Type = 9
+Max = 0
+Min = 0
 
 [resource]
 script = ExtResource("1_yhfl0")
-RaceName = 0
+Name = 0
 Description = "Humans are perhaps the most balanced race in the entire continent, who are almost capable of doing any job. They are flexible fighters on the battlefield, but are also knowledgeable enough to delve into the studies of magical arts. "
-Skills = [ExtResource("1_n684h"), ExtResource("2_2edp2"), ExtResource("3_44qd3")]
+MinHP = 15
+MaxHP = 25
+MinMagicka = 10
+MaxMagicka = 25
+BaseStatsRanges = [SubResource("Resource_4ebmc"), SubResource("Resource_igjrm"), SubResource("Resource_jo1oa"), SubResource("Resource_8m264"), SubResource("Resource_03u7k"), SubResource("Resource_o2tuh"), SubResource("Resource_e40pk"), SubResource("Resource_v3hva"), SubResource("Resource_5pdpj"), SubResource("Resource_w1k6h")]

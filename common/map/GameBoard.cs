@@ -3,6 +3,7 @@ using Game.common.fsm;
 using Game.common.player;
 using Game.util;
 using Game.util.events;
+using Game.util.math;
 using Godot;
 using System;
 using System.Collections.Generic;
@@ -35,7 +36,7 @@ namespace Game.common.map {
 			this.ClearLayer((int)Layer.Base);
 			this.Generate(this.size, Vector2I.Zero);
 			this.centre = this.Position;
-			Vector2 globalPos = this.ToGlobal(this.MapToLocal(this.cells.ElementAt(Utilities.Randi(0, this.size - 1))));
+			Vector2 globalPos = this.ToGlobal(this.MapToLocal(this.cells.ElementAt(MathUtil.Randi(0, this.size - 1))));
 			this.player = GameManager.Instantiate<Player>(Player.Scene, globalPos, this);
 			this.Translate(this.centre - this.player.Position);
 			this.centre = this.player.Position;
@@ -86,7 +87,7 @@ namespace Game.common.map {
 				return false;
 			}
 			while (dirs.Count > 0) {
-				int idx = Utilities.Randi(0, dirs.Count - 1);
+				int idx = MathUtil.Randi(0, dirs.Count - 1);
 				Vector2I dir = dirs[idx];
 				Vector2I next = src + dir;
 				if (this.cells.Contains(next)) {

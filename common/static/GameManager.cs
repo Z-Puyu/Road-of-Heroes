@@ -1,31 +1,36 @@
 using System;
-using Game.common.characters.enemies;
-using Game.common.characters.profession;
 using Game.common.characters.race;
-using Game.util;
+using Game.common.characters.skills;
+using Game.util.errors;
+using Game.util.math;
 using Godot;
 using Godot.Collections;
 
 namespace Game.common.autoload {
     [GlobalClass]
 	public partial class GameManager : Node {
-		private static GameManager instance;
+		private static GameManager Instance { set; get; }
         [Export] public Array<Vector2I> Resolutions { set; get; } = [];
-        [Export] private Array<Profession> Professions { get; set; } = [];
         [Export] private Array<Race> Races { get; set; } = [];
-        [Export] private Array<Array<EnemyCharacter>> EnemyParties { set; get; } = [];
-        [Export] public CanvasLayer TempLayer { set; get; }
+        [Export] private Array<Skill> Skills { get; set; } = [];
+        private static Dictionary<Race.Species, CharacterManager> CharacterManagers { set; get; } = [];
+
         private static Node2D world;
 
-		public static GameManager Instance => instance;
         public static Node2D World { get => world; set => world = value; }
 
+        public GameManager() {
+            if (GameManager.Instance != null) {
+                throw new SingletonException(typeof(GameManager));
+            }
+            GameManager.Instance = this;
+        }
 
         public override void _Ready() {
-            GameManager.instance = this;
-            foreach (Array<EnemyCharacter> party in this.EnemyParties) {
-                foreach (EnemyCharacter enemy in party) {
-                    enemy.InitStats();
+            GameManager.Instance ??= this;
+            foreach (Node child in this.GetChildren()) {
+                if (child is CharacterManager manager) {
+                    GameManager.CharacterManagers[manager.Race] = manager;
                 }
             }
         }
@@ -42,19 +47,17 @@ namespace Game.common.autoload {
             return @object;
         }
 
-        public static Profession RandomProfession() {
-            int idx = Utilities.Randi(0, GameManager.instance.Professions.Count - 1);
-            return GameManager.instance.Professions[idx];
-        }
-
         public static Race RandomRace() {
-            int idx = Utilities.Randi(0, GameManager.instance.Races.Count - 1);
-            return GameManager.instance.Races[idx];
+            return GameManager.Instance.Races.PickRandom();
         }
 
-        public static Array<EnemyCharacter> RandomEnemies() {
-            int idx = Utilities.Randi(0, GameManager.instance.EnemyParties.Count - 1);
-            return GameManager.instance.EnemyParties[idx];
+        public static string RandomName(Race race, bool isFemale) {
+            return GameManager.CharacterManagers[race.Name].RandomName(isFemale);
+        }
+
+        public static Array<Skill> RandomSkills(uint n = 4) {
+            int m = Math.Min((int)n, 8);
+            return [.. GameManager.Instance.Skills.RandomSelect(m)];
         }
     }
 }

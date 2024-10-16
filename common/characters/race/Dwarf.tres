@@ -1,12 +1,74 @@
-[gd_resource type="Resource" script_class="Race" load_steps=5 format=3 uid="uid://buyxyelqh02u6"]
+[gd_resource type="Resource" script_class="Race" load_steps=13 format=3 uid="uid://buyxyelqh02u6"]
 
 [ext_resource type="Script" path="res://common/characters/race/Race.cs" id="1_5rmik"]
-[ext_resource type="Resource" uid="uid://dax2k3r2qx4il" path="res://common/characters/skills/racial_skills/dwarf/EnlargeMuscles.tres" id="1_d0t0u"]
-[ext_resource type="Resource" uid="uid://6hfwf6c7vo0f" path="res://common/characters/skills/racial_skills/dwarf/Enroot.tres" id="2_s0cqm"]
-[ext_resource type="Resource" uid="uid://c6i5r07s2xu8q" path="res://common/characters/skills/racial_skills/dwarf/Harden.tres" id="3_3a8ww"]
+[ext_resource type="Script" path="res://common/characters/race/StatRange.cs" id="1_nl7fq"]
+
+[sub_resource type="Resource" id="Resource_vf3vj"]
+script = ExtResource("1_nl7fq")
+Type = 0
+Max = 0
+Min = 0
+
+[sub_resource type="Resource" id="Resource_cphr6"]
+script = ExtResource("1_nl7fq")
+Type = 1
+Max = 0
+Min = 0
+
+[sub_resource type="Resource" id="Resource_6h2ua"]
+script = ExtResource("1_nl7fq")
+Type = 2
+Max = 0
+Min = 0
+
+[sub_resource type="Resource" id="Resource_vk4y6"]
+script = ExtResource("1_nl7fq")
+Type = 3
+Max = 0
+Min = 0
+
+[sub_resource type="Resource" id="Resource_tc1b1"]
+script = ExtResource("1_nl7fq")
+Type = 4
+Max = 0
+Min = 0
+
+[sub_resource type="Resource" id="Resource_85dka"]
+script = ExtResource("1_nl7fq")
+Type = 5
+Max = 0
+Min = 0
+
+[sub_resource type="Resource" id="Resource_fg88e"]
+script = ExtResource("1_nl7fq")
+Type = 6
+Max = 0
+Min = 0
+
+[sub_resource type="Resource" id="Resource_hpa6y"]
+script = ExtResource("1_nl7fq")
+Type = 7
+Max = 0
+Min = 0
+
+[sub_resource type="Resource" id="Resource_ysdpn"]
+script = ExtResource("1_nl7fq")
+Type = 8
+Max = 0
+Min = 0
+
+[sub_resource type="Resource" id="Resource_saafl"]
+script = ExtResource("1_nl7fq")
+Type = 9
+Max = 0
+Min = 0
 
 [resource]
 script = ExtResource("1_5rmik")
-RaceName = 2
+Name = 0
 Description = "Residing in deep caves in the mountains, the dwarves pride themselves in their unmatched technologies in underground engineering and smithing. Dwarves are seen as the best craftsmen and stout defenders in battlefields."
-Skills = [ExtResource("1_d0t0u"), ExtResource("2_s0cqm"), ExtResource("3_3a8ww")]
+MinHP = 15
+MaxHP = 25
+MinMagicka = 10
+MaxMagicka = 25
+BaseStatsRanges = [SubResource("Resource_vf3vj"), SubResource("Resource_cphr6"), SubResource("Resource_6h2ua"), SubResource("Resource_vk4y6"), SubResource("Resource_tc1b1"), SubResource("Resource_85dka"), SubResource("Resource_fg88e"), SubResource("Resource_hpa6y"), SubResource("Resource_ysdpn"), SubResource("Resource_saafl")]

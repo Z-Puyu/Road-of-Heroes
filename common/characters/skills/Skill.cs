@@ -1,7 +1,10 @@
-using System;
-using Game.common.characters.profession;
-using Game.common.effects;
-using Game.util;
+using System.Linq;
+using Game.common.actions;
+using Game.common.actions.combat;
+using Game.common.stats;
+using Game.util.events;
+using Game.util.events.characters;
+using Game.util.math;
 using Godot;
 using Godot.Collections;
 using MonoCustomResourceRegistry;
@@ -11,76 +14,60 @@ namespace Game.common.characters.skills {
     public partial class Skill : Resource {
         public enum Range { SingleEnemy, SingleAlly, AOEEnemy, AOEAlly, SelfOnly, Neighbours }
 
-        [Export] public bool IsRacialSkill { set; get; } = false;
         [Export] private string Name { set; get; }
         [Export] public Texture2D Icon { set; get; }
         [Export] private bool NeverMiss { set; get; }
         [Export] private int Precision { set; get; }
         [Export] public Range TargetRange { set; get; }
-        [Export] public Vector2I UserPosition { set; get; }
-        [Export] public Vector2I TargetPosition { set; get; }
-        [Export] private Array<Requirement> Requirements { set; get; } = [];
+        [Export] public Array<bool> ValidPositions { set; get; } = [false, false, false, false];
+        [Export] public Array<bool> ValidTargets { set; get; } = [false, false, false, false];
+        [Export] private Array<SkillCondition> SkillConditions { set; get; } = [];
         [Export] private Array<Cost> Costs { set; get; } = [];
-        [Export] private Array<Effect> EffectsOnSelf { set; get; } = [];
-        [Export] private Array<Effect> EffectsOnTarget { set; get; } = [];
-        [Export] private bool CanBeLearnt { set; get; } = true;
+        [Export] private Array<CombatAction> EffectsOnSelf { set; get; } = [];
+        [Export] private Array<CombatAction> EffectsOnTarget { set; get; } = [];
         [Export] private int UsageLimit { set; get; } = -1;
-        [Export] public Dictionary<Profession, int> ProfessionScores { set; get; } = [];
+        [Export] public Array<ClassWeight> ClassWeights { set; get; } = [];
 
-        public bool IsUsableBy(Character character) {
-            foreach (Requirement req in this.Requirements) {
-                if (!req.Test(character)) {
-                    return false;
-                }
-            }
-            foreach (Cost cost in this.Costs) {
-                if (character.Get(cost.StatType, out Stat value)) {
-                    if (value.Value < cost.Compute(value.MaxValue)) {
-                        return false;
-                    }
-                } 
-            }
-            return true;
+        public bool IsUsableBy(Actor actor) {
+            return this.SkillConditions.All(cond => cond.Test(actor)) 
+                && this.Costs.All(cost => cost.IsAffordable(actor));
         }
 
-        public async void Fire(CharacterCard src, CharacterCard[] targets, int level = 1) {
-            if (!this.IsUsableBy(src.Character)) {
+        public void Fire(Actor src, Actor[] targets, int level = 1) {
+            if (!this.IsUsableBy(src)) {
                 return;
             }
             foreach (Cost cost in this.Costs) {
-                if (src.Character.Get(cost.StatType, out Stat value)) {
-                    src.Character.Update(cost.StatType, cost.Compute(value.MaxValue));
-                } 
+                cost.ConsumeBy(src);
             }
-            foreach (CharacterCard target in targets) {
-                int dice;
+            foreach (Actor target in targets) {
+                ActionFlag flag = ActionFlag.None;
                 if (!this.NeverMiss) {
-                    int hitChance = src.Character.Get(Stat.Category.Precision) + this.Precision - 
-                            target.Character.Get(Stat.Category.Agility);
-                    dice = Utilities.Randi(1, 100);
-                    if (dice > hitChance) {
-                        // Dodge!
-                        await FloatingCaption.Node.Display(miss: true);
-                        continue;
+                    // Hit chance = base precision + actor precision bonus - enemy agility
+                    int hitChance = src.Get(StatType.Precision) + 
+                                    this.Precision - target.Get(StatType.Agility);
+                    if (MathUtil.Randi(1, 100) <= hitChance) {
+                        flag |= ActionFlag.Hit;
                     }
                 }
-                int critChance = src.Character.Get(Stat.Category.Perception);
-                dice = Utilities.Randi(1, 100);
-                foreach (Effect effect in this.EffectsOnTarget) {
-                    await effect.Apply(src, target, crit: dice <= critChance);
+                if (MathUtil.Randi(1, 100) <= src.Get(StatType.Perception)) {
+                    flag |= ActionFlag.Critical;
+                }
+                foreach (CombatAction action in this.EffectsOnTarget) {
+                    action.Apply(src, target, flag);
                 }
             }
-            foreach (Effect effect in this.EffectsOnSelf) {
-                await effect.Apply(src, src);
+            foreach (CombatAction action in this.EffectsOnSelf) {
+                action.Apply(src, src);
             }
         }
 
-        public string ToDesc(Character character) {
+        /* public string ToDesc(Character character) {
             string str = $"{this.Name}\n"
                        + $"{(this.UsageLimit > 0 ? $"\nMaximum Number of Use: {this.UsageLimit}\n" : "")}";
-            if (this.Requirements.Count > 0) {
+            if (this.SkillConditions.Count > 0) {
                 str += "Can be used only if: \n";
-                foreach (Requirement req in this.Requirements) {
+                foreach (SkillCondition req in this.SkillConditions) {
                     str += $"{req}\n";
                 }
             }
@@ -119,14 +106,14 @@ namespace Game.common.characters.skills {
                 }
             }
             return str;
-        }
+        } */
 
-        public override string ToString() {
+        /* public override string ToString() {
             string str = $"{this.Name}\n"
                        + $"{(this.UsageLimit > 0 ? $"\nMaximum Number of Use: {this.UsageLimit}\n" : "")}";
-            if (this.Requirements.Count > 0) {
+            if (this.SkillConditions.Count > 0) {
                 str += "Can be used only if: \n";
-                foreach (Requirement req in this.Requirements) {
+                foreach (SkillCondition req in this.SkillConditions) {
                     str += $"{req}\n";
                 }
             }
@@ -165,6 +152,6 @@ namespace Game.common.characters.skills {
                 }
             }
             return str;
-        }
+        } */
     }
 }

@@ -15,6 +15,7 @@ dest_files=["res://.godot/imported/antiquity-print.ttf-8f56010a028a4c0f1e12d0972
 Rendering=null
 antialiasing=1
 generate_mipmaps=false
+disable_embedded_bitmaps=true
 multichannel_signed_distance_field=false
 msdf_pixel_range=8
 msdf_size=48

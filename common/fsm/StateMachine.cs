@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Game.util;
+using Game.util.events;
 using Godot;
 
 namespace Game.common.fsm {
@@ -49,11 +49,11 @@ namespace Game.common.fsm {
 		}
 
 		public void Listen<T>() where T : EventArgs {
-			this.Subscribe<T>(this.Handle);
+			//this.Subscribe<T>(this.Handle);
 		}
 
-		private void Handle(object sender, EventArgs e) {
-			this.currState.Handle(sender, e);
+		private void Handle(EventArgs e) {
+			this.currState.Handle(e);
 		}
 	}
 }

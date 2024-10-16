@@ -1,7 +1,6 @@
-using System;
 using System.Collections.Generic;
-using Game.common.characters.skills;
-using Game.util;
+using Game.common.stats;
+using Game.util.math;
 using Godot;
 using Godot.Collections;
 using MonoCustomResourceRegistry;
@@ -9,99 +8,60 @@ using MonoCustomResourceRegistry;
 namespace Game.common.characters.race {
     [RegisteredType(nameof(Race), "", nameof(Resource)), GlobalClass]
     public partial class Race : Resource {
-        public enum Name {
-            Human,
-            Elf,
-            Dwarf,
-            Orc
-        }
+        public enum Species { Human, Elf, Dwarf, Orc }
 
-        [Export] public Name RaceName { set; get; }
-        [Export] public string Description { set; get; }
-        [Export] public Array<Skill> Skills { set; get; } = [];
+        [Export] public Species Name { set; get; }
+        [Export] public string Description { set; get; } = "";
+        [Export(PropertyHint.Range, "1,30")] private int MinHP { set; get; } = 15;
+        [Export(PropertyHint.Range, "1,40")] private int MaxHP { set; get; } = 25;
+        [Export(PropertyHint.Range, "0,30")] private int MinMagicka { set; get; } = 10;
+        [Export(PropertyHint.Range, "0,50")] private int MaxMagicka { set; get; } = 25;
+        [Export] private Array<StatRange> BaseStatsRanges { set; get; } = [
+            new StatRange(StatType.Agility),
+            new StatRange(StatType.Speed),
+            new StatRange(StatType.Strength),
+            new StatRange(StatType.Perception),
+            new StatRange(StatType.Precision),
+            new StatRange(StatType.BleedResist),
+            new StatRange(StatType.PoisonResist),
+            new StatRange(StatType.BurnResist),
+            new StatRange(StatType.BlightResist),
+            new StatRange(StatType.StunResist)
+        ];
 
-        public void AdjustStats(IDictionary<Stat.Category, Stat> stats) {
-            switch (this.RaceName) {
-                case Name.Elf:
-                    if (stats.TryGetValue(Stat.Category.Magicka, out Stat magicka1)) {
-                        int offset = Utilities.Randi(10, 30);
-                        stats[Stat.Category.Magicka] = magicka1 + (offset, offset, 0);
-                    }
-                    if (stats.TryGetValue(Stat.Category.Agility, out Stat agility1)) {
-                        stats[Stat.Category.Agility] = agility1 + (Utilities.Randi(0, 5), 0, 0);
-                    }
-                    if (stats.TryGetValue(Stat.Category.BleedResist, out Stat resist1)) {
-                        stats[Stat.Category.BleedResist] = resist1 - (Utilities.Randi(5, 10), 0, 0);
-                    }
-                    if (stats.TryGetValue(Stat.Category.PoisonResist, out Stat resist2)) {
-                        stats[Stat.Category.PoisonResist] = resist2 - (Utilities.Randi(5, 10), 0, 0);
-                    }
-                    if (stats.TryGetValue(Stat.Category.BurnResist, out Stat resist3)) {
-                        stats[Stat.Category.BurnResist] = resist3 - (Utilities.Randi(15, 25), 0, 0);
-                    }
-                    if (stats.TryGetValue(Stat.Category.BlightResist, out Stat resist4)) {
-                        stats[Stat.Category.BlightResist] = resist4 + (Utilities.Randi(5, 10), 0, 0);
-                    }
-                    break;
-                case Name.Dwarf:
-                    if (stats.TryGetValue(Stat.Category.Strength, out Stat strength1)) {
-                        stats[Stat.Category.Strength] = strength1 + (Utilities.Randi(2, 5), 0, 0);
-                    }
-                    if (stats.TryGetValue(Stat.Category.Perception, out Stat perception)) {
-                        stats[Stat.Category.Perception] = perception - (Utilities.Randi(1, 5), 0, 0);
-                    }
-                    if (stats.TryGetValue(Stat.Category.BurnResist, out Stat resist5)) {
-                        stats[Stat.Category.BurnResist] = resist5 + (Utilities.Randi(10, 20), 0, 0);
-                    }
-                    if (stats.TryGetValue(Stat.Category.StunResist, out Stat resist6)) {
-                        stats[Stat.Category.StunResist] = resist6 - (Utilities.Randi(10, 20), 0, 0);
-                    }
-                    break;
-                case Name.Orc:
-                    if (stats.TryGetValue(Stat.Category.Strength, out Stat strength2)) {
-                        stats[Stat.Category.Strength] = strength2 + (Utilities.Randi(1, 3), 0, 0);
-                    }
-                    if (stats.TryGetValue(Stat.Category.Agility, out Stat agility2)) {
-                        stats[Stat.Category.Agility] = agility2 - (0, Utilities.Randi(1, 5), 0);
-                    }
-                    if (stats.TryGetValue(Stat.Category.Magicka, out Stat magicka3)) {
-                        int offset = Utilities.Randi(10, 20);
-                        stats[Stat.Category.Magicka] = magicka3 - (offset, offset, 0);
-                    }
-                    if (stats.TryGetValue(Stat.Category.BleedResist, out Stat resist7)) {
-                        stats[Stat.Category.BleedResist] = resist7 + (Utilities.Randi(5, 15), 0, 0);
-                    }
-                    if (stats.TryGetValue(Stat.Category.PoisonResist, out Stat resist8)) {
-                        stats[Stat.Category.PoisonResist] = resist8 + (Utilities.Randi(5, 15), 0, 0);
-                    }
-                    break;
-                case Name.Human:
-                    if (stats.TryGetValue(Stat.Category.BleedResist, out Stat resist9)) {
-                        stats[Stat.Category.BleedResist] = resist9 + (Utilities.Randi(5, 10), 0, 0);
-                    }
-                    if (stats.TryGetValue(Stat.Category.PoisonResist, out Stat resist10)) {
-                        stats[Stat.Category.PoisonResist] = resist10 + (Utilities.Randi(5, 10), 0, 0);
-                    }
-                    if (stats.TryGetValue(Stat.Category.StunResist, out Stat resist11)) {
-                        stats[Stat.Category.StunResist] = resist11 + (Utilities.Randi(5, 15), 0, 0);
-                    }
-                    if (stats.TryGetValue(Stat.Category.BurnResist, out Stat resist12)) {
-                        stats[Stat.Category.BurnResist] = resist12 - (Utilities.Randi(5, 20), 0, 0);
-                    }
-                    break;
-                default:
-                    break;
+        public Race() {}
+
+        public List<Stat> InitRandomStats() {
+            List<Stat> stats = [
+                new CharacterStat(
+                    StatType.Health, MathUtil.Randi(this.MinHP, this.MaxHP)
+                ),
+                new CharacterStat(
+                    StatType.Magicka, MathUtil.Randi(this.MinMagicka, this.MaxMagicka)
+                ),
+                new CharacterStat(StatType.Sanity, 100),
+                new CharacterStat(StatType.Stamina, 100)
+            ];
+            foreach (StatRange range in this.BaseStatsRanges) {
+                stats.Add(
+                    new CharacterAttribute(range.Type, MathUtil.Randi(range.Min, range.Max))
+                );
             }
+            return stats;
         }
 
         public string ToAdj() {
-            return this.RaceName switch {
-                Name.Human => "Human",
-                Name.Elf => "Elven",
-                Name.Dwarf => "Dwarven",
-                Name.Orc => "Orcish",
+            return this.Name switch {
+                Species.Human => "Human",
+                Species.Elf => "Elven",
+                Species.Dwarf => "Dwarven",
+                Species.Orc => "Orcish",
                 _ => "",
             };
+        }
+
+        public override string ToString() {
+            return this.Name.ToString();
         }
     }
 }
