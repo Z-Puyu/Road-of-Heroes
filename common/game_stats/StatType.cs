@@ -15,6 +15,8 @@ namespace Game.common.stats {
         FrenzyResist,
         BuffResist,
         DebuffResist,
+        StealthResist,
+        WardedResist,
         // Physical Conditions
         Health,
         Magicka,

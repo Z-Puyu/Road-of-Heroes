@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using Game.common.actions;
-using Game.common.effects;
+using Game.common.modifier;
 using Game.common.modules;
 using Game.common.stats;
-using Game.util;
 using Game.util.events;
+using Game.util.events.battle;
 using Game.util.events.characters;
 using Game.util.math;
 using Godot;
@@ -19,6 +18,10 @@ namespace Game.common.characters {
         private CombatEffectModule CombatEffectModule { get; init; } = new CombatEffectModule();
         protected Character Data { get; set; }
         protected int SpeedOffset { set; get; } = 0;
+        protected bool IsStunned { get; set; } = false;
+        protected bool IsStealth { get; set; } = false;
+        public Actor Warder { get; protected set; } = null;
+        public Actor Ward { get; protected set; } = null;
 
         public Actor(Character data) {
             this.Data = data;
@@ -29,6 +32,43 @@ namespace Game.common.characters {
                 this.StatModule.TryAdd(s);
             }
             this.Subscribe<UpdateStatsEvent>(this.OnUpdateStats);
+            this.Subscribe<ChangeModifierEvent>(this.OnChangeModifier);
+            this.Subscribe<StunActorEvent>(e => this.IsStunned = true);
+            this.Subscribe<StealthActorEvent>(e => this.IsStealth = true);
+            this.Subscribe<WardActorEvent>(this.OnWardActor);
+        }
+
+        private void OnWardActor(WardActorEvent @event) {
+            if (@event.Warder.Ward != null) {
+                // If the warder is protecting someone else, withdraw the protection.
+                @event.Warder.Ward.Warder = null;
+            }
+            if (@event.Warder.Warder != null) {
+                // If the warder is being protected, withdraw the protection.
+                @event.Warder.Warder = null;
+                @event.Warder.Warder.Ward = null;
+            }
+            if (this.Ward != null) {
+                // If you wish to be protected by someone else, you should not be protecting anyone.
+                this.Ward.Warder = null;
+                this.Ward = null;
+            }
+            if (this.Warder != null) {
+                // If the actor is warded by someone else, change the warder.
+                this.Warder.Ward = null;
+            }
+            this.Warder = @event.Warder;
+            @event.Warder.Ward = this;
+        }
+
+
+        private void OnChangeModifier(ChangeModifierEvent @event) {
+            Modifier modifier = @event.Modifier;
+            if (@event.IsRemoving) {
+                this.StatModule.TryRemoveModifier(ref modifier);
+            } else {
+                this.StatModule.TryAddModifier(ref modifier);
+            }
         }
 
         private void OnUpdateStats(UpdateStatsEvent @event) {
@@ -44,8 +84,8 @@ namespace Game.common.characters {
             return new EnemyActor(data);
         }
 
-        public void AddEffect(CombatEffect effect) {
-            this.CombatEffectModule.Add(effect);
+        public void AddEffect(Actor src, CombatEffect effect) {
+            this.CombatEffectModule.Add(src, effect);
         }
 
         public void Cure(CombatEffect.Type effect) {

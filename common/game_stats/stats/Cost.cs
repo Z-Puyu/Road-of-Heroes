@@ -54,11 +54,9 @@ namespace Game.common.stats {
 
         public void ConsumeBy(Actor actor) {
             Stat change = this.ValueOf(actor);
-            this.Publish<UpdateStatsEvent, UpdateStatsEvent>(
-                new UpdateStatsEvent(new Dictionary<StatType, int> {
+            this.Publish(new UpdateStatsEvent(new Dictionary<StatType, int> {
                     {this.Type, change.Value}
-                })
-            );
+            }));
         }
 
         public override string ToString() {

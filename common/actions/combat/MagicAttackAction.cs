@@ -31,6 +31,9 @@ namespace Game.common.actions.combat {
         }
 
         public override Task Apply(Actor src, Actor target, ActionFlag flag = ActionFlag.None) {
+            if (CombatAction.ShouldChangeTarget(src, target)) {
+                return this.Apply(src, target.Warder, flag);
+            }
             // Update HP.
             target.Update(StatType.Health, -MathUtil.Randi(
                 this.ProjectDamage(src, target, flag.HasFlag(ActionFlag.Critical))

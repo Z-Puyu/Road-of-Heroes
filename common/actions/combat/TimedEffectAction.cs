@@ -32,11 +32,14 @@ namespace Game.common.effects {
         }
 
         public override Task Apply(Actor src, Actor target, ActionFlag flag = ActionFlag.None) {
+            if (CombatAction.ShouldChangeTarget(src, target)) {
+                return this.Apply(src, target.Warder, flag);
+            }
             if (this.Effect != null) {
                 if (MathUtil.Randi(1, 100) <= this.ProjectChance(
                     src, target, flag.HasFlag(ActionFlag.Critical)
                 )) {
-                    target.AddEffect(this.Effect);
+                    target.AddEffect(src, this.Effect);
                 }
             }
             return Task.CompletedTask;

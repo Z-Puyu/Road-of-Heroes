@@ -101,12 +101,11 @@ namespace Game.util.events {
         /// <param name="targets">The valid targets for the event.</param>
         /// <param name="condition">An boolean condition on the event emitter and the target objects for the event to be accepted.</param>
         /// <typeparam name="E">The event type.</typeparam>
-        /// <typeparam name="C">The channel type, which should be a supertype to <typeparamref name="E"/>.</typeparam>
-        public static void Publish<E, C>(
+        public static void Publish<E>(
             this object src, E e, HashSet<object> targets = null, 
             Predicate<object, object> condition = null
-        ) where E : C where C : EventArgs {
-            EventChannel<C>.OnEvent(src, Event<C>.Of(e, targets, condition));
+        ) where E : EventArgs {
+            EventChannel<E>.OnEvent(src, Event<E>.Of(e, targets, condition));
         }
 
         /// <summary>

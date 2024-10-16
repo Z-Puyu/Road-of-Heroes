@@ -31,7 +31,7 @@ namespace Game.tests {
                 this.eventId = id;
                 another.eventId = id;
                 Console.WriteLine($"Publishing test event with id {id}...");
-                character.Publish<TestEvent, EventArgs>(e, [another], (sender, target) => target is CharacterStatsTest test && test.id == 0);
+                character.Publish(e, [another], (sender, target) => target is CharacterStatsTest test && test.id == 0);
             }      
             Console.WriteLine($"Test complete. Success: {this.success}/{100},\n{another.success} events are received by the wrong target.");  
         }

@@ -11,7 +11,9 @@ namespace Game.common.actions {
             Frenzy = StatType.FrenzyResist,
             Stun = StatType.StunResist,
             Buff = StatType.BuffResist,
-            Debuff = StatType.DebuffResist
+            Debuff = StatType.DebuffResist,
+            Stealth = StatType.StealthResist,
+            Warded = StatType.WardedResist
         }
 
         public Type EffectType { protected set; get; }
