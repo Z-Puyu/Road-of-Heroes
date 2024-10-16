@@ -108,7 +108,10 @@ namespace Game.util.math {
         /// <param name="sup">The greatest possible integer to be generated.</param>
         /// <returns>A random integer between <paramref name="inf"/> and <paramref name="sup"/> inclusive.</returns>
         public static int Randi(int inf, int sup) {
-            return inf <= sup ? MathUtil.rng.RandiRange(inf, sup) 
+            if (inf == sup) {
+                return inf;
+            }
+            return inf < sup ? MathUtil.rng.RandiRange(inf, sup) 
                               : MathUtil.rng.RandiRange(sup, inf);
         }
 
@@ -193,6 +196,12 @@ namespace Game.util.math {
         public static IEnumerable<T> RandomSelect<T>(this IList<T> list, int k) {
             if (k >= list.Count) {
                 return list;
+            }
+            if (k <= 0) {
+                return [];
+            }
+            if (k == 1) {
+                return [list.RandomSelect()];
             }
             return list.Permute().Take(k);
         }

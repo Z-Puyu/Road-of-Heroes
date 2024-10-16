@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Game.common.autoload;
 using Game.common.characters.classes;
 using Game.common.characters.race;
+using Game.common.characters.skills;
 using Game.common.stats;
 using Game.util.math;
 using Godot;
@@ -24,8 +26,9 @@ namespace Game.common.characters {
 
         private Hero(
             string name, Level proficiency, Race race, bool isFemale,
-            Array<CharacterStat> stats, Array<CharacterAttribute> attributes
-        ) : base(name, null, stats, attributes) {
+            Array<CharacterStat> stats, Array<CharacterAttribute> attributes,
+            Array<Skill> skills
+        ) : base(name, null, stats, attributes, skills) {
             this.Proficiency = proficiency;
             this.Race = race;
             this.IsFemale = isFemale;
@@ -46,8 +49,30 @@ namespace Game.common.characters {
                     attributes.Add(a);
                 }
             });
-            return new Hero(name, proficiency, race, isFemale, stats, attributes);
+            Array<Skill> skills = GameManager.RandomSkills();
+            return new Hero(name, proficiency, race, isFemale, stats, attributes, skills);
         }
+
+        private Class EvaluateClass() {
+            List<ClassWeight> weights = [];
+            foreach (Skill skill in this.Skills) {
+                foreach (ClassWeight w in skill.ClassWeights) {
+                    int idx = weights.FindIndex(weights => weights.Class == w.Class);
+                    if (idx == -1) {
+                        weights.Add(w);
+                    } else {
+                        weights[idx] += w;
+                    }
+                }
+            }
+            if (weights.Count == 0) {
+                return null;
+            }
+            weights.Sort();
+            weights = weights.Where(w => w == weights.Last()).ToList();
+            return weights[MathUtil.Randi(0, weights.Count - 1)].Class;
+        }
+
         public override string ToString() {
             return $"{this.Name}: {this.Proficiency} {this.Race.ToAdj()} {(this.Class == null ? "" : $"{this.Class}")}";
         }

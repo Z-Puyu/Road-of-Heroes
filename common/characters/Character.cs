@@ -1,4 +1,5 @@
 using System;
+using Game.common.characters.skills;
 using Game.common.stats;
 using Game.util.interfaces;
 using Godot;
@@ -12,18 +13,20 @@ namespace Game.common.characters {
         [Export] public Array<CharacterStat> Stats { get; protected set; } = CharacterStat.ENEMY_DEFAULT;
         [Export] public string Name { set; get; } = "";
         [Export] public Texture2D Avatar { set; get; } = null;
+        [Export] public Array<Skill> Skills { get; protected set; } = [];
         private int speedOffset = 0;
 
         public Character() {}
 
         public Character(
             string name, Texture2D avatar, Array<CharacterStat> stats, 
-            Array<CharacterAttribute> attributes
+            Array<CharacterAttribute> attributes, Array<Skill> skills
         ) {
             this.Name = name;
             this.Avatar = avatar;
             this.Stats = stats;
             this.Attributes = attributes;
+            this.Skills = skills;
         }
 
         public virtual void Log() {

@@ -1,5 +1,8 @@
+using System;
 using Game.common.characters.race;
+using Game.common.characters.skills;
 using Game.util.errors;
+using Game.util.math;
 using Godot;
 using Godot.Collections;
 
@@ -9,6 +12,7 @@ namespace Game.common.autoload {
 		private static GameManager Instance { set; get; }
         [Export] public Array<Vector2I> Resolutions { set; get; } = [];
         [Export] private Array<Race> Races { get; set; } = [];
+        [Export] private Array<Skill> Skills { get; set; } = [];
         private static Dictionary<Race.Species, CharacterManager> CharacterManagers { set; get; } = [];
 
         private static Node2D world;
@@ -49,6 +53,11 @@ namespace Game.common.autoload {
 
         public static string RandomName(Race race, bool isFemale) {
             return GameManager.CharacterManagers[race.Name].RandomName(isFemale);
+        }
+
+        public static Array<Skill> RandomSkills(uint n = 4) {
+            int m = Math.Min((int)n, 8);
+            return [.. GameManager.Instance.Skills.RandomSelect(m)];
         }
     }
 }

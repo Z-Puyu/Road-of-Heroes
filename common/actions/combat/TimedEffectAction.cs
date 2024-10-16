@@ -23,6 +23,8 @@ namespace Game.common.effects {
                 CombatEffect.Type.Frenzy => StatType.FrenzyChance,
                 CombatEffect.Type.Buff => StatType.BuffChance,
                 CombatEffect.Type.Debuff => StatType.DebuffChance,
+                CombatEffect.Type.Stealth => StatType.StealthChance,
+                CombatEffect.Type.Warded => StatType.WardedChance,
                 _ => StatType.BleedChance
             };
             int successChance = src.Filter(new Stat(

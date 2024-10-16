@@ -53,5 +53,7 @@ namespace Game.common.stats {
         StunChance,
         BuffChance,
         DebuffChance,
+        StealthChance,
+        WardedChance
     }
 }
