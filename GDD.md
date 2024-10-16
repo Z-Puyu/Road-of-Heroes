@@ -67,11 +67,11 @@ Heroes use **skills** to fight the enemies in battles. All skills can be learnt 
 
 Each skill has some **affinity** towards certain **hero classes**, which has 3 levels:
 
-1. **High affinity**: $+20\%$ effectiveness when used by the matching class.
+1. **High affinity**: $+20\\%$ effectiveness when used by the matching class.
   
-2. **Medium affinity**: $+10\%$ effectiveness when used by the matching class.
+2. **Medium affinity**: $+10\\%$ effectiveness when used by the matching class.
   
-3. **Low affinity**: $+5\%$ effectiveness when used by the matching class.
+3. **Low affinity**: $+5\\%$ effectiveness when used by the matching class.
   
 
 A hero will be categorised to the class to which his skill set has the highest total affinity, with ties broken randomly. Class affects the equipment a hero can use and enables certain unique interactions with other game objects. The hero classes are:
@@ -128,7 +128,7 @@ The **city** is the headquarter in each region. In the city, the player perform 
   - **Spiritual Reconstruction**: removes one negative trait and fill up the hero's sanity. However, the hero cannot join the next expedition.
     
 
-Heroes that return to the city from an expedition will immediately restore $20\%$ of HP, magicka and sanity. When the player is ready, he can set out for a new expedition. When doing so, the player is given 3 **contracts**. Each contract is a main quest which needs to be completed in the next expedition. The player must choose 1 of them to start the expedition.
+Heroes that return to the city from an expedition will immediately restore $20\\%$ of HP, magicka and sanity. When the player is ready, he can set out for a new expedition. When doing so, the player is given 3 **contracts**. Each contract is a main quest which needs to be completed in the next expedition. The player must choose 1 of them to start the expedition.
 
 ### Expedition
 
@@ -144,7 +144,7 @@ Each **expedition** emulates a **turn-based board game** with a **procedurally g
     
   - **settlers** may offer **side quests** which the player can accept, and receive award from if the player completes the side quest during the expedition;
     
-  - the settlement has an **inn** where the player can spend money letting heroes rest. A rested hero will restore $20\%$ HP and sanity.
+  - the settlement has an **inn** where the player can spend money letting heroes rest. A rested hero will restore $20\\%$ HP and sanity.
     
 - **Lair of darkness**: the player will face a battle with enemies that are more powerful than the expedition's average battle difficulty. However, the reward from such battles is *usually* higher.
   
@@ -156,15 +156,15 @@ Each **expedition** emulates a **turn-based board game** with a **procedurally g
     
   - **Encamp**: the player will get **12 hours** which can be used to perform the following **camping activities**, each activity can be performed at most once:
     
-    - Spend 1 hour to **have a meal**: restore $15\%$ HP for every hero. The player needs to have sufficient **food** in the inventory.
+    - Spend 1 hour to **have a meal**: restore $15\\%$ HP for every hero. The player needs to have sufficient **food** in the inventory.
       
-    - Spend 2 hours to **have a feast**: restore $25\%$ HP and $20$ sanity for every hero. A feast costs twice the amount of food needed for a meal.
+    - Spend 2 hours to **have a feast**: restore $25\\%$ HP and $20$ sanity for every hero. A feast costs twice the amount of food needed for a meal.
       
     - Spend 2 hours to **perform group prayer**: restore $10$ sanity for every hero. If a hero has the **fervent** trait, he restores $25$ sanity instead. If a hero has the **atheist** trait, he restores only $5$ sanity.
       
     - Spend 4 hours to **arrange night duties**: select 4 heroes to guard the camp site to prevent **ambush** battles. However, these 4 heroes will not be able to rest.
       
-    - Spend 3 hours to **perform dark rituals**: *if the player has an occultist in the expedition team*, select 4 heroes to undergo a dark ritual. At the cost of $10$ sanity, each of them has $75\%$ chance of gaining a buff in subsequent battles.
+    - Spend 3 hours to **perform dark rituals**: *if the player has an occultist in the expedition team*, select 4 heroes to undergo a dark ritual. At the cost of $10$ sanity, each of them has $75\\%$ chance of gaining a buff in subsequent battles.
       
     - Spend 2 hours to **cure a disease**: *if the player has an alchemist in the expedition team*, select one hero to remove one of his diseases.
       
@@ -204,9 +204,9 @@ A battle is initiated when the player's expedition party encounters enemies in t
 
 If the player has lost all heroes, the current expedition will be forced to terminate and 4 random heroes will become available for recruitment so that the player can continue the game.
 
-During battles, if a hero has 0 HP, the hero will enter the **dying state**. For every damage the hero receives during the dying state, the hero has a $50\%$ chance of dying. If a dying hero is hit with a **critical attack**, the hero will die immediately. At the dying state, the hero deals $50\%$ less damage.
+During battles, if a hero has 0 HP, the hero will enter the **dying state**. For every damage the hero receives during the dying state, the hero has a $50\\%$ chance of dying. If a dying hero is hit with a **critical attack**, the hero will die immediately. At the dying state, the hero deals $50\\%$ less damage.
 
-The dying state can be dispelled if the player manages to restore the hero's HP back to a positive value. However, the hero will then receive a **critically injured** de-buff which will cause the hero to receive $20\%$ more damage and deal $20\%$ less damage until the player finishes the current expedition.
+The dying state can be dispelled if the player manages to restore the hero's HP back to a positive value. However, the hero will then receive a **critically injured** de-buff which will cause the hero to receive $20\\%$ more damage and deal $20\\%$ less damage until the player finishes the current expedition.
 
 **Relics** may be collected either as rewards from battle or through random encounters. The player can equip heroes with these relics to upgrade their combat abilities.
 
