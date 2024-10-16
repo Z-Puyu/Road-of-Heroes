@@ -27,9 +27,10 @@ namespace Game.common.stats {
             this.Modifier = Modifier.IdentityOf(type);
         }
 
-        public void AddModifier(Modifier modifier) {
+        public void AddModifier(ref Modifier modifier) {
             if (modifier.TargetStat == this.Type) {
                 this.Modifier += modifier;
+                modifier = this.Modifier;
             }
         }
 

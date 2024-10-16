@@ -56,7 +56,7 @@ namespace Game.common.modules {
                 return false;
             }
             if (this.Stats.TryGetValue(modifier.TargetStat, out Stat s)) { 
-                s.AddModifier(modifier);
+                s.AddModifier(ref modifier);
                 return true;
             }
             return false;
@@ -74,7 +74,8 @@ namespace Game.common.modules {
                 return false;
             }
             if (this.Stats.TryGetValue(modifier.TargetStat, out Stat s)) { 
-                s.AddModifier(-modifier);
+                modifier = -modifier;
+                s.AddModifier(ref modifier);
                 return true;
             }
             return false;
