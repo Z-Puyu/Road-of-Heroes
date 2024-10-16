@@ -1,3 +1,4 @@
+using System.Text;
 using Game.common.stats;
 using Godot;
 using Godot.Collections;
@@ -22,6 +23,14 @@ namespace Game.common.actions {
 
         public Buff() : base(CombatEffect.Type.Buff) {
             this.IsDebuff = false;
+        }
+
+        public override string ToString() {
+            StringBuilder sb = new StringBuilder();
+            foreach (TimedModifier modifier in Modifiers) {
+                sb.AppendLine(modifier.ToString());
+            }
+            return sb.ToString();
         }
     }
 }

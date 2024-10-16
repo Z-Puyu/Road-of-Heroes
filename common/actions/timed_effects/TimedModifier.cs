@@ -7,5 +7,9 @@ namespace Game.common.actions {
     public partial class TimedModifier : Resource {
         [Export] public Modifier Modifier { get; private set; }
         [Export(PropertyHint.Range, "0, 1000")] public int Duration { get; private set; }
+
+        public override string ToString() {
+            return $"{this.Modifier} ({this.Duration} turns)";
+        }
     }
 }

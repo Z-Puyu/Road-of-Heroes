@@ -12,31 +12,41 @@ namespace Game.common.actions.combat {
         [Export] private uint DamageMultiplier { get; set; } = 100;
         [Export] private bool IsMelee { get; set; } = true;
 
-        public override Task Apply(Actor src, Actor target, ActionFlag flag = ActionFlag.None) {
-            // Compute the base damage.
+        private (int, int) ProjectDamage(Actor src, Actor target, bool isCritical) {
             int strength = src.Get(StatType.Strength);
-            int dmg = (int)Math.Round(
-                flag.HasFlag(ActionFlag.Critical) 
-                    ? 2 * strength * 1.5
-                    : MathUtil.Randi(strength, strength * 2) * this.DamageMultiplier / 100.0
-            );
-            // Modify the damage dealt based on attacker's modifiers.
-            int dmgDealt = src.Filter(new Stat(
-                this.IsMelee ? StatType.MeleeDamageDealt : StatType.RangedDamageDealt, dmg
-            )).Value;
-            // Modify the damage taken based on target's modifiers.
-            int dmgReceived = target.Filter(new Stat(
-                this.IsMelee ? StatType.MeleeDamageTaken : StatType.RangedDamageTaken, 
-                dmgDealt
-            )).Value;
+            StatType typeDealt = this.IsMelee ? StatType.MeleeDamageDealt : StatType.RangedDamageDealt;
+            StatType typeTaken = this.IsMelee ? StatType.MeleeDamageTaken : StatType.RangedDamageTaken;
+            if (isCritical) {
+                int dmg = (int)Math.Round(3 * strength * this.DamageMultiplier / 100.0);
+                int dmgDealt = src.Filter(new Stat(typeDealt, dmg)).Value;
+                int dmgReceived = target.Filter(new Stat(typeTaken, dmgDealt)).Value;
+                return (dmgReceived, dmgReceived);
+            } else {
+                double min = strength * this.DamageMultiplier / 100.0;
+                double max = min * 2;
+                (int, int) dmgDealt = (
+                    src.Filter(new Stat(typeDealt, (int)Math.Round(min))).Value, 
+                    src.Filter(new Stat(typeDealt, (int)Math.Round(max))).Value
+                );
+                return (
+                    target.Filter(new Stat(typeTaken, dmgDealt.Item1)).Value, 
+                    target.Filter(new Stat(typeTaken, dmgDealt.Item2)).Value
+                );
+            }
+        }
+
+        public override Task Apply(Actor src, Actor target, ActionFlag flag = ActionFlag.None) {
             // Update HP.
-            target.Update(StatType.Health, -dmgReceived);
+            target.Update(StatType.Health, -MathUtil.Randi(
+                this.ProjectDamage(src, target, flag.HasFlag(ActionFlag.Critical))
+            ));
             return Task.CompletedTask;
         }
 
-        public override string Describe(Actor src, Actor target)
-        {
-            throw new NotImplementedException();
+        public override string Describe(Actor src, Actor target) {
+            (int, int) dmg = this.ProjectDamage(src, target, false);
+            string dmgType = this.IsMelee ? "melee" : "ranged";
+            return $"{dmg.Item1} - {dmg.Item2} {dmgType} damage";
         }
     }
 }

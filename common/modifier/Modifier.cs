@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using Game.common.stats;
 using Game.util.enums;
 using Game.util.math;
@@ -42,14 +43,14 @@ namespace Game.common.modifier {
         }
 
         public override string ToString() {
-            List<string> lines = [];
+            StringBuilder sb = new StringBuilder();
             if (this.Offset != 0) {
-                lines.Add($"{this.TargetStat.ToText()} {this.Offset.ToSigned()}");
+                sb.AppendLine($"{this.TargetStat.ToText()} {this.Offset.ToSigned()}");
             }
             if (this.Multiplier != 0) {
-                lines.Add($"{this.TargetStat.ToText()} {this.Multiplier.ToSigned()}");
+                sb.AppendLine($"{this.TargetStat.ToText()} {this.Multiplier.ToSigned()}");
             }
-            return string.Join('\n', lines);
+            return sb.ToString();
         }
 
         public static Modifier operator +(Modifier m) {

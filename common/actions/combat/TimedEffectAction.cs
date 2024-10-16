@@ -13,26 +13,29 @@ namespace Game.common.effects {
         [Export] private CombatEffect Effect { set; get; }
         [Export] private uint SuccessChance { set; get; } = 100;
 
+        private int ProjectChance(Actor src, Actor target, bool isCritical) {
+            StatType chanceType = this.Effect.EffectType switch {
+                CombatEffect.Type.Bleed => StatType.BleedChance,
+                CombatEffect.Type.Burn => StatType.BurnChance,
+                CombatEffect.Type.Poison => StatType.PoisonChance,
+                CombatEffect.Type.Stun => StatType.StunChance,
+                CombatEffect.Type.Blight => StatType.BlightChance,
+                CombatEffect.Type.Frenzy => StatType.FrenzyChance,
+                CombatEffect.Type.Buff => StatType.BuffChance,
+                CombatEffect.Type.Debuff => StatType.DebuffChance,
+                _ => StatType.BleedChance
+            };
+            int successChance = src.Filter(new Stat(
+                chanceType, (int)this.SuccessChance
+            )).Value - target.Get((StatType)this.Effect.EffectType);
+            return isCritical ? successChance + 50 : successChance;
+        }
+
         public override Task Apply(Actor src, Actor target, ActionFlag flag = ActionFlag.None) {
             if (this.Effect != null) {
-                StatType chanceType = this.Effect.EffectType switch {
-                    CombatEffect.Type.Bleed => StatType.BleedChance,
-                    CombatEffect.Type.Burn => StatType.BurnChance,
-                    CombatEffect.Type.Poison => StatType.PoisonChance,
-                    CombatEffect.Type.Stun => StatType.StunChance,
-                    CombatEffect.Type.Blight => StatType.BlightChance,
-                    CombatEffect.Type.Frenzy => StatType.FrenzyChance,
-                    CombatEffect.Type.Buff => StatType.BuffChance,
-                    CombatEffect.Type.Debuff => StatType.DebuffChance,
-                    _ => StatType.BleedChance
-                };
-                // Success chance = base chance - target resistance
-                int successChance = src.Filter(new Stat(
-                    chanceType, (int)(flag.HasFlag(ActionFlag.Critical) 
-                       ? 50 + this.SuccessChance : this.SuccessChance
-                    )
-                )).Value - target.Get((StatType)this.Effect.EffectType);
-                if (MathUtil.Randi(1, 100) <= successChance) {
+                if (MathUtil.Randi(1, 100) <= this.ProjectChance(
+                    src, target, flag.HasFlag(ActionFlag.Critical)
+                )) {
                     target.AddEffect(this.Effect);
                 }
             }
@@ -40,11 +43,11 @@ namespace Game.common.effects {
         }
 
         public override string Describe(Actor src, Actor target) {
-            throw new System.NotImplementedException();
+            return $"{this.ProjectChance(src, target, false)}% chance:\n{this.Effect}";
         }
 
         public override string ToString() {
-            return $"{this.SuccessChance}% chance of {this.Effect}";
+            return $"{this.SuccessChance}% base chance:\n{this.Effect}";
         }
     }
 }

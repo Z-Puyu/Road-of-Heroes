@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Game.common.characters;
 using Game.common.stats;
+using Game.util.enums;
 using Game.util.math;
 using Godot;
 using MonoCustomResourceRegistry;
@@ -21,12 +22,7 @@ namespace Game.common.actions.combat {
         [Export] private Target TargetStat { get; set; } = Target.HP;
         [Export] private uint CriticalChance { get; set; } = 5;
 
-        public override Task Apply(Actor src, Actor target, ActionFlag flag = ActionFlag.None) {
-            // Compute the base healing amount.
-            bool isCritical = MathUtil.Randi(1, 100) <= this.CriticalChance;
-            int amount = (int)Math.Round(
-                isCritical ? this.MaxAmount * 1.5 : MathUtil.Randi(this.MinAmount, this.MaxAmount)
-            );
+        private (int, int) ProjectAmount(Actor src, Actor target, bool isCritical) {
             (StatType, StatType) healType = this.TargetStat switch {
                 Target.HP => (StatType.HpHealingGiven, StatType.HpHealingReceived),
                 Target.Magicka => (StatType.MagickaHealingGiven, StatType.MagickaHealingReceived),
@@ -34,20 +30,38 @@ namespace Game.common.actions.combat {
                 Target.Stamina => (StatType.StaminaHealingGiven, StatType.StaminaHealingReceived),
                 _ => (StatType.HpHealingGiven, StatType.HpHealingReceived)
             };
-            // Modify the healing given based on healer's modifiers.
-            int healingGiven = src.Filter(new Stat(healType.Item1, amount)).Value;
-            // Modify the healing received based on target's modifiers.
-            int healingReceived = target.Filter(new Stat(
-                healType.Item2, healingGiven)
-            ).Value;
+            if (isCritical) {
+                int amount = (int)Math.Round(1.5 * this.MaxAmount);
+                int healingGiven = src.Filter(new Stat(healType.Item1, amount)).Value;
+                int healingReceived = target.Filter(new Stat(
+                    healType.Item2, healingGiven)
+                ).Value;
+                return (healingReceived, healingReceived);
+            } else {
+                (int, int) healingGiven = (
+                    src.Filter(new Stat(healType.Item1, (int)this.MinAmount)).Value,
+                    src.Filter(new Stat(healType.Item1, (int)this.MaxAmount)).Value
+                );
+                return (
+                    target.Filter(new Stat(healType.Item2, healingGiven.Item1)).Value,
+                    target.Filter(new Stat(healType.Item2, healingGiven.Item2)).Value
+                );
+            }
+        }
+
+        public override Task Apply(Actor src, Actor target, ActionFlag flag = ActionFlag.None) {
+            // Compute the base healing amount.
+            bool isCritical = MathUtil.Randi(1, 100) <= this.CriticalChance;
             // Update stats.
-            target.Update((StatType)this.TargetStat, healingReceived);
+            target.Update((StatType)this.TargetStat, MathUtil.Randi(
+                this.ProjectAmount(src, target, isCritical)
+            ));
             return Task.CompletedTask;
         }
 
-        public override string Describe(Actor src, Actor target)
-        {
-            throw new NotImplementedException();
+        public override string Describe(Actor src, Actor target) {
+            (int, int) healRange = this.ProjectAmount(src, target, false);
+            return $"Restores {healRange.Item1} - {healRange.Item2} {((StatType)this.TargetStat).ToText()}";
         }
     }
 }

@@ -12,27 +12,35 @@ namespace Game.common.actions.combat {
         [Export] private uint MinDamage { get; set; } = 0;
         [Export] private uint MaxDamage { get; set; } = 0;
 
+        private (int, int) ProjectDamage(Actor src, Actor target, bool isCritical) {
+            if (isCritical) {
+                int dmg = (int)Math.Round(1.5 * this.MaxDamage);
+                int dmgDealt = src.Filter(new Stat(StatType.MagicDamageDealt, dmg)).Value;
+                int dmgReceived = target.Filter(new Stat(StatType.MagicDamageTaken, dmgDealt)).Value;
+                return (dmgReceived, dmgReceived);
+            } else {
+                (int, int) dmgDealt = (
+                    src.Filter(new Stat(StatType.MagicDamageDealt, (int)this.MinDamage)).Value, 
+                    src.Filter(new Stat(StatType.MagicDamageDealt, (int)this.MaxDamage)).Value
+                );
+                return (
+                    target.Filter(new Stat(StatType.MagicDamageTaken, dmgDealt.Item1)).Value, 
+                    target.Filter(new Stat(StatType.MagicDamageTaken, dmgDealt.Item2)).Value
+                );
+            }
+        }
+
         public override Task Apply(Actor src, Actor target, ActionFlag flag = ActionFlag.None) {
-            // Compute the base damage.
-            int dmg = (int)Math.Round(
-                flag.HasFlag(ActionFlag.Critical) 
-                    ? this.MaxDamage * 1.5
-                    : MathUtil.Randi(this.MinDamage, this.MaxDamage)
-            );
-            // Modify the damage dealt based on attacker's modifiers.
-            int dmgDealt = src.Filter(new Stat(StatType.MagicDamageDealt, dmg)).Value;
-            // Modify the damage taken based on target's modifiers.
-            int dmgReceived = target.Filter(new Stat(
-                StatType.MagicDamageTaken, dmgDealt)
-            ).Value;
             // Update HP.
-            target.Update(StatType.Health, -dmgReceived);
+            target.Update(StatType.Health, -MathUtil.Randi(
+                this.ProjectDamage(src, target, flag.HasFlag(ActionFlag.Critical))
+            ));
             return Task.CompletedTask;
         }
 
-        public override string Describe(Actor src, Actor target)
-        {
-            throw new NotImplementedException();
+        public override string Describe(Actor src, Actor target) {
+            (int, int) dmg = this.ProjectDamage(src, target, false);
+            return $"{dmg.Item1} - {dmg.Item2} magic damage";
         }
     }
 }

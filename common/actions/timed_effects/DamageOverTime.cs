@@ -1,3 +1,4 @@
+using Game.util.enums;
 using Godot;
 using MonoCustomResourceRegistry;
 
@@ -24,5 +25,9 @@ namespace Game.common.actions {
         [Export(PropertyHint.Range, "0,1000")] public int Duration { get; protected set; } = 0;
 
         public DamageOverTime() : base(Type.Bleed) {}
+
+        public override string ToString() {
+            return $"{this.Damage} × {this.Duration} {((Type)this.BaseType).ToText()} damage";
+        }
     }
 }
